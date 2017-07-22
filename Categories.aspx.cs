@@ -9,9 +9,23 @@ public partial class Categories : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        List<Item> itemList = ItemDB.getAllItem();
-        repeaterItemList.DataSource = itemList;
-        repeaterItemList.DataBind();
+        if (Session["SearchListToDisplay"] == null)
+        {
+            List<Item> itemList = ItemDB.getAllItem();
+            repeaterItemList.DataSource = itemList;
+            repeaterItemList.DataBind();
+        }
+        else
+        {
+            List<Item> itemList = new List<Item>();
+
+            itemList = (List<Item>)Session["SearchListToDisplay"];
+            repeaterItemList.DataSource = itemList;
+            repeaterItemList.DataBind();
+
+            Session["SearchListToDisplay"] = null;
+        }
+
 
     }
 }

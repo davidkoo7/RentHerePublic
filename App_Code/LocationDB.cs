@@ -18,9 +18,9 @@ public class LocationDB
             connection.Open();
             SqlDataReader reader = command.ExecuteReader();
 
-            Location loc = new Location();
             while (reader.Read())
             {
+                Location loc = new Location();
                 readALocation(ref loc, ref reader);
                 locationList.Add(loc);
             }

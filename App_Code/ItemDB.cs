@@ -23,7 +23,7 @@ public class ItemDB
             {
                 Item i = new Item();
                 readAItem(ref i, ref reader);
-                
+
                 itemList.Add(i);
             }
             reader.Close();
@@ -41,8 +41,8 @@ public class ItemDB
         List<Item> itemList = new List<Item>();
         try
         {
-            SqlCommand command = new SqlCommand("SELECT * FROM Item WHERE name LIKE '%@name%'");
-            command.Parameters.AddWithValue("@name", keyword);
+            SqlCommand command = new SqlCommand("SELECT * FROM Item WHERE name LIKE @name");
+            command.Parameters.AddWithValue("@name", "%" + keyword + "%");
             command.Connection = connection;
             connection.Open();
             SqlDataReader reader = command.ExecuteReader();
@@ -77,8 +77,8 @@ public class ItemDB
             if (reader.Read())
                 readAItem(ref i, ref reader);
             else
-                i = new Item(null, null, null, new DateTime(), 0, 0, 0, 0, null, null, null, null, new Member(), new Category());
-            
+                i = new Item(null, null, null, new DateTime(), 0, 0, 0, 0, null, null, null, null, new Member(), new Category(), new Location());
+
             reader.Close();
         }
         finally
@@ -121,16 +121,16 @@ public class ItemDB
             and also please insert img as a null to be inserted null in the database */
         try
         {
-            string commandString = "INSERT INTO Item (name, description, postedDate, deposit, categoryName, pricePerDay, pricePerWeek, pricePerMonth, img1, img2, img3, img4, renterID)";
-            commandString += " VALUES (@name, @description, @postedDate, @deposit, @categoryName, @pricePerDay, @pricePerWeek, @pricePerMonth, @img1, @img2, @img3, @img4, @renterID)";
+            string commandString = "INSERT INTO Item (name, description, postedDate, deposit, categoryName, pricePerDay, pricePerWeek, pricePerMonth, img1, img2, img3, img4, renterID, locationName)";
+            commandString += " VALUES (@name, @description, @postedDate, @deposit, @categoryName, @pricePerDay, @pricePerWeek, @pricePerMonth, @img1, @img2, @img3, @img4, @renterID, @locationName)";
             SqlCommand command = new SqlCommand(commandString);
             command.Parameters.AddWithValue("@name", item.Name);
             command.Parameters.AddWithValue("@description", item.Description);
             command.Parameters.AddWithValue("@postedDate", item.PostedDate);
             command.Parameters.AddWithValue("@deposit", item.Deposit);
-            command.Parameters.AddWithValue("@categoryName", item.CategoryName);
+            command.Parameters.AddWithValue("@categoryName", item.CategoryName.Name);
 
-            if(item.PricePerDay > 0)
+            if (item.PricePerDay > 0)
                 command.Parameters.AddWithValue("@pricePerDay", item.PricePerDay);
             else
                 command.Parameters.AddWithValue("@pricePerDay", DBNull.Value);
@@ -145,12 +145,12 @@ public class ItemDB
             else
                 command.Parameters.AddWithValue("@pricePerMonth", DBNull.Value);
 
-            if(item.Img1 != null)
+            if (item.Img1 != null)
                 command.Parameters.AddWithValue("@img1", item.Img1);
             else
                 command.Parameters.AddWithValue("@img1", DBNull.Value);
 
-            if(item.Img2 != null)
+            if (item.Img2 != null)
                 command.Parameters.AddWithValue("@img2", item.Img2);
             else
                 command.Parameters.AddWithValue("@img2", DBNull.Value);
@@ -166,11 +166,17 @@ public class ItemDB
                 command.Parameters.AddWithValue("@img4", DBNull.Value);
 
             command.Parameters.AddWithValue("@renterID", item.Renter.MemberID);
+            command.Parameters.AddWithValue("@locationName", item.Location.Name);
+
             command.Connection = connection;
             connection.Open();
 
             if (command.ExecuteNonQuery() > 0)
-                return 1;
+            {
+                command.CommandText = "Select @@identity";
+                return Convert.ToInt32(command.ExecuteScalar());
+
+            }
         }
         finally
         {
@@ -187,6 +193,7 @@ public class ItemDB
         i.PostedDate = Convert.ToDateTime(reader["postedDate"]);
         i.Deposit = Convert.ToDecimal(reader["deposit"]);
         i.CategoryName = CategoryDB.getCategorybyName(reader["categoryName"].ToString());
+        i.Location = LocationDB.getLocationbyID(reader["locationName"].ToString());
 
         //This sectin will set the default value of 0 whenever null is found in the database
         if (reader["pricePerDay"] != DBNull.Value)

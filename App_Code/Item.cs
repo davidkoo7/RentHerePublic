@@ -20,9 +20,10 @@ public class Item
     private string img4;
     private Member renter;
     private Category categoryName;
+    private Location location;
 
     public Item(string itemID, string name, string description, DateTime postedDate, decimal deposit,
-        decimal pricePerDay, decimal pricePerWeek, decimal pricePerMonth, string img1, string img2, string img3, string img4, Member renter, Category categoryName)
+        decimal pricePerDay, decimal pricePerWeek, decimal pricePerMonth, string img1, string img2, string img3, string img4, Member renter, Category categoryName, Location loc)
     {
         this.itemID = itemID;
         this.name = name;
@@ -38,6 +39,7 @@ public class Item
         this.img4 = img4;
         this.renter = renter;
         this.categoryName = categoryName;
+        this.Location = loc;
     }
 
     public Item() { }
@@ -56,5 +58,6 @@ public class Item
     public string Img4 { get { return img4; } set { img4 = value; } }
     public Member Renter { get { return renter; } set { renter = value; } }
     public Category CategoryName { get { return categoryName; } set { categoryName = value; } }
+    public Location Location { get { return location; } set { location = value; } }
 
 }

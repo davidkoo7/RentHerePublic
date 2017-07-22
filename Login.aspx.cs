@@ -18,12 +18,12 @@ public partial class Login : System.Web.UI.Page
         if (MemberDB.isPermittedLogin(tbxEmail.Value, tbxPassword.Value))
         {
             Session["user"] = tbxEmail.Value;
-            if (Session["pageRedirectAfterLogin"].ToString() == "")
+            if (Session["pageRedirectAfterLogin"] == null)
                 Response.Redirect("Default.aspx");
             else
             {
                 Response.Redirect("~" + Session["pageRedirectAfterLogin"].ToString());
-                Session["pageRedirectAfterLogin"] = "";
+                Session["pageRedirectAfterLogin"] = null ;
             }
         }
     }

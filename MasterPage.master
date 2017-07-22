@@ -147,34 +147,36 @@
                                     <!-- //end Logo -->
 
                                     <!-- Search -->
-                                    <div id="sosearchpro" class="col-sm-7 search-pro">
-                                        <form method="GET" action="Default.aspx">
+
+                                    <!-- Search -->
+                                    <div id="sosearchpro" class="col-md-6 search-pro">
+                                        <div>
                                             <div id="search0" class="search input-group">
                                                 <div class="select_category filter_type icon-select">
-                                                    <select class="no-border" name="category_id">
-                                                        <option value="0">All Categories</option>
-                                                        <option value="78">Apparel</option>
-                                                        <option value="77">Cables &amp; Connectors</option>
-                                                        <option value="82">Cameras &amp; Photo</option>
-                                                        <option value="80">Flashlights &amp; Lamps</option>
-                                                        <option value="81">Mobile Accessories</option>
-                                                        <option value="79">Video Games</option>
-                                                        <option value="20">Jewelry &amp; Watches</option>
-                                                        <option value="76">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Earings</option>
-                                                        <option value="26">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wedding Rings</option>
-                                                        <option value="27">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Men Watches</option>
-                                                    </select>
+                                                    <asp:DropDownList CssClass="no-border" ID="ddlCategory" DataTextField="name" DataValueField="name" runat="server"></asp:DropDownList>
                                                 </div>
 
-                                                <input class="autosearch-input form-control" type="text" value="" size="50" autocomplete="off" placeholder="Search" name="search">
+                                                <input class="autosearch-input form-control" id="tbxSearch" runat="server" type="text" value="" size="50" autocomplete="off" placeholder="Search" name="search">
                                                 <span class="input-group-btn">
-                                                    <button type="submit" class="button-search btn btn-primary" name="submit_search"><i class="fa fa-search"></i></button>
+
+                                                    <div class="button-search btn btn-primary"><b>In</b></div>
+
+                                                </span>
+
+                                                <div class="select_category filter_type icon-select">
+                                                    <asp:DropDownList ID="ddlLocation"  CssClass="no-border" DataTextField="name" DataValueField="name" runat="server"></asp:DropDownList>
+                                                </div>
+                                                <span class="input-group-btn">
+                                                    <asp:Button ID="btnSearch" CssClass="button-search btn btn-primary" runat="server" Text="Search" OnClick="btnSearch_Click" />
+
                                                 </span>
                                             </div>
-                                            <input type="hidden" name="route" value="product/search" />
-                                        </form>
+
+                                        </div>
+
+
+
                                     </div>
-                                    <!-- //end Search -->
 
                                     <!-- Secondary menu -->
                                     <div class="col-md-2 col-sm-5 col-xs-12 shopping_cart pull-right">
@@ -725,11 +727,11 @@
                                                                             </div>
                                                                         </div>
                                                                     </li>
-                                                          
-     
 
 
-          <li class="with-sub-menu hover">
+
+
+                                                                    <li class="with-sub-menu hover">
                                                                         <p class="close-menu"></p>
                                                                         <a href="#" class="clearfix">
                                                                             <strong>New Category</strong>
@@ -977,11 +979,10 @@
                 <script type="text/javascript" src="js/themejs/pathLoader.js"></script>
                 <script type="text/javascript" src="js/themejs/jquery.nicescroll.min.js"></script>
                 <script type="text/javascript">
-        $(function () {
-            $(".chat-list-wrapper, .message-list-wrapper").niceScroll();
-        })
-	</script>
-
+                    $(function () {
+                        $(".chat-list-wrapper, .message-list-wrapper").niceScroll();
+                    })
+                </script>
         </div>
     </form>
 </body>
