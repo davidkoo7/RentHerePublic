@@ -266,6 +266,74 @@ public class RentalDB
         return rentList;
     }
 
+    public static List<Rental> getFutureRentalsAfterDate(DateTime dueDate)
+    {
+        List<Rental> rentList = new List<Rental>();
+        try
+        {
+            //and returnTime<@time
+            SqlCommand command = new SqlCommand("SELECT * FROM Rental WHERE rentalID not in " +
+                "( SELECT R.rentalID FROM Rental R, Extension E WHERE R.RentalID = E.RentalID GROUP BY R.rentalID, " +
+                "E.status HAVING E.status <> 'Not Granted') and endDate > @date and status='Scheduled'");
+
+            command.Parameters.AddWithValue("@date", String.Format("{0:yyyy/MM/dd}", dueDate.Date));
+            command.Parameters.AddWithValue("@time", dueDate.TimeOfDay);
+            command.Connection = connection;
+            connection.Open();
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                Rental rent = new Rental();
+                readARental(ref rent, ref reader);
+                rentList.Add(rent);
+            }
+
+            reader.Close();
+        }
+        finally
+        {
+            connection.Close();
+        }
+        return rentList;
+    }
+
+    public static List<Rental> getFutureRentalsWithExtensionAfterDate(DateTime dueDate)
+    {
+        List<Rental> rentList = new List<Rental>();
+        try
+        {
+
+            SqlCommand command = new SqlCommand("SELECT * FROM Rental R, Extension E " +
+                "WHERE R.rentalID = E.rentalID and E.extensionID in ( SELECT TOP 1 E1.extensionID FROM Extension E1 " +
+                "WHERE E1.rentalID = R.rentalID and E1.status<>'Not Granted' ORDER BY E1.newEndDate desc) " +
+                " and E.newEndDate > @date and R.status='Scheduled'");
+
+            command.Parameters.AddWithValue("@date", dueDate.Date);
+            command.Parameters.AddWithValue("@time", dueDate.TimeOfDay);
+            command.Connection = connection;
+            connection.Open();
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                Rental rent = new Rental();
+                readARental(ref rent, ref reader);
+
+                rentList.Add(rent);
+            }
+
+            reader.Close();
+        }
+        finally
+        {
+            connection.Close();
+        }
+        return rentList;
+    }
+
     private static void readARental(ref Rental rent, ref SqlDataReader reader)
     {
         rent.RentalID = Convert.ToString(reader["rentalID"]);
