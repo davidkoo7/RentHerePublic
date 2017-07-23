@@ -75,6 +75,68 @@ public class ItemTagDB
         return itemTagList;
     }
 
+    public static List<ItemTag> getItemsWithTagsLike(List<string> tagName, string location, string categoryName)
+    {
+        List<ItemTag> itemTagList = new List<ItemTag>();
+        try
+        {
+            string sqlcommand = "SELECT * FROM ItemTag IT, Item I WHERE I.itemID=IT.itemID ";
+
+            if (location != null)
+                sqlcommand += "AND I.locationName = @locationName ";
+
+            if (categoryName != null)
+                sqlcommand += "AND I.categoryName = @categoryName ";
+
+            sqlcommand += " and (";
+
+            int iTagCounter = 0;
+            foreach (string tag in tagName)
+            {
+                sqlcommand += "IT.tagName LIKE ";
+                if (iTagCounter < tagName.Count - 1)
+                    sqlcommand += "@tagName" + iTagCounter + " OR ";
+                else
+                    sqlcommand += "@tagName" + iTagCounter + ")";
+                iTagCounter++;
+            }
+
+            SqlCommand command = new SqlCommand(sqlcommand);
+
+            if (location != null)
+                command.Parameters.AddWithValue("@locationName", location);
+
+            if (categoryName != null)
+                command.Parameters.AddWithValue("@categoryName", categoryName);
+
+            iTagCounter = 0;
+            foreach (string tag in tagName)
+            {
+                command.Parameters.AddWithValue("@tagName" + iTagCounter, "%" + tag + "%");
+                iTagCounter++;
+            }
+
+            command.Connection = connection;
+            connection.Open();
+            SqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                ItemTag itemTag = new ItemTag();
+
+                readAItemTag(ref itemTag, ref reader);
+                itemTagList.Add(itemTag);
+            }
+
+            reader.Close();
+        }
+        finally
+        {
+            connection.Close();
+        }
+        return itemTagList;
+    }
+
     public static int addItemTag(Item item, string tagName)
     {
         try

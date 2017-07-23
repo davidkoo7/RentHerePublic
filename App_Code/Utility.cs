@@ -38,4 +38,47 @@ public class Utility
         }
         return 1;
     }
+
+    public static List<string> findHashTags(string textbox)
+    {
+        string textMessage = textbox + " ";
+        string tag = "", tagWithinReadableTag = "";
+        int nextRead = 0;
+
+        List<string> tags = new List<string>();
+
+        while (textMessage.IndexOf("#") >= 0)
+        {
+            textMessage = textMessage.Substring(textMessage.IndexOf("#"));
+
+            tag = textMessage.Substring(textMessage.IndexOf("#"), textMessage.IndexOf(" ") - textMessage.IndexOf("#") + 1).ToLower();
+
+            while (tag.IndexOf("#") >= 0)
+            {
+                if (tag.IndexOf("#", 1) >= 0)
+                {
+                    if (tag.IndexOf("\n") > 0)
+                        tagWithinReadableTag = tag.Substring(tag.IndexOf("#"), tag.IndexOf("\n") - tag.IndexOf("#"));
+                    else
+                        tagWithinReadableTag = tag.Substring(tag.IndexOf("#"), tag.IndexOf("#", 1) - tag.IndexOf("#"));
+                    tag = tag.Substring(tag.IndexOf("#", 1));
+                }
+                else
+                {
+                    tagWithinReadableTag = tag.Substring(tag.IndexOf("#"), tag.IndexOf(" ") - tag.IndexOf("#"));
+                    tag = "";
+                }
+
+                if (tagWithinReadableTag.Length > 2)
+                    tags.Add(tagWithinReadableTag);
+
+                nextRead += tagWithinReadableTag.Length;
+            }
+
+            textMessage = textMessage.Substring(nextRead);
+            nextRead = 0;
+        }
+
+        return tags;
+    }
 }
