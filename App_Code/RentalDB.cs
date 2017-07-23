@@ -44,6 +44,7 @@ public class RentalDB
     public static List<Rental> getRentalofItem(string itemID, string status)
     {
         List<Rental> rentList = new List<Rental>();
+
         try
         {
             string sqlcommand = "SELECT * FROM Rental WHERE itemID = @itemID ";
