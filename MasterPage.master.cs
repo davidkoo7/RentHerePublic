@@ -25,62 +25,49 @@ public partial class MasterPage : System.Web.UI.MasterPage
     protected void btnSearch_Click(object sender, EventArgs e)
     {
         //string ss = ddlCategory.Value;
+        string location = null, category = null;
+
+
         List<Item> itemList = new List<Item>();
+
         if (tbxSearch.Value.IndexOf("#") >= 0)
         {
-
-            List<string> tags = Utility.findHashTags(tbxSearch.Value);            
+            List<string> tags = Utility.findHashTags(tbxSearch.Value);
 
             List<ItemTag> itemTagList = new List<ItemTag>();
 
-            //if (ddlLocation.SelectedIndex > 0 && ddlCategory.SelectedIndex > 0)
-            //{
-            //    itemTagList = ItemTagDB.getItemsWithTags(tags, ddlLocation.SelectedValue, ddlCategory.SelectedValue);
-            //}
-            //else if (ddlLocation.SelectedIndex > 0)
-            //{
-            //    itemTagList = ItemTagDB.getItemsWithTags(tags, ddlLocation.SelectedValue, null);
-            //}
-            //else if (ddlCategory.SelectedIndex > 0)
-            //{
-            //    itemTagList = ItemTagDB.getItemsWithTags(tags, null, ddlCategory.SelectedValue);
+            //if (ddlCategory.SelectedIndex > 0)
+            //    category = ddlCategory.SelectedValue;
 
-            //}
-            //else
-            //{
-            //    itemTagList = ItemTagDB.getItemsWithTags(tags, null, null);
-            //}
+            //if (ddlLocation.SelectedIndex > 0)
+            //    location = ddlLocation.SelectedValue;
 
-            if (ddlLocation.SelectedIndex > 0 && ddlCategory.SelectedIndex > 0)
-            {
-                itemTagList = ItemTagDB.getItemsWithTagsLike(tags, ddlLocation.SelectedValue, ddlCategory.SelectedValue);
-            }
-            else if (ddlLocation.SelectedIndex > 0)
-            {
-                itemTagList = ItemTagDB.getItemsWithTagsLike(tags, ddlLocation.SelectedValue, null);
-            }
-            else if (ddlCategory.SelectedIndex > 0)
-            {
-                itemTagList = ItemTagDB.getItemsWithTagsLike(tags, null, ddlCategory.SelectedValue);
+            //itemTagList = ItemTagDB.getItemsWithTags(tags, location, category);
 
-            }
-            else
-            {
-                itemTagList = ItemTagDB.getItemsWithTagsLike(tags, null, null);
-            }
+            if (ddlCategory.SelectedIndex > 0)
+                category = ddlCategory.SelectedValue;
+
+            if (ddlLocation.SelectedIndex > 0)
+                location = ddlLocation.SelectedValue;
+
+            itemTagList = ItemTagDB.getItemsWithTagsLike(tags, location, category);
 
             foreach (ItemTag it in itemTagList)
                 itemList.Add(it.Item);
-
-            Session["SearchListToDisplay"] = itemList;
-            Response.Redirect("~/Categories.aspx");
         }
         else
         {
-            itemList = ItemDB.searchItembyName(tbxSearch.Value);
-            Session["SearchListToDisplay"] = itemList;
-            Response.Redirect("~/Categories.aspx");
+            if (ddlCategory.SelectedIndex > 0)
+                category = ddlCategory.SelectedValue;
+
+            if (ddlLocation.SelectedIndex > 0)
+                location = ddlLocation.SelectedValue;
+
+            itemList = ItemDB.searchItembyName(tbxSearch.Value, location, category);
         }
+
+        Session["SearchListToDisplay"] = itemList;
+        Response.Redirect("~/Categories.aspx");
     }
 
 }

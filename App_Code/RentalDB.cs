@@ -41,14 +41,23 @@ public class RentalDB
         return rentalList;
     }
 
-    public static List<Rental> getRentalofItem(string itemID)
+    public static List<Rental> getRentalofItem(string itemID, string status)
     {
         List<Rental> rentList = new List<Rental>();
         try
         {
-            SqlCommand command = new SqlCommand("SELECT * FROM Rental WHERE itemID = @itemID");
-            command.Parameters.Clear();
+            string sqlcommand = "SELECT * FROM Rental WHERE itemID = @itemID ";
+
+            if (status != null)
+                sqlcommand += " and status=@status";
+
+            SqlCommand command = new SqlCommand(sqlcommand);
+
             command.Parameters.AddWithValue("@itemID", itemID);
+
+            if (status != null)
+                command.Parameters.AddWithValue("@status", status);
+
             command.Connection = connection;
 
             SqlDataReader reader = command.ExecuteReader();
@@ -68,7 +77,7 @@ public class RentalDB
         }
         return rentList;
     }
-
+       
     public static Member getRenteeforRental(string rentalID)
     {
         Member m = new Member();

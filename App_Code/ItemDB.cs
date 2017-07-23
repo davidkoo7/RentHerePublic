@@ -36,13 +36,30 @@ public class ItemDB
     }
 
     // Need to clarify whether this particular function is working
-    public static List<Item> searchItembyName(string keyword)
+    public static List<Item> searchItembyName(string keyword, string location, string categoryName)
     {
         List<Item> itemList = new List<Item>();
         try
         {
-            SqlCommand command = new SqlCommand("SELECT * FROM Item WHERE name LIKE @name");
+
+            string sqlcommand = "SELECT * FROM Item WHERE name LIKE @name";
+
+            if (location != null)
+                sqlcommand += "AND I.locationName = @locationName ";
+
+            if (categoryName != null)
+                sqlcommand += "AND I.categoryName = @categoryName ";
+
+            SqlCommand command = new SqlCommand(sqlcommand);
+
             command.Parameters.AddWithValue("@name", "%" + keyword + "%");
+
+            if (location != null)
+                command.Parameters.AddWithValue("@locationName", location);
+
+            if (categoryName != null)
+                command.Parameters.AddWithValue("@categoryName", categoryName);
+
             command.Connection = connection;
             connection.Open();
             SqlDataReader reader = command.ExecuteReader();
