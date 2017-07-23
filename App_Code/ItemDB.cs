@@ -42,13 +42,13 @@ public class ItemDB
         try
         {
 
-            string sqlcommand = "SELECT * FROM Item WHERE name LIKE @name";
+            string sqlcommand = "SELECT * FROM Item WHERE name LIKE @name ";
 
             if (location != null)
-                sqlcommand += "AND I.locationName = @locationName ";
+                sqlcommand += "AND locationName = @locationName ";
 
             if (categoryName != null)
-                sqlcommand += "AND I.categoryName = @categoryName ";
+                sqlcommand += "AND categoryName = @categoryName ";
 
             SqlCommand command = new SqlCommand(sqlcommand);
 
@@ -64,9 +64,9 @@ public class ItemDB
             connection.Open();
             SqlDataReader reader = command.ExecuteReader();
 
-            Item i = new Item();
             while (reader.Read())
             {
+                Item i = new Item();
                 readAItem(ref i, ref reader);
 
                 itemList.Add(i);

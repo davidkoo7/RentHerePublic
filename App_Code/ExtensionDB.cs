@@ -27,7 +27,7 @@ public class ExtensionDB
             if (reader.Read())
                 readAnExtension(ref ext, ref reader);
             else
-                ext = new Extension(null, null, new DateTime(), new DateTime(), null, null, 0, new Payment(), new Rental());
+                ext = new Extension(null, null, new TimeSpan(), new DateTime(), null, null, 0, new Payment(), new Rental());
             reader.Close();
         }
         finally
@@ -52,7 +52,7 @@ public class ExtensionDB
             if (reader.Read())
                 readAnExtension(ref ext, ref reader);
             else
-                ext = new Extension(null, null, new DateTime(), new DateTime(), null, null, 0, new Payment(), new Rental());
+                ext = new Extension(null, null, new TimeSpan(), new DateTime(), null, null, 0, new Payment(), new Rental());
             reader.Close();
         }
         finally
@@ -105,7 +105,7 @@ public class ExtensionDB
             if (reader.Read())
                 readAnExtension(ref ext, ref reader);
             else
-                ext = new Extension(null, null, new DateTime(), new DateTime(), null, null, 0, new Payment(), new Rental());
+                ext = new Extension(null, null, new TimeSpan(), new DateTime(), null, null, 0, new Payment(), new Rental());
             reader.Close();
         }
         finally
@@ -117,9 +117,9 @@ public class ExtensionDB
 
     private static void readAnExtension(ref Extension extent, ref SqlDataReader reader)
     {
-        extent.ExtensionID = reader["extentionID"].ToString();
+        extent.ExtensionID = reader["extensionID"].ToString();
         extent.NewReturnLocation = reader["newReturnLocation"].ToString();
-        extent.NewReturnTime = Convert.ToDateTime(reader["newReturnTime"]);
+        extent.NewReturnTime = (TimeSpan)reader["newReturnTime"];
         extent.NewEndDate = Convert.ToDateTime(reader["newEndDate"]);
         extent.Unit = Convert.ToString(reader["unit"]);
         extent.Status = Convert.ToString(reader["status"]);

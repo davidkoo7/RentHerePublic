@@ -10,7 +10,7 @@ public class Extension
 {
     public string ExtensionID { get; set; }
     public string NewReturnLocation { get; set; }
-    public DateTime NewReturnTime { get; set; }
+    public TimeSpan NewReturnTime { get; set; }
     public DateTime NewEndDate { get; set; }
     public string Unit { get; set; }
     public string Status { get; set; }
@@ -18,7 +18,7 @@ public class Extension
     public Payment Payment { get; set; }
     public Rental Rental { get; set; }
 
-    public Extension(string extensionID, string newReturnLocation, DateTime newReturnTime, DateTime newEndDate, string unit, string status, decimal extensionRentalFee, Payment payment, Rental rental)
+    public Extension(string extensionID, string newReturnLocation, TimeSpan newReturnTime, DateTime newEndDate, string unit, string status, decimal extensionRentalFee, Payment payment, Rental rental)
     {
         ExtensionID = extensionID;
         NewReturnLocation = newReturnLocation;

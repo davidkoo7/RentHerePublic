@@ -1,10 +1,11 @@
 ﻿<%@ Application Language="C#" Inherits="Global" %>
 
-<script runat="server">
+<script RunAt="server">
 
 
     void Application_Start(object sender, EventArgs e)
     {
+        QuartzScheduler.Start();
 
     }
 

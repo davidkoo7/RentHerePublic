@@ -10,7 +10,7 @@ using System.Configuration;
 /// </summary>
 public class RentalDB
 {
-    public static SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString);
+    private static SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString);
 
     public static List<Rental> getRentalforMember(Member member)
     {
@@ -44,6 +44,7 @@ public class RentalDB
     public static List<Rental> getRentalofItem(string itemID, string status)
     {
         List<Rental> rentList = new List<Rental>();
+
         try
         {
             string sqlcommand = "SELECT * FROM Rental WHERE itemID = @itemID ";
@@ -59,7 +60,7 @@ public class RentalDB
                 command.Parameters.AddWithValue("@status", status);
 
             command.Connection = connection;
-
+            connection.Open();
             SqlDataReader reader = command.ExecuteReader();
 
             while (reader.Read())
@@ -77,7 +78,7 @@ public class RentalDB
         }
         return rentList;
     }
-       
+
     public static Member getRenteeforRental(string rentalID)
     {
         Member m = new Member();
@@ -141,11 +142,128 @@ public class RentalDB
 
             if (command.ExecuteNonQuery() > 0)
                 return 1;
-        } finally
+        }
+        finally
         {
             connection.Close();
         }
         return -1;
+    }
+
+    public static int getNoofRentalAsRentee(string memberID)
+    {
+        int rentNo = 0;
+        try
+        {
+            SqlCommand command = new SqlCommand("SELECT count(*) as noOfRental FROM Rental WHERE renteeID=@memberID");
+            command.Parameters.AddWithValue("@memberID", memberID);
+            command.Connection = connection;
+            connection.Open();
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            if (reader.Read())
+                rentNo = Convert.ToInt32(reader["noOfRental"]);
+
+            reader.Close();
+        }
+        finally
+        {
+            connection.Close();
+        }
+        return rentNo;
+    }
+
+    public static int getNoofRentalAsRenter(string memberID)
+    {
+        int rentNo = 0;
+        try
+        {
+            SqlCommand command = new SqlCommand("SELECT count(*) as noOfRental FROM Rental R, Item I WHERE R.itemID=I.itemID and I.renterID=@memberID");
+            command.Parameters.AddWithValue("@memberID", memberID);
+            command.Connection = connection;
+            connection.Open();
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            if (reader.Read())
+                rentNo = Convert.ToInt32(reader["noOfRental"]);
+
+            reader.Close();
+        }
+        finally
+        {
+            connection.Close();
+        }
+        return rentNo;
+    }
+
+    public static List<Rental> getRentalsThatExceeds(DateTime dueDate)
+    {
+        List<Rental> rentList = new List<Rental>();
+        try
+        {
+            //and returnTime<@time
+            SqlCommand command = new SqlCommand("SELECT * FROM Rental WHERE rentalID not in " +
+                "( SELECT R.rentalID FROM Rental R, Extension E WHERE R.RentalID = E.RentalID GROUP BY R.rentalID, " +
+                "E.status HAVING E.status <> 'Not Granted') and endDate = @date and E.returnTime < @time and status='On-going'");
+
+            command.Parameters.AddWithValue("@date", String.Format("{0:yyyy/MM/dd}", dueDate.Date));
+            command.Parameters.AddWithValue("@time", dueDate.TimeOfDay);
+            command.Connection = connection;
+            connection.Open();
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                Rental rent = new Rental();
+                readARental(ref rent, ref reader);
+                rentList.Add(rent);
+            }
+
+            reader.Close();
+        }
+        finally
+        {
+            connection.Close();
+        }
+        return rentList;
+    }
+
+    public static List<Rental> getRentalsWithExtensionThatExceeds(DateTime dueDate)
+    {
+        List<Rental> rentList = new List<Rental>();
+        try
+        {
+
+            SqlCommand command = new SqlCommand("SELECT * FROM Rental R, Extension E " +
+                "WHERE R.rentalID = E.rentalID and E.extensionID in ( SELECT TOP 1 E1.extensionID FROM Extension E1 " +
+                "WHERE E1.rentalID = R.rentalID and E1.status<>'Not Granted' ORDER BY E1.newEndDate desc) " +
+                " and E.newEndDate = @date and E.newReturnTime < @time  and R.status='On-going'");
+
+            command.Parameters.AddWithValue("@date", dueDate.Date);
+            command.Parameters.AddWithValue("@time", dueDate.TimeOfDay);
+            command.Connection = connection;
+            connection.Open();
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                Rental rent = new Rental();
+                readARental(ref rent, ref reader);
+
+                rentList.Add(rent);
+            }
+
+            reader.Close();
+        }
+        finally
+        {
+            connection.Close();
+        }
+        return rentList;
     }
 
     private static void readARental(ref Rental rent, ref SqlDataReader reader)
