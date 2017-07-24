@@ -79,6 +79,53 @@ public class RentalDB
         return rentList;
     }
 
+    public static int addRental(Rental rent)
+    {
+        try
+        {
+            SqlCommand command = new SqlCommand("INSERT INTO Rental (pickUpLocation, pickUpTime, returnLocation, returnTime, rentalFee, unit, deposit, dateCreated, startDate, endDate, status, paymentReleaseCode, depositRetrievalCode, itemID, paymentID, renteeID)" +
+               "VALUES (@pickUpLocation, @pickUpTime, @returnLocation, @returnTime, @rentalFee, @unit, @deposit, @dateCreated, @startDate, @endDate, @status, @paymentReleaseCode, @depositRetrievalCode, @itemID, @paymentID, @renteeID)");
+            command.Parameters.AddWithValue("@pickUpLocation", rent.PickUpLocation);
+            command.Parameters.AddWithValue("@pickUpTime", rent.PickUpTime);
+
+            if (rent.ReturnLocation != null)
+                command.Parameters.AddWithValue("@returnLocation", rent.ReturnLocation);
+            else
+                command.Parameters.AddWithValue("@returnLocation", DBNull.Value);
+
+            if (rent.ReturnTime != null)
+                command.Parameters.AddWithValue("@returnTime", rent.ReturnTime);
+            else
+                command.Parameters.AddWithValue("@returnTime", DBNull.Value);
+
+            command.Parameters.AddWithValue("@rentalFee", rent.RentalFee);
+            command.Parameters.AddWithValue("@unit", rent.Unit);
+            command.Parameters.AddWithValue("@deposit", rent.Deposit);
+            command.Parameters.AddWithValue("@dateCreated", rent.DateCreated);
+            command.Parameters.AddWithValue("@startDate", rent.StartDate);
+            command.Parameters.AddWithValue("@endDate", rent.EndDate);
+            command.Parameters.AddWithValue("@status", rent.Status);
+            command.Parameters.AddWithValue("@paymentReleaseCode", rent.PaymentReleaseCode);
+            command.Parameters.AddWithValue("@depositRetrievalCode", rent.DepositRetrievalCode);
+            command.Parameters.AddWithValue("@itemID", rent.Item.ItemID);
+            command.Parameters.AddWithValue("@paymentID", rent.Payment.PaymentID);
+            command.Parameters.AddWithValue("@renteeID", rent.Rentee.MemberID);
+            command.Connection = connection;
+            connection.Open();
+
+            if(command.ExecuteNonQuery() > 0)
+            {
+                command.CommandText = "SELECT @@identity";
+                return Convert.ToInt32(command.ExecuteScalar());
+            }
+        }
+        finally
+        {
+            connection.Close();
+        }
+        return -1;
+    }
+
     public static Member getRenteeforRental(string rentalID)
     {
         Member m = new Member();
@@ -295,6 +342,6 @@ public class RentalDB
 
         rent.Item = ItemDB.getItembyID(reader["itemID"].ToString());
 
-        rent.PaymentID = PaymentDB.getPaymentbyID(reader["paymentID"].ToString());
+        rent.Payment = PaymentDB.getPaymentbyID(reader["paymentID"].ToString());
     }
 }
