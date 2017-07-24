@@ -79,6 +79,53 @@ public class RentalDB
         return rentList;
     }
 
+    public static int addRental(Rental rent)
+    {
+        try
+        {
+            SqlCommand command = new SqlCommand("INSERT INTO Rental (pickUpLocation, pickUpTime, returnLocation, returnTime, rentalFee, unit, deposit, dateCreated, startDate, endDate, status, paymentReleaseCode, depositRetrievalCode, itemID, paymentID, renteeID)" +
+               "VALUES (@pickUpLocation, @pickUpTime, @returnLocation, @returnTime, @rentalFee, @unit, @deposit, @dateCreated, @startDate, @endDate, @status, @paymentReleaseCode, @depositRetrievalCode, @itemID, @paymentID, @renteeID)");
+            command.Parameters.AddWithValue("@pickUpLocation", rent.PickUpLocation);
+            command.Parameters.AddWithValue("@pickUpTime", rent.PickUpTime);
+
+            if (rent.ReturnLocation != null)
+                command.Parameters.AddWithValue("@returnLocation", rent.ReturnLocation);
+            else
+                command.Parameters.AddWithValue("@returnLocation", DBNull.Value);
+
+            if (rent.ReturnTime != null)
+                command.Parameters.AddWithValue("@returnTime", rent.ReturnTime);
+            else
+                command.Parameters.AddWithValue("@returnTime", DBNull.Value);
+
+            command.Parameters.AddWithValue("@rentalFee", rent.RentalFee);
+            command.Parameters.AddWithValue("@unit", rent.Unit);
+            command.Parameters.AddWithValue("@deposit", rent.Deposit);
+            command.Parameters.AddWithValue("@dateCreated", rent.DateCreated);
+            command.Parameters.AddWithValue("@startDate", rent.StartDate);
+            command.Parameters.AddWithValue("@endDate", rent.EndDate);
+            command.Parameters.AddWithValue("@status", rent.Status);
+            command.Parameters.AddWithValue("@paymentReleaseCode", rent.PaymentReleaseCode);
+            command.Parameters.AddWithValue("@depositRetrievalCode", rent.DepositRetrievalCode);
+            command.Parameters.AddWithValue("@itemID", rent.Item.ItemID);
+            command.Parameters.AddWithValue("@paymentID", rent.Payment.PaymentID);
+            command.Parameters.AddWithValue("@renteeID", rent.Rentee.MemberID);
+            command.Connection = connection;
+            connection.Open();
+
+            if(command.ExecuteNonQuery() > 0)
+            {
+                command.CommandText = "SELECT @@identity";
+                return Convert.ToInt32(command.ExecuteScalar());
+            }
+        }
+        finally
+        {
+            connection.Close();
+        }
+        return -1;
+    }
+
     public static Member getRenteeforRental(string rentalID)
     {
         Member m = new Member();
@@ -266,74 +313,6 @@ public class RentalDB
         return rentList;
     }
 
-    public static List<Rental> getFutureRentalsAfterDate(DateTime dueDate)
-    {
-        List<Rental> rentList = new List<Rental>();
-        try
-        {
-            //and returnTime<@time
-            SqlCommand command = new SqlCommand("SELECT * FROM Rental WHERE rentalID not in " +
-                "( SELECT R.rentalID FROM Rental R, Extension E WHERE R.RentalID = E.RentalID GROUP BY R.rentalID, " +
-                "E.status HAVING E.status <> 'Not Granted') and endDate > @date and status='Scheduled'");
-
-            command.Parameters.AddWithValue("@date", String.Format("{0:yyyy/MM/dd}", dueDate.Date));
-            command.Parameters.AddWithValue("@time", dueDate.TimeOfDay);
-            command.Connection = connection;
-            connection.Open();
-
-            SqlDataReader reader = command.ExecuteReader();
-
-            while (reader.Read())
-            {
-                Rental rent = new Rental();
-                readARental(ref rent, ref reader);
-                rentList.Add(rent);
-            }
-
-            reader.Close();
-        }
-        finally
-        {
-            connection.Close();
-        }
-        return rentList;
-    }
-
-    public static List<Rental> getFutureRentalsWithExtensionAfterDate(DateTime dueDate)
-    {
-        List<Rental> rentList = new List<Rental>();
-        try
-        {
-
-            SqlCommand command = new SqlCommand("SELECT * FROM Rental R, Extension E " +
-                "WHERE R.rentalID = E.rentalID and E.extensionID in ( SELECT TOP 1 E1.extensionID FROM Extension E1 " +
-                "WHERE E1.rentalID = R.rentalID and E1.status<>'Not Granted' ORDER BY E1.newEndDate desc) " +
-                " and E.newEndDate > @date and R.status='Scheduled'");
-
-            command.Parameters.AddWithValue("@date", dueDate.Date);
-            command.Parameters.AddWithValue("@time", dueDate.TimeOfDay);
-            command.Connection = connection;
-            connection.Open();
-
-            SqlDataReader reader = command.ExecuteReader();
-
-            while (reader.Read())
-            {
-                Rental rent = new Rental();
-                readARental(ref rent, ref reader);
-
-                rentList.Add(rent);
-            }
-
-            reader.Close();
-        }
-        finally
-        {
-            connection.Close();
-        }
-        return rentList;
-    }
-
     private static void readARental(ref Rental rent, ref SqlDataReader reader)
     {
         rent.RentalID = Convert.ToString(reader["rentalID"]);
@@ -363,6 +342,6 @@ public class RentalDB
 
         rent.Item = ItemDB.getItembyID(reader["itemID"].ToString());
 
-        rent.PaymentID = PaymentDB.getPaymentbyID(reader["paymentID"].ToString());
+        rent.Payment = PaymentDB.getPaymentbyID(reader["paymentID"].ToString());
     }
 }

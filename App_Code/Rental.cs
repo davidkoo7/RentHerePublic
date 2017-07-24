@@ -23,13 +23,13 @@ public class Rental
     public string PaymentReleaseCode { get; set; }
     public string DepositRetrievalCode { get; set; }
     public Item Item { get; set; }
-    public Payment PaymentID { get; set; }
+    public Payment Payment { get; set; }
     public Member Rentee { get; set; }
 
     public Rental(string rentalID, string pickUpLocation, TimeSpan pickUpTime, string returnLocation,
         TimeSpan returnTime, decimal rentalFee, string unit, decimal deposit, DateTime dateCreated, DateTime startDate,
         DateTime endDate, string status, string paymentReleaseCode, string depositRetrievalCode, Item itemID,
-        Payment paymentID, Member renteeID)
+        Payment payment, Member renteeID)
     {
         RentalID = rentalID;
         PickUpLocation = pickUpLocation;
@@ -46,7 +46,7 @@ public class Rental
         PaymentReleaseCode = paymentReleaseCode;
         DepositRetrievalCode = depositRetrievalCode;
         Item = itemID;
-        PaymentID = paymentID;
+        Payment = payment;
         Rentee = renteeID;
     }
 
