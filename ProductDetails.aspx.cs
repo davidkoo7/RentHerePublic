@@ -9,6 +9,7 @@ using System.Web.UI.WebControls;
 
 public partial class ProductDetails : System.Web.UI.Page
 {
+    string itemStatus;
     protected void Page_Load(object sender, EventArgs e)
     {
         if (Request.QueryString["itemID"] == null)
@@ -24,6 +25,7 @@ public partial class ProductDetails : System.Web.UI.Page
 
         repeaterItemInformation.DataSource = productDetails;
         repeaterItemInformation.DataBind();
+
         }
     }
 
@@ -31,7 +33,6 @@ public partial class ProductDetails : System.Web.UI.Page
     {
         Extension itemExtension = ExtensionDB.getLastExtensionofItem(Request.QueryString["itemID"]);
 
-        string itemStatus;
 
         if (itemExtension.ExtensionID == null)
         {
@@ -39,6 +40,7 @@ public partial class ProductDetails : System.Web.UI.Page
             if (itemRental.Count == 0)
             {
                 itemStatus = "Available";
+                
                 
             }
             else
@@ -49,15 +51,21 @@ public partial class ProductDetails : System.Web.UI.Page
         }
         else
         {
-            itemStatus = "On-going Extended";
+            itemStatus = "On-going Extended";   
             // itemExtension.NewEndDate
         }
 
         // To display the status of the item to the user
         if (e.Item.ItemType == ListItemType.Item)
         {
+            Button btnRent = (Button)e.Item.FindControl("btnRent");
+
             Label lblItemStatus = e.Item.FindControl("lblItemStatus") as Label;
             lblItemStatus.Text = itemStatus;
+            if (itemStatus == "On-going")
+                btnRent.Text = "Reserve Now";
+            else
+                btnRent.Text = "Rent Now";
             
 
         }
@@ -65,6 +73,17 @@ public partial class ProductDetails : System.Web.UI.Page
 
     protected void btnRent_Click(object sender, EventArgs e)
     {
+        if (itemStatus == "Available")
+        {
+            Session["itemStatus"] = "Available";
+            Response.Redirect("~/itemRental.aspx?itemID=" + Request.QueryString["itemID"]);
+        }
+        else
+        {
+            Session["itemStatus"] = "On-Going Extension";
+            Response.Redirect("~/itemRental.aspx?itemID=" + Request.QueryString["itemID"]);
+
+        }
 
     }
 }

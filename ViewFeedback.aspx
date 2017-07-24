@@ -3,50 +3,59 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <asp:Repeater ID="rptInfo" runat="server">
+        <ItemTemplate>
+            <div class="main-container container">
+                <ul class="breadcrumb">
+                    <li><a href="#"><i class="fa fa-home"></i></a></li>
+                    <li><a href="#">Rental Infomation	</a></li>
+                </ul>
 
-    <div class="main-container container">
-        <ul class="breadcrumb">
-            <li><a href="#"><i class="fa fa-home"></i></a></li>
-            <li><a href="#">Order History</a></li>
-        </ul>
-
-        <!--Middle Part Start-->
-        <div id="content" class="col-sm-9">
-            <h2 class="title">Rental Information</h2>
-            <h2 class="title">Status: </h2>
-            <table class="table table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <td colspan="2" class="text-left">Rental Details</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td style="width: 50%;" class="text-left"><b>Rental ID:</b> #214521
+                <div class="row">
+                    <!--Middle Part Start-->
+                    <div id="content" class="col-sm-9">
+                        <h2 class="title">Rental Information</h2>
+                        <h2 class="title">Status:                                            
+                            <a href="RentalInfo.aspx?rentalID=<%#Eval("rentalID") %>"><asp:Label ID="lblStatus" runat="server" Text='<%# "" + Eval("status") %>'></asp:Label></a>
+                        </h2>
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <td colspan="2" class="text-left">Rental Details</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="width: 50%;" class="text-left"><b>Rental ID:</b> 
+                                                           <a href="RentalInfo.aspx?rentalID=<%#Eval("rentalID") %>"> <asp:Label ID="lblRentalID" runat="server" Text='<%# Eval("rentalID") %>' /></a>
 								<br>
-                            <b>Date  Created:</b> 20/06/2016
+                                        <b>Date  Created:</b>   <asp:Label ID="lblDateCreated" runat="server" Text='<%# "" + Eval("dateCreated") %>'></asp:Label>
 																<br>
-                            <b>Pick Up Location:</b> 20/06/2016
+                                        <b>Pick Up Location:</b>  <asp:Label ID="lblPickUpLocation" runat="server" Text='<%# "" + Eval("pickUpLocation") %>'></asp:Label>
 								<br>
-                            <b>Pick Up Time:</bx </b>15/1/12
+                                        <b>Pick Up Time:</b>  <asp:Label ID="lblPickUpTime" runat="server" Text='<%# "" + Eval("pickUpTime") %>'></asp:Label>
 								<br>
-                            <b>Return Time: </b>15/1/12
+                                        <b>Return Location: </b>  <asp:Label ID="lblReturnLocvation" runat="server" Text='<%# "" + Eval("returnLocation") %>'></asp:Label>
+								<br>
+                                        <b>Return Time: </b> <asp:Label ID="lblReturnTime" runat="server" Text='<%# "" + Eval("returnTime") %>'></asp:Label>
 																
 
 								
 								<br>
-                        </td>
-                        <td style="width: 50%;" class="text-left"><b>Rental Start Date:</b> 123
+                                    </td>
+                                    <td style="width: 50%;" class="text-left"><b>Rental Start Date:</b> <asp:Label ID="lblStartDate" runat="server" Text='<%# "" + Eval("startDate") %>'></asp:Label>
 								<br>
-                            <b>Rental End Date:</b> Flat Shipping Rate 
+                                        <b>Rental End Date:</b> <asp:Label ID="Label1" runat="server" Text='<%# "" + Eval("endDate") %>'></asp:Label> 
 																<br>
-                            <b>Deposit:</b>11231
+                                        <b>Deposit:</b> <asp:Label ID="lblDeposit" runat="server" Text='<%# "" + Eval("deposit") %>'></asp:Label>
 								<br>
-                            <b>Rental Fee:</b> Flat Shipping Rate </td>
-                        <br>
-                    </tr>
-                </tbody>
-            </table>
+                                        <b>Rental Fee:</b> <asp:Label ID="Label4" runat="server" Text='<%# "" + Eval("rentalFee") %>'></asp:Label> </td>
+                                    <br>
+                                </tr>
+                            </tbody>
+                        </table>
+        </ItemTemplate>
+    </asp:Repeater>
 
             <div class="container">
                 <div class="row">

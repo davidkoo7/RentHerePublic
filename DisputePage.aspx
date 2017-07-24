@@ -111,138 +111,144 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
 
-    <div class="main-container container">
-        <ul class="breadcrumb">
-            <li><a href="#"><i class="fa fa-home"></i></a></li>
-            <li><a href="#">Rental Infomation	</a></li>
-        </ul>
+    <asp:Repeater ID="rptInfo" runat="server">
+        <ItemTemplate>
+            <div class="main-container container">
+                <ul class="breadcrumb">
+                    <li><a href="#"><i class="fa fa-home"></i></a></li>
+                    <li><a href="#">Rental Infomation	</a></li>
+                </ul>
 
-        <div class="row">
-            <!--Middle Part Start-->
-            <div id="content" class="col-sm-9">
-                <h2 class="title">Rental Information</h2>
-                <h2 class="title">Status: </h2>
-                <table class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <td colspan="2" class="text-left">Rental Details</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td style="width: 50%;" class="text-left"><b>Rental ID:</b> #214521
+                <div class="row">
+                    <!--Middle Part Start-->
+                    <div id="content" class="col-sm-9">
+                        <h2 class="title">Rental Information</h2>
+                        <h2 class="title">Status:                                            
+                            <a href="RentalInfo.aspx?rentalID=<%#Eval("rentalID") %>"><asp:Label ID="lblStatus" runat="server" Text='<%# "" + Eval("status") %>'></asp:Label></a>
+                        </h2>
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <td colspan="2" class="text-left">Rental Details</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="width: 50%;" class="text-left"><b>Rental ID:</b> 
+                                                           <a href="RentalInfo.aspx?rentalID=<%#Eval("rentalID") %>"> <asp:Label ID="lblRentalID" runat="server" Text='<%# Eval("rentalID") %>' /></a>
 								<br>
-                                <b>Date  Created:</b> 20/06/2016
+                                        <b>Date  Created:</b>   <asp:Label ID="lblDateCreated" runat="server" Text='<%# "" + Eval("dateCreated") %>'></asp:Label>
 																<br>
-                                <b>Pick Up Location:</b> 20/06/2016
+                                        <b>Pick Up Location:</b>  <asp:Label ID="lblPickUpLocation" runat="server" Text='<%# "" + Eval("pickUpLocation") %>'></asp:Label>
 								<br>
-                                <b>Pick Up Time:</b> 20/06/2016
+                                        <b>Pick Up Time:</b>  <asp:Label ID="lblPickUpTime" runat="server" Text='<%# "" + Eval("pickUpTime") %>'></asp:Label>
 								<br>
-                                <b>Return Location: </b>15/1/12
+                                        <b>Return Location: </b>  <asp:Label ID="lblReturnLocvation" runat="server" Text='<%# "" + Eval("returnLocation") %>'></asp:Label>
 								<br>
-                                <b>Return Time: </b>15/1/12
+                                        <b>Return Time: </b> <asp:Label ID="lblReturnTime" runat="server" Text='<%# "" + Eval("returnTime") %>'></asp:Label>
 																
 
 								
 								<br>
-                            </td>
-                            <td style="width: 50%;" class="text-left"><b>Rental Start Date:</b> 123
+                                    </td>
+                                    <td style="width: 50%;" class="text-left"><b>Rental Start Date:</b> <asp:Label ID="lblStartDate" runat="server" Text='<%# "" + Eval("startDate") %>'></asp:Label>
 								<br>
-                                <b>Rental End Date:</b> Flat Shipping Rate 
+                                        <b>Rental End Date:</b> <asp:Label ID="Label1" runat="server" Text='<%# "" + Eval("endDate") %>'></asp:Label> 
 																<br>
-                                <b>Deposit:</b>11231
+                                        <b>Deposit:</b> <asp:Label ID="lblDeposit" runat="server" Text='<%# "" + Eval("deposit") %>'></asp:Label>
 								<br>
-                                <b>Rental Fee:</b> Flat Shipping Rate </td>
-                            <br>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div class="chat">
-                    <div class="chat-history">
-                        <ul class="chat-ul">
-                            <asp:Repeater ID="rptMessages" runat="server">
-                                <ItemTemplate>
-                                    <asp:Label ID="Label3" runat="server" Text='<%# retrieveMessage(Convert.ToString(Eval("Member.MemberID")), Convert.ToString(Eval("Staff.StaffID")), Convert.ToString(Eval("reply")), String.Format("{0:dd MMM yy   HH:mm}", Eval("Date")))%>'></asp:Label>
-                                </ItemTemplate>
-                            </asp:Repeater>
-                        </ul>
-                    </div>
-                    <!-- end chat-history -->
-
-                </div>
-                <!-- end chat -->
-
-
-                <asp:Label ID="Label2" runat="server" Text="Label">Reason: </asp:Label>
-
-                <asp:Button ID="btnResolve" runat="server" Visible="false" Text="Resolve" OnClick="btnResolve_Click" OnClientClick="return confirm('You are about to close the dispute case. As the action is irreversible, are you sure?')" />
-                <asp:DropDownList ID="ddlReason" runat="server" CssClass="table table-nonfluid .table-striped .table-condensed table-responsive" AutoPostBack="True">
-                    <asp:ListItem>--Select Reason--</asp:ListItem>
-                    <asp:ListItem>Rentee No-Show (Collection)</asp:ListItem>
-                    <asp:ListItem>Rentee No-Show (Return) </asp:ListItem>
-                                              
-                    <asp:ListItem>Spoiled Item Returned</asp:ListItem>
-                    <asp:ListItem>Unacceptable Rentee Review</asp:ListItem>
-                    <asp:ListItem>Renter No-Show (Collection)</asp:ListItem>
-                    <asp:ListItem>Renter No-Show (Return) </asp:ListItem>
-
-                    <asp:ListItem>Item Condition Wrong</asp:ListItem>
-                    <asp:ListItem>Deposit Not Returned</asp:ListItem>
-                    <asp:ListItem>Unacceptable Renter Review</asp:ListItem>
-                </asp:DropDownList>
-                <asp:TextBox ID="tbxMessage" runat="server" Style="resize: none;" TextMode="MultiLine" CssClass="table table-nonfluid .table-striped .table-condensed table-responsive" MaxLength="255"></asp:TextBox>
-                <div class="">
-                    <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click" TabIndex="1" />
-                </div>
-
-                <div class="buttons clearfix">
-                    <div class="pull-right">
-                        <a class="btn btn-primary" href="#">Continue</a>
-                    </div>
-                </div>
-
-
-
-
-            </div>
-            <!--Middle Part End-->
-            <!--Right Part Start -->
-            <aside class="col-sm-3 hidden-xs" id="column-right">
-                <h2 class="subtitle">Account</h2>
-                <div class="list-group">
-                    <ul class="list-item">
-                        <li><a href="login.html">Login</a>
-                        </li>
-                        <li><a href="register.html">Register</a>
-                        </li>
-                        <li><a href="#">Forgotten Password</a>
-                        </li>
-                        <li><a href="#">My Account</a>
-                        </li>
-                        <li><a href="#">Address Books</a>
-                        </li>
-                        <li><a href="wishlist.html">Wish List</a>
-                        </li>
-                        <li><a href="#">Order History</a>
-                        </li>
-                        <li><a href="#">Downloads</a>
-                        </li>
-                        <li><a href="#">Reward Points</a>
-                        </li>
-                        <li><a href="#">Returns</a>
-                        </li>
-                        <li><a href="#">Transactions</a>
-                        </li>
-                        <li><a href="#">Newsletter</a>
-                        </li>
-                        <li><a href="#">Recurring payments</a>
-                        </li>
-                    </ul>
-                </div>
-            </aside>
-            <!--Right Part End -->
+                                        <b>Rental Fee:</b> <asp:Label ID="Label4" runat="server" Text='<%# "" + Eval("rentalFee") %>'></asp:Label> </td>
+                                    <br>
+                                </tr>
+                            </tbody>
+                        </table>
+        </ItemTemplate>
+    </asp:Repeater>
+    <div class="chat">
+        <div class="chat-history">
+            <ul class="chat-ul">
+                <asp:Repeater ID="rptMessages" runat="server">
+                    <ItemTemplate>
+                        <asp:Label ID="Label3" runat="server" Text='<%# retrieveMessage(Convert.ToString(Eval("Member.MemberID")), Convert.ToString(Eval("Staff.StaffID")), Convert.ToString(Eval("reply")), String.Format("{0:dd MMM yy   HH:mm}", Eval("Date")))%>'></asp:Label>
+                    </ItemTemplate>
+                </asp:Repeater>
+            </ul>
         </div>
+        <!-- end chat-history -->
+
+    </div>
+    <!-- end chat -->
+
+
+    <asp:Label ID="Label2" runat="server" Text="Label">Reason: </asp:Label>
+
+    <asp:Button ID="btnResolve" runat="server" Visible="false" Text="Resolve" OnClick="btnResolve_Click" OnClientClick="return confirm('You are about to close the dispute case. As the action is irreversible, are you sure?')" />
+    <asp:DropDownList ID="ddlReason" runat="server" CssClass="table table-nonfluid .table-striped .table-condensed table-responsive" AutoPostBack="True">
+        <asp:ListItem>--Select Reason--</asp:ListItem>
+        <asp:ListItem>Rentee No-Show (Collection)</asp:ListItem>
+        <asp:ListItem>Rentee No-Show (Return) </asp:ListItem>
+
+        <asp:ListItem>Spoiled Item Returned</asp:ListItem>
+        <asp:ListItem>Unacceptable Rentee Review</asp:ListItem>
+        <asp:ListItem>Renter No-Show (Collection)</asp:ListItem>
+        <asp:ListItem>Renter No-Show (Return) </asp:ListItem>
+
+        <asp:ListItem>Item Condition Wrong</asp:ListItem>
+        <asp:ListItem>Deposit Not Returned</asp:ListItem>
+        <asp:ListItem>Unacceptable Renter Review</asp:ListItem>
+    </asp:DropDownList>
+    <asp:TextBox ID="tbxMessage" runat="server" Style="resize: none;" TextMode="MultiLine" CssClass="table table-nonfluid .table-striped .table-condensed table-responsive" MaxLength="255"></asp:TextBox>
+    <div class="">
+        <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click" TabIndex="1" />
+    </div>
+
+    <div class="buttons clearfix">
+        <div class="pull-right">
+            <a class="btn btn-primary" href="#">Continue</a>
+        </div>
+    </div>
+
+
+
+
+    </div>
+            <!--Middle Part End-->
+    <!--Right Part Start -->
+    <aside class="col-sm-3 hidden-xs" id="column-right">
+        <h2 class="subtitle">Account</h2>
+        <div class="list-group">
+            <ul class="list-item">
+                <li><a href="login.html">Login</a>
+                </li>
+                <li><a href="register.html">Register</a>
+                </li>
+                <li><a href="#">Forgotten Password</a>
+                </li>
+                <li><a href="#">My Account</a>
+                </li>
+                <li><a href="#">Address Books</a>
+                </li>
+                <li><a href="wishlist.html">Wish List</a>
+                </li>
+                <li><a href="#">Order History</a>
+                </li>
+                <li><a href="#">Downloads</a>
+                </li>
+                <li><a href="#">Reward Points</a>
+                </li>
+                <li><a href="#">Returns</a>
+                </li>
+                <li><a href="#">Transactions</a>
+                </li>
+                <li><a href="#">Newsletter</a>
+                </li>
+                <li><a href="#">Recurring payments</a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+    <!--Right Part End -->
+    </div>
     </div>
     <!-- //Main Container -->
 

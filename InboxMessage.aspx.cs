@@ -16,9 +16,17 @@ public partial class InboxMessage : System.Web.UI.Page
             return;
         }
 
+        List<Rental> rentalInfoDetails = new List<Rental>();
+        Rental rentalInfo = RentalDB.getRentalbyID((Request["rentid"].ToString());
+
+        rentalInfoDetails.Add(rentalInfo);
+
+        rptInfo.DataSource = rentalInfoDetails;
+        rptInfo.DataBind();
+
         List<MemberMessage> memberMessageList = MemberMessageDB.getMsgforMember("1");
 
-         rptMessages.DataSource = memberMessageList;
+        rptMessages.DataSource = memberMessageList;
         rptMessages.DataBind();
     }
 
@@ -83,7 +91,7 @@ public partial class InboxMessage : System.Web.UI.Page
             //msgDis.Item = ItemDB.getItembyID("ITM000000003");
 
             MemberMessageDB.AddMsgMember(msgDis);
-            
+
 
 
             tbxMessage.Text = "";

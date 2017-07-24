@@ -48,16 +48,16 @@
                                             </a>
                                             &nbsp;</td>
                                         <td class="text-left"><a href="product.html">
-                                            <asp:Label ID="Label2" runat="server" Text='<%# "" + Eval("Item.Name") %>'></asp:Label>
+                                            <asp:Label ID="lblItemName" runat="server" Text='<%# "" + Eval("Item.Name") %>'></asp:Label>
                                         </td>
                                         <td class="text-center">
-                                            <asp:Label ID="Label1" runat="server" Text='<%# ""+Eval("RentalID") %>'></asp:Label></a>
+                                            <asp:Label ID="lblRentalID" runat="server" Text='<%# ""+Eval("RentalID") %>'></asp:Label></a>
                                         </td>
                                         <td class="text-center">
-                                            <asp:Label ID="Label4" runat="server" Text='<%# "" + String.Format("{0:dd/MM/yyyy}",Eval("StartDate")) + "-" + String.Format("{0:dd/MM/yyyy}",Eval("EndDate")) %>'></asp:Label>
+                                            <asp:Label ID="lblStartDate" runat="server" Text='<%# "" + String.Format("{0:dd/MM/yyyy}",Eval("StartDate")) + "-" + String.Format("{0:dd/MM/yyyy}",Eval("EndDate")) %>'></asp:Label>
                                         </td>
                                         <td class="text-center">
-                                            <asp:Label ID="Label5" runat="server" Text='<%# "" + Eval("Status") %>'></asp:Label>
+                                            <asp:Label ID="lblStatus" runat="server" Text='<%# "" + Eval("Status") %>'></asp:Label>
                                         </td>
                                         <td class="text-center">
                                             <asp:LinkButton ID="lbtnDispute" runat="server" CommandName="Select" OnClick="lbtnDispute_Click" Text='<%# isDisputeorDisputed("" + Eval("RentalID")) %>'></asp:LinkButton>                                            

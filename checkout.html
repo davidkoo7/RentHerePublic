@@ -1,11 +1,11 @@
-﻿
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     
     <!-- Basic page needs
 	============================================ -->
-	<title>RentHere - Homepage</title>
+	<title>Market - Premium Multipurpose HTML5/CSS3 Theme</title>
 	<meta charset="utf-8">
     <meta name="keywords" content="boostrap, responsive, html5, css3, jquery, theme, multicolor, parallax, retina, business" />
     <meta name="author" content="Magentech">
@@ -17,7 +17,10 @@
 	
 	<!-- Favicon
 	============================================ -->
-   
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png">
     <link rel="shortcut icon" href="ico/favicon.png">
 	
 	<!-- Google web fonts
@@ -38,42 +41,28 @@
    	<link href="css/themecss/so_megamenu.css" rel="stylesheet">
     <link href="css/themecss/so-categories.css" rel="stylesheet">
 	<link href="css/themecss/so-listing-tabs.css" rel="stylesheet">
-	<link href="css/themecss/so-newletter-popup.css" rel="stylesheet">
-	<link href="css/themecss/just_purchased_notification.css" rel=stylesheet>
-
 	<link href="css/footer1.css" rel="stylesheet">
 	<link href="css/header1.css" rel="stylesheet">
-	<link id="color_scheme" href="css/theme.css" rel="stylesheet">
+	<link href="css/checkout.css" rel="stylesheet">
+	<link id="color_scheme" href="css/theme-checkoutonly.css" rel="stylesheet">
+		
 	<link href="css/responsive.css" rel="stylesheet">
+	
+	<link rel="stylesheet" href="dist/hotel-datepicker.css">
+	
+		<script type="text/javascript" src="dist/fecha.min.js"></script>
+	<script type="text/javascript" src="dist/hotel-datepicker.js"></script>
+
+   
 	
 </head>
 
-<body class="common-home res layout-home1">
-		
-
-
-    <div id="wrapper" class="wrapper-full banners-effect-7">
-	
-	<!-- Preloading Screen -->
-	<div class="ip-header">
-		<h1 class="ip-logo">
-			<a href="index.html">
-				<img src="image/demo/logos/theme_logo.png" alt="SW Shoppy">
-			</a>
-		</h1>
-		<div class="ip-loader">
-			<svg class="ip-inner" width="60px" height="60px" viewBox="0 0 80 80">
-				<path class="ip-loader-circlebg" d="M40,10C57.351,10,71,23.649,71,40.5S57.351,71,40.5,71 S10,57.351,10,40.5S23.649,10,40.5,10z"></path>
-				<path id="ip-loader-circle" class="ip-loader-circle" d="M40,10C57.351,10,71,23.649,71,40.5S57.351,71,40.5,71 S10,57.351,10,40.5S23.649,10,40.5,10z" style="stroke-dashoffset: 0; stroke-dasharray: 192.617;"></path>
-			</svg>
-		</div>
-	</div>
-	<!-- End Preloading Screen -->
-
+<body class="res layout-subpage">
+    <div id="wrapper" class="wrapper-full ">
 	<!-- Header Container  -->
 	<header id="header" class=" variantleft type_1">
 <!-- Header Top -->
-<div class="header-top compact-hidden">
+<div class="header-top">
 	<div class="container">
 		<div class="row">
 			<div class="header-top-left form-inline col-sm-6 col-xs-12 compact-hidden">
@@ -177,15 +166,13 @@
 							<p class="text-shopping-cart cart-total-full">2 item(s) - $1,262.00 </p>
 						</div>
 					</a>
-
-					<ul class="tab-content content dropdown-menu pull-right shoppingcart-box" role="menu">
-						
+					<ul class="dropdown-menu pull-right shoppingcart-box" >
 						<li>
 							<table class="table table-striped">
 								<tbody>
 									<tr>
 										<td class="text-center" style="width:70px">
-											<a href="product.html"> <img src="image/demo/shop/product/resize/2.jpg" style="width:70px" alt="Filet Mign" title="Filet Mign" class="preview"> </a>
+											<a href="product.html"> <img src="image/demo/shop/product/35.jpg" style="width:70px" alt="Filet Mign" title="Filet Mign" class="preview"> </a>
 										</td>
 										<td class="text-left"> <a class="cart_product_name" href="product.html">Filet Mign</a> </td>
 										<td class="text-center"> x1 </td>
@@ -199,7 +186,7 @@
 									</tr>
 									<tr>
 										<td class="text-center" style="width:70px">
-											<a href="product.html"> <img src="image/demo/shop/product/resize/3.jpg" style="width:70px" alt="Canon EOS 5D" title="Canon EOS 5D" class="preview"> </a>
+											<a href="product.html"> <img src="image/demo/shop/product/141.jpg" style="width:70px" alt="Canon EOS 5D" title="Canon EOS 5D" class="preview"> </a>
 										</td>
 										<td class="text-left"> <a class="cart_product_name" href="product.html">Canon EOS 5D</a> </td>
 										<td class="text-center"> x1 </td>
@@ -244,6 +231,7 @@
 							</div>
 						</li>
 					</ul>
+				
 				</div>
 				<!--//cart-->
 			</div>
@@ -263,7 +251,8 @@
 					<div class="so-vertical-menu no-gutter compact-hidden">
 						<nav class="navbar-default">	
 							
-							<div class="container-megamenu vertical">
+							<div class="container-megamenu vertical  ">
+								
 								<div id="menuHeading">
 									<div class="megamenuToogle-wrapper">
 										<div class="megamenuToogle-pattern">
@@ -691,6 +680,7 @@
 				<div class="responsive so-megamenu ">
 	<nav class="navbar-default">
 		<div class=" container-megamenu  horizontal">
+			
 			<div class="navbar-header">
 				<button type="button" id="show-megamenu" data-toggle="collapse" class="navbar-toggle">
 					<span class="icon-bar"></span>
@@ -706,11 +696,12 @@
 					<div class="container">
 						<ul class="megamenu " data-transition="slide" data-animationtime="250">
 							<li class="home hover">
+								
 								<a href="index.html">Home <b class="caret"></b></a>
 								<div class="sub-menu" style="width:100%;" >
 									<div class="content" >
 										<div class="row">
-											<div class="col-md-15">
+											<div class="col-md-3">
 												<a href="index.html" class="image-link"> 
 													<span class="thumbnail">
 														<img class="img-responsive img-border" src="image/demo/feature/home-1.jpg" alt="">
@@ -720,7 +711,7 @@
 												</a> 
 												
 											</div>
-											<div class="col-md-15">
+											<div class="col-md-3">
 												<a href="home2.html" class="image-link"> 
 													<span class="thumbnail">
 														<img class="img-responsive img-border" src="image/demo/feature/home-2.jpg" alt="">
@@ -730,7 +721,7 @@
 												</a> 
 												
 											</div>
-											<div class="col-md-15">
+											<div class="col-md-3">
 												<a href="home3.html" class="image-link"> 
 													<span class="thumbnail">
 														<img class="img-responsive img-border" src="image/demo/feature/home-3.jpg" alt="">
@@ -740,73 +731,13 @@
 												</a> 
 												
 											</div>
-											<div class="col-md-15">
+											<div class="col-md-3">
 												<a href="home4.html" class="image-link"> 
 													<span class="thumbnail">
 														<img class="img-responsive img-border" src="image/demo/feature/home-4.jpg" alt="">
 														<span class="btn btn-default">Read More</span>
 													</span> 
 													<h3 class="figcaption">Home page - Layout 4</h3> 
-												</a> 
-												
-											</div>
-											<div class="col-md-15">
-												<a href="home5.html" class="image-link"> 
-													<span class="thumbnail">
-														<img class="img-responsive img-border" src="image/demo/feature/home-5.jpg" alt="">
-														<span class="btn btn-default">Read More</span>
-													</span> 
-													<h3 class="figcaption">Home page - Layout 5</h3> 
-												</a> 
-												
-											</div>
-											<div class="col-md-15">
-												<a href="home6.html" class="image-link"> 
-													<span class="thumbnail">
-														<img class="img-responsive img-border" src="image/demo/feature/home-6.jpg" alt="">
-														<span class="btn btn-default">Read More</span>
-													</span> 
-													<h3 class="figcaption">Home page - Layout 6</h3> 
-												</a> 
-												
-											</div>
-											<div class="col-md-15">
-												<a href="home7.html" class="image-link"> 
-													<span class="thumbnail">
-														<img class="img-responsive img-border" src="image/demo/feature/home-7.jpg" alt="">
-														<span class="btn btn-default">Read More</span>
-													</span> 
-													<h3 class="figcaption">Home page - Layout 7</h3> 
-												</a> 
-												
-											</div>
-											<div class="col-md-15">
-												<a href="home8.html" class="image-link"> 
-													<span class="thumbnail">
-														<img class="img-responsive img-border" src="image/demo/feature/home-8.jpg" alt="">
-														<span class="btn btn-default">Read More</span>
-													</span> 
-													<h3 class="figcaption">Home page - Layout 8</h3> 
-												</a> 
-												
-											</div>
-											<div class="col-md-15">
-												<a href="html_width_RTL/index.html" class="image-link"> 
-													<span class="thumbnail">
-														<img class="img-responsive img-border" src="image/demo/feature/home-rtl.jpg" alt="">
-														<span class="btn btn-default">Read More</span>
-													</span> 
-													<h3 class="figcaption">Home page - Layout RTL</h3> 
-												</a> 
-												
-											</div>
-											<div class="col-md-15">
-												<a href="#" class="image-link"> 
-													<span class="thumbnail">
-														<img class="img-responsive img-border" src="image/demo/feature/comming-soon.png" alt="">
-														
-													</span> 
-													<h3 class="figcaption">Comming soon</h3> 
 												</a> 
 												
 											</div>
@@ -818,7 +749,7 @@
 								<p class="close-menu"></p>
 								<a href="#" class="clearfix">
 									<strong>Features</strong>
-									<img class="label-hot" src="image/theme/icons/hot-icon.png" alt="icon items">
+									<span class="label"> Hot</span>
 									<b class="caret"></b>
 								</a>
 								<div class="sub-menu" style="width: 100%; right: auto;">
@@ -887,7 +818,7 @@
 								<p class="close-menu"></p>
 								<a href="#" class="clearfix">
 									<strong>Pages</strong>
-									<img class="label-hot" src="image/theme/icons/hot-icon.png" alt="icon items">
+									<span class="label"> Hot</span>
 									<b class="caret"></b>
 								</a>
 								<div class="sub-menu" style="width: 40%; ">
@@ -1162,9 +1093,176 @@
 
 </div>
 
+<!-- Navbar switcher -->
+<!-- //end Navbar switcher -->
+	</header>
+	<!-- //Header Container  -->
+	<!-- Main Container  -->
+	<div class="main-container container">
+		<ul class="breadcrumb">
+			<li><a href="#"><i class="fa fa-home"></i></a></li>
+			<li><a href="#">Checkout</a></li>
+			
+		</ul>
+		
+		<div class="row">
+			<!--Middle Part Start-->
+			<div id="content" class="col-lg-12">
+			  <h2 class="title">Checkout</h2>
+			  <div class="so-onepagecheckout ">
+				
+				
+				
+				<div class="col-lg-12">
+				  <div class="row">
+					<div class="col-sm-12">
+						<div class="panel panel-default no-padding">
+							<div class="col-sm-6 checkout-shipping-methods">
+								<div class="panel-heading">
+								  <h4 class="panel-title"><i class="fa fa-quotes"></i> Personal Info</h4>
+								</div>
+					  <div class="panel-body">
+							<fieldset id="account">
+							  <div class="form-group required">
+								<label for="input-payment-firstname" class="control-label">Full Name</label>
+								<input type="text" class="form-control" id="input-payment-firstname" placeholder="Full Name" value="" name="firstname">
+							  </div>
+							  <div class="form-group required">
+								<label for="input-payment-email" class="control-label">E-mail</label>
+								<input type="text" class="form-control" id="input-payment-email" placeholder="E-mail" value="" name="email">
+							  </div>
+							  <div class="form-group required">
+								<label for="input-payment-telephone" class="control-label">Mobile Number</label>
+								<input type="text" class="form-control" id="input-payment-telephone" placeholder="Mobile Number" value="" name="telephone">
+							  </div>
+							</fieldset>
+						  </div>
+							</div>
+							<div class="col-sm-6  checkout-payment-methods">
+								<div class="panel-heading">
+								  <h4 class="panel-title"><i class="fa fa-truck"></i> Delivery Info</h4>
+								</div>
+					  <div class="panel-body">
+							<fieldset id="address" class="required">
+							  <div class="form-group required">
+								<label for="input-payment-address-1" class="control-label">Address 1</label>
+								<input type="text" class="form-control" id="input-payment-address-1" placeholder="Address 1">
+							  </div>
+							  <div class="form-group required">
+								<label for="input-payment-address-2" class="control-label">IC Number</label>
+								<input type="text" class="form-control" id="input-payment-address-2" placeholder="IC Number">
+							  </div>
+							  <div class="form-group required">
+								<label for="input-payment-city" class="control-label">City</label>
+								<input type="text" class="form-control" id="input-payment-city" placeholder="City" value="" name="city">
+							  </div>
+							  <div class="form-group required">
+								<label for="input-payment-postcode" class="control-label">Post Code</label>
+								<input type="text" class="form-control" id="input-payment-postcode" placeholder="Post Code" value="" name="postcode">
+							  </div>
+
+							  <div class="checkbox">
+								<label>
+								  <input type="checkbox" checked="checked" value="1" name="shipping_address">
+								  My delivery and billing addresses are the same.</label>
+							  </div>
+							</fieldset>
+						  </div>
+							</div>
+						</div>
+						
+						
+							
+						</div>
+					
+					
+					
+					
+					<div class="col-sm-12">
+					  <div class="panel panel-default">
+						<div class="panel-heading">
+						  <h4 class="panel-title"><i class="fa fa-shopping-cart"></i> Shopping cart</h4>
+						</div>
+						  <div class="panel-body">
+							<div class="table-responsive">
+							  <table class="table table-bordered">
+								<thead>
+								  <tr>
+								  
+								  
+								  
+								  									<td class="text-center"></td>
+									<td class="text-center">Image</td>
+									<td class="text-left">Product Name</td>
+									<td class="text-left">Rental Period</td>
+									<td class="text-left">Rental Rate</td>
+
+									<td class="text-left">Deposit Amount</td>
+									<td class="text-right">Total</td>
+								  </tr>
+								</thead>
+								<tbody>
+								  <tr>
+								  	<td class="text-center"><p></p><button type="button" data-toggle="tooltip" title="Remove" class="btn btn-danger" onClick=""><i class="fa fa-times-circle"></i></button></td>
+
+									<td class="text-center"><a href="product.html"><img width="60px" src="image/demo/shop/product/E4.jpg" alt="Xitefun Causal Wear Fancy Shoes" title="Xitefun Causal Wear Fancy Shoes" class="img-thumbnail"></a></td>
+									<td class="text-left"><a href="product.html">Emasa rumas gacem</a></td>
+									<td class="text-left"><div class="input-group btn-block" style="min-width: 100px;">
+									
+		<form method="POST" action="checkout.html">
+
+        <input style="table-layout:fixed;" type="text" name="input-id" id="input-id" value="" class="form-control">
+
+        </form>
+
+										
+										
+										<span class="input-group-btn">
+										<button type="submit" data-toggle="tooltip" title="Update" class="btn btn-primary"><i class="fa fa-refresh"></i></button>
+										</span></div></td>
+									<td class="text-right">$114.35</td>
+									<td class="text-right">$114.35</td>
+									<td class="text-right">$114.35</td>									
+								  </tr>
+								  
+
+								  
+								  
+								</tbody>
+								<tfoot>
+								  <tr>
+									<td class="text-right" colspan="1"><strong>Meeting Location:</strong></td>
+									<td class="text-left" colspan="6">$93.73</td>
+									
+								  </tr>
+								  <tr>
+									<td class="text-right" colspan="6"><strong>Total Amount Payable:</strong></td>
+									<td class="text-right">$121.85</td>
+								  </tr>
+								</tfoot>
+							  </table>
+							  							<label class="control-label" for="confirm_agree">
+							  <input type="checkbox" checked="checked" value="1" required="" class="validate required" id="confirm_agree" name="confirm agree">
+							  <span>I have read and agree to the <a class="agree" href="#"><b>Terms &amp; Conditions</b></a></span> </label>
+							<div class="buttons">
+							  <div class="pull-right">
+								<input type="button" class="btn btn-primary" id="button-confirm" value="Confirm Order">
+							  </div>
+							</div>
+							</div>
+						  </div>
+					  </div>
+					</div>
+				  </div>
+				</div>
+			  </div>
+			</div>
+			<!--Middle Part End -->
+			
+		</div>
+	</div>
+	<!-- //Main Container -->
 	
-
-
 	<!-- Footer Container -->
 	<footer class="footer-container type_footer1">
 		<!-- Footer Top Container -->
@@ -1292,67 +1390,50 @@
 	<!-- //end Footer Container -->
 
     </div>
-	<!-- Social widgets -->
-	<section class="social-widgets visible-lg">
-	<ul class="items">
-		<li class="item item-01 facebook"> <a href="php/facebook.php?account=envato" class="tab-icon"><span class="fa fa-facebook"></span></a>
-			<div class="tab-content">
-				<div class="title">
-					<h5>FACEBOOK</h5>
-				</div>
-				<div class="loading">
-					<img src="image/theme/lazy-loader.gif" class="ajaxloader" alt="loader">
-				</div>
-			</div>
-		</li>
-		<li class="item item-02 twitter"> <a href="php/twitter.php?account_twitter=envato" class="tab-icon"><span class="fa fa-twitter"></span></a>
-			<div class="tab-content">
-				<div class="title">
-					<h5>TWITTER FEEDS</h5> 
-				</div>
-				<div class="loading">
-					<img src="image/theme/lazy-loader.gif" class="ajaxloader" alt="loader">
-				</div>
-			</div>
-		</li>
-		<li class="item item-03 youtube"> <a href="php/youtubevideo.php?account_video=PY2RLgTmiZY" class="tab-icon"><span class="fa fa-youtube"></span></a>
-			<div class="tab-content">
-				<div class="title">
-					<h5>YouTube</h5>
-				</div>
-				<div class="loading"> <img src="image/theme/lazy-loader.gif" class="ajaxloader" alt="loader"></div>
-			</div>
-		</li>
-	</ul>
-</section>	<!-- End Social widgets -->
 	
 	
+
 <!-- Include Libs & Plugins
-============================================ -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script type="text/javascript" src="js/jquery-2.2.4.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/owl-carousel/owl.carousel.js"></script>
-<script type="text/javascript" src="js/themejs/libs.js"></script>
-<script type="text/javascript" src="js/unveil/jquery.unveil.js"></script>
-<script type="text/javascript" src="js/countdown/jquery.countdown.min.js"></script>
-<script type="text/javascript" src="js/dcjqaccordion/jquery.dcjqaccordion.2.8.min.js"></script>
-<script type="text/javascript" src="js/datetimepicker/moment.js"></script>
-<script type="text/javascript" src="js/datetimepicker/bootstrap-datetimepicker.min.js"></script>
-<script type="text/javascript" src="js/jquery-ui/jquery-ui.min.js"></script>
-<script type="text/javascript" src="js/modernizr/modernizr-2.6.2.min.js"></script>
-<script type="text/javascript" src="js/bootstrap-notify.min.js"></script>
+	============================================ -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/javascript" src="js/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/owl-carousel/owl.carousel.js"></script>
+	<script type="text/javascript" src="js/themejs/libs.js"></script>
+	<script type="text/javascript" src="js/unveil/jquery.unveil.js"></script>
+	<script type="text/javascript" src="js/countdown/jquery.countdown.min.js"></script>
+	<script type="text/javascript" src="js/dcjqaccordion/jquery.dcjqaccordion.2.8.min.js"></script>
+	<script type="text/javascript" src="js/datetimepicker/moment.js"></script>
+	<script type="text/javascript" src="js/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui/jquery-ui.min.js"></script>
+	
+	
+	<!-- Theme files
+	============================================ -->
+	
+	
+	<script type="text/javascript" src="js/themejs/so_megamenu.js"></script>
+	<script type="text/javascript" src="js/themejs/addtocart.js"></script>
+	<script type="text/javascript" src="js/themejs/application.js"></script>
+		
+	<script type="text/javascript">
+		(function() {
+			// ------------------- DEMO 1 ------------------- //
 
-<!-- Theme files
-============================================ -->
-<script type="text/javascript" src="js/themejs/application.js"></script>
-<script type="text/javascript" src="js/themejs/homepage.js"></script>
-<script type="text/javascript" src="js/themejs/toppanel.js"></script>
-<script type="text/javascript" src="js/themejs/so_megamenu.js"></script>
-<script type="text/javascript" src="js/themejs/addtocart.js"></script>	
-<script type="text/javascript" src="js/themejs/pathLoader.js"></script>	
+			var today = new Date();
+			var tomorrow = new Date();
+			tomorrow.setDate(tomorrow.getDate() + 1);
+			var input1 = document.getElementById('input-id');
+			input1.value = fecha.format(today, 'YYYY-MM-DD') + ' - ' + fecha.format(tomorrow, 'YYYY-MM-DD');
 
-
-
+			var demo1 = 
+			
+			new HotelDatepicker(document.getElementById('input-id'), {
+				disabledDates: [
+					'2017-07-13', '2017-07-18'
+				]
+			});
+		})();
+</script>			
 </body>
 </html>

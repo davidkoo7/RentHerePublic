@@ -16,6 +16,14 @@ public partial class DisputePage : System.Web.UI.Page
             return;
         }
 
+        List<Rental> rentalInfoDetails = new List<Rental>();
+        Rental rentalInfo = RentalDB.getRentalbyID("RNT000000001");
+
+        rentalInfoDetails.Add(rentalInfo);
+
+        rptInfo.DataSource = rentalInfoDetails;
+        rptInfo.DataBind();
+
         Session["user"] = "merandson@gmail.com";
 
         Dispute dis = DisputeDB.getDisputeforRental("RNT000000001");

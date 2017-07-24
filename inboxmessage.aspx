@@ -1,9 +1,11 @@
-﻿<%@ Page Language="C#" enableEventvalidation="false" AutoEventWireup="true" CodeFile="ItemRental.aspx.cs" Inherits="ItemRental" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="InboxMessage.aspx.cs" Inherits="InboxMessage" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
+    <!-- Basic page needs
+	============================================ -->
     <title>Market - Premium Multipurpose HTML5/CSS3 Theme</title>
     <meta charset="utf-8">
     <meta name="keywords" content="boostrap, responsive, html5, css3, jquery, theme, multicolor, parallax, retina, business" />
@@ -42,20 +44,443 @@
     <link href="css/themecss/so-listing-tabs.css" rel="stylesheet">
     <link href="css/footer1.css" rel="stylesheet">
     <link href="css/header1.css" rel="stylesheet">
-    <link href="css/checkout.css" rel="stylesheet">
-    <link id="color_scheme" href="css/theme-checkoutonly.css" rel="stylesheet">
+    <link id="color_scheme" href="css/theme.css" rel="stylesheet">
 
     <link href="css/responsive.css" rel="stylesheet">
+    <style type="text/css">
+        body {
+            margin-top: 20px;
+        }
 
-    <link rel="stylesheet" href="dist/hotel-datepicker.css">
 
-    <script type="text/javascript" src="dist/fecha.min.js"></script>
-    <script type="text/javascript" src="dist/hotel-datepicker.js"></script>
+        /* Component: Chat */
+        .chat .chat-wrapper .chat-list-wrapper {
+            border: 1px solid #ddd;
+            height: 510px;
+            overflow-y: auto;
+        }
 
+            .chat .chat-wrapper .chat-list-wrapper .chat-list {
+                padding: 0;
+            }
 
+                .chat .chat-wrapper .chat-list-wrapper .chat-list li {
+                    display: block;
+                    padding: 20px 10px;
+                    clear: both;
+                    cursor: pointer;
+                    border-bottom: 1px solid #ddd;
+                    -webkit-transition: all 0.2s ease-in-out;
+                    -moz-transition: all 0.2s ease-in-out;
+                    -ms-transition: all 0.2s ease-in-out;
+                    -o-transition: all 0.2s ease-in-out;
+                    transition: all 0.2s ease-in-out;
+                }
+
+                    .chat .chat-wrapper .chat-list-wrapper .chat-list li .avatar {
+                        margin-right: 12px;
+                        float: left;
+                    }
+
+                        .chat .chat-wrapper .chat-list-wrapper .chat-list li .avatar img {
+                            width: 60px;
+                            height: auto;
+                            border: 4px solid transparent;
+                        }
+
+                        .chat .chat-wrapper .chat-list-wrapper .chat-list li .avatar.available img {
+                            border-color: #2ecc71;
+                        }
+
+                        .chat .chat-wrapper .chat-list-wrapper .chat-list li .avatar.busy img {
+                            border-color: #ff530d;
+                        }
+
+                    .chat .chat-wrapper .chat-list-wrapper .chat-list li .body .header {
+                        margin-top: 4px;
+                        margin-bottom: 4px;
+                    }
+
+                        .chat .chat-wrapper .chat-list-wrapper .chat-list li .body .header .username {
+                            font-weight: bold;
+                        }
+
+                        .chat .chat-wrapper .chat-list-wrapper .chat-list li .body .header .timestamp {
+                            float: right;
+                            color: #999;
+                            font-size: 11px;
+                            line-height: 18px;
+                            font-style: italic;
+                        }
+
+                            .chat .chat-wrapper .chat-list-wrapper .chat-list li .body .header .timestamp i {
+                                margin-right: 4px;
+                            }
+
+                    .chat .chat-wrapper .chat-list-wrapper .chat-list li .body p {
+                        font-size: 12px;
+                        line-height: 16px;
+                        max-height: 32px;
+                        overflow: hidden;
+                    }
+
+                    .chat .chat-wrapper .chat-list-wrapper .chat-list li:hover {
+                        background-color: #f4f4f4;
+                    }
+
+                    .chat .chat-wrapper .chat-list-wrapper .chat-list li.active {
+                        background-color: #eee;
+                        color: black;
+                    }
+
+                        .chat .chat-wrapper .chat-list-wrapper .chat-list li.active .body .timestamp {
+                            color: black;
+                        }
+
+                    .chat .chat-wrapper .chat-list-wrapper .chat-list li.new {
+                        border-left: 2px solid #2ecc71;
+                    }
+
+        .chat .chat-wrapper .message-list-wrapper {
+            border: 1px solid #ddd;
+            height: 452px;
+            position: relative;
+            overflow-y: auto;
+        }
+
+            .chat .chat-wrapper .message-list-wrapper .message-list {
+                padding: 0;
+            }
+
+                .chat .chat-wrapper .message-list-wrapper .message-list li {
+                    display: block;
+                    padding: 20px 10px;
+                    clear: both;
+                    position: relative;
+                    color: white;
+                }
+
+                    .chat .chat-wrapper .message-list-wrapper .message-list li.left .avatar {
+                        margin-right: 12px;
+                        display: block;
+                        float: left;
+                    }
+
+                        .chat .chat-wrapper .message-list-wrapper .message-list li.left .avatar img {
+                            width: 60px;
+                            height: auto;
+                            border: 2px solid transparent;
+                        }
+
+                        .chat .chat-wrapper .message-list-wrapper .message-list li.left .avatar.available img {
+                            border-color: #2ecc71;
+                        }
+
+                        .chat .chat-wrapper .message-list-wrapper .message-list li.left .avatar.busy img {
+                            border-color: #ff530d;
+                        }
+
+                    .chat .chat-wrapper .message-list-wrapper .message-list li.left .username {
+                        float: left;
+                        display: none;
+                    }
+
+                    .chat .chat-wrapper .message-list-wrapper .message-list li.left .timestamp {
+                        text-align: left;
+                        display: block;
+                        color: #999;
+                        font-size: 11px;
+                        line-height: 18px;
+                        font-style: italic;
+                        margin-bottom: 4px;
+                    }
+
+                        .chat .chat-wrapper .message-list-wrapper .message-list li.left .timestamp i {
+                            margin-right: 4px;
+                        }
+
+                    .chat .chat-wrapper .message-list-wrapper .message-list li.left .body {
+                        display: block;
+                        width: 87%;
+                        float: left;
+                        position: relative;
+                    }
+
+                        .chat .chat-wrapper .message-list-wrapper .message-list li.left .body .message {
+                            font-size: 12px;
+                            line-height: 16px;
+                            display: inline-block;
+                            width: auto;
+                            background: #2ecc71;
+                        }
+
+                            .chat .chat-wrapper .message-list-wrapper .message-list li.left .body .message:before {
+                                content: '';
+                                display: block;
+                                position: absolute;
+                                width: 0;
+                                height: 0;
+                                border-style: solid;
+                                border-width: 9px 9px 9px 0;
+                                border-color: transparent #2ecc71 transparent transparent;
+                                left: 0;
+                                top: 10px;
+                                margin-left: -8px;
+                            }
+
+                            .chat .chat-wrapper .message-list-wrapper .message-list li.left .body .message a.white {
+                                color: white;
+                                font-weight: bolder;
+                                text-decoration: underline;
+                            }
+
+                            .chat .chat-wrapper .message-list-wrapper .message-list li.left .body .message img {
+                                max-width: 320px;
+                                max-height: 320px;
+                                width: 100%;
+                                height: auto;
+                                margin-bottom: 5px;
+                            }
+
+                    .chat .chat-wrapper .message-list-wrapper .message-list li.right .avatar {
+                        margin-left: 12px;
+                        display: block;
+                        float: right;
+                    }
+
+                        .chat .chat-wrapper .message-list-wrapper .message-list li.right .avatar img {
+                            width: 60px;
+                            height: auto;
+                            border: 2px solid transparent;
+                        }
+
+                        .chat .chat-wrapper .message-list-wrapper .message-list li.right .avatar.available img {
+                            border-color: #2ecc71;
+                        }
+
+                        .chat .chat-wrapper .message-list-wrapper .message-list li.right .avatar.busy img {
+                            border-color: #ff530d;
+                        }
+
+                    .chat .chat-wrapper .message-list-wrapper .message-list li.right .username {
+                        float: right;
+                        display: none;
+                    }
+
+                    .chat .chat-wrapper .message-list-wrapper .message-list li.right .timestamp {
+                        text-align: right;
+                        display: block;
+                        color: #999;
+                        font-size: 11px;
+                        line-height: 18px;
+                        font-style: italic;
+                        margin-bottom: 4px;
+                    }
+
+                        .chat .chat-wrapper .message-list-wrapper .message-list li.right .timestamp i {
+                            margin-right: 4px;
+                        }
+
+                    .chat .chat-wrapper .message-list-wrapper .message-list li.right .body {
+                        display: block;
+                        width: 87%;
+                        float: right;
+                        position: relative;
+                        text-align: right;
+                    }
+
+                        .chat .chat-wrapper .message-list-wrapper .message-list li.right .body .message {
+                            font-size: 12px;
+                            line-height: 16px;
+                            display: inline-block;
+                            width: auto;
+                            background: #3498db;
+                        }
+
+                            .chat .chat-wrapper .message-list-wrapper .message-list li.right .body .message:after {
+                                content: '';
+                                display: block;
+                                position: absolute;
+                                width: 0;
+                                height: 0;
+                                border-style: solid;
+                                border-width: 9px 9px 9px 0;
+                                border-color: transparent #3498db transparent transparent;
+                                right: 0;
+                                top: 10px;
+                                margin-right: -7px;
+                                -moz-transform: rotate(180deg);
+                                -o-transform: rotate(180deg);
+                                -webkit-transform: rotate(180deg);
+                                -ms-transform: rotate(180deg);
+                                transform: rotate(180deg);
+                            }
+
+                            .chat .chat-wrapper .message-list-wrapper .message-list li.right .body .message a.white {
+                                color: white;
+                                font-weight: bold;
+                            }
+
+                            .chat .chat-wrapper .message-list-wrapper .message-list li.right .body .message img {
+                                max-width: 320px;
+                                max-height: 320px;
+                                width: 100%;
+                                height: auto;
+                                margin-bottom: 5px;
+                            }
+
+        .chat .chat-wrapper .compose-area {
+            padding: 10px 0;
+            text-align: right;
+        }
+
+        .chat .chat-wrapper .compose-box {
+            padding: 10px 0;
+        }
+
+        .chat .chat-wrapper .recipient-box {
+            padding: 10px 0;
+        }
+
+            .chat .chat-wrapper .recipient-box .bootstrap-tagsinput {
+                display: block;
+                width: 100%;
+                margin-bottom: 0;
+            }
+
+        @media (max-width: 767px) {
+            .chat .chat-wrapper .chat-list-wrapper {
+                border: 1px solid #ddd;
+                height: 300px;
+                overflow-y: auto;
+            }
+
+                .chat .chat-wrapper .chat-list-wrapper .chat-list {
+                    padding: 0;
+                }
+
+                    .chat .chat-wrapper .chat-list-wrapper .chat-list li {
+                        display: block;
+                        padding: 20px 10px;
+                        clear: both;
+                        border-bottom: 1px solid #ddd;
+                    }
+
+                        .chat .chat-wrapper .chat-list-wrapper .chat-list li .avatar {
+                            display: none;
+                        }
+
+                        .chat .chat-wrapper .chat-list-wrapper .chat-list li .body .header {
+                            margin-top: 4px;
+                            margin-bottom: 4px;
+                        }
+
+                            .chat .chat-wrapper .chat-list-wrapper .chat-list li .body .header .username {
+                                font-weight: bold;
+                            }
+
+                            .chat .chat-wrapper .chat-list-wrapper .chat-list li .body .header .timestamp {
+                                float: right;
+                                color: #999;
+                                font-size: 11px;
+                                line-height: 18px;
+                                font-style: italic;
+                            }
+
+                                .chat .chat-wrapper .chat-list-wrapper .chat-list li .body .header .timestamp i {
+                                    margin-right: 4px;
+                                }
+
+                        .chat .chat-wrapper .chat-list-wrapper .chat-list li .body p {
+                            display: none;
+                        }
+
+                        .chat .chat-wrapper .chat-list-wrapper .chat-list li.active {
+                            color: black;
+                        }
+
+                            .chat .chat-wrapper .chat-list-wrapper .chat-list li.active .body .timestamp {
+                                color: black;
+                            }
+
+                        .chat .chat-wrapper .chat-list-wrapper .chat-list li.new {
+                            font-weight: bolder;
+                        }
+
+                            .chat .chat-wrapper .chat-list-wrapper .chat-list li.new .body .timestamp {
+                                font-weight: bolder;
+                            }
+
+            .chat .chat-wrapper .message-list-wrapper .message-list li.left .avatar {
+                display: none;
+            }
+
+            .chat .chat-wrapper .message-list-wrapper .message-list li.left .username {
+                display: inline-block;
+                margin-right: 10px;
+            }
+
+            .chat .chat-wrapper .message-list-wrapper .message-list li.left .body {
+                width: 100%;
+            }
+
+            .chat .chat-wrapper .message-list-wrapper .message-list li.right .avatar {
+                display: none;
+            }
+
+            .chat .chat-wrapper .message-list-wrapper .message-list li.right .username {
+                display: inline-block;
+                margin-left: 10px;
+            }
+
+            .chat .chat-wrapper .message-list-wrapper .message-list li.right .timestamp {
+                text-align: right;
+                display: block;
+                color: #999;
+                font-size: 11px;
+                line-height: 18px;
+                font-style: italic;
+                margin-bottom: 4px;
+            }
+
+                .chat .chat-wrapper .message-list-wrapper .message-list li.right .timestamp i {
+                    margin-right: 4px;
+                }
+
+            .chat .chat-wrapper .message-list-wrapper .message-list li.right .body {
+                width: 100%;
+            }
+
+            .chat .chat-wrapper .recipient-box {
+                margin-top: 30px;
+            }
+        }
+
+        .btn-green {
+            background-color: #2ecc71;
+            border-color: #27ae60;
+            color: white;
+        }
+
+        .mg-btm-10 {
+            margin-bottom: 10px !important;
+        }
+
+        .panel-white {
+            border: 1px solid #dddddd;
+        }
+
+        .panel {
+            border-radius: 0;
+            margin-bottom: 30px;
+        }
+
+        .border-top-green {
+            border-top: 4px solid #27ae60 !important;
+        }
+    </style>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
-
-    <form id="form1" runat="server">
 
 <body class="res layout-subpage">
     <div id="wrapper" class="wrapper-full ">
@@ -171,7 +596,9 @@
                                         <p class="text-shopping-cart cart-total-full">2 item(s) - $1,262.00 </p>
                                     </div>
                                 </a>
-                                <ul class="dropdown-menu pull-right shoppingcart-box">
+
+                                <ul class="tab-content content dropdown-menu pull-right shoppingcart-box" role="menu">
+
                                     <li>
                                         <table class="table table-striped">
                                             <tbody>
@@ -240,7 +667,6 @@
                                         </div>
                                     </li>
                                 </ul>
-
                             </div>
                             <!--//cart-->
                         </div>
@@ -1113,324 +1539,318 @@
         </header>
         <!-- //Header Container  -->
         <!-- Main Container  -->
-        <div class="main-container container">
-            <ul class="breadcrumb">
-                <li><a href="#"><i class="fa fa-home"></i></a></li>
-                <li><a href="#">Checkout</a></li>
+    <asp:Repeater ID="rptInfo" runat="server">
+        <ItemTemplate>
+            <div class="main-container container">
+                <ul class="breadcrumb">
+                    <li><a href="#"><i class="fa fa-home"></i></a></li>
+                    <li><a href="#">Rental Infomation	</a></li>
+                </ul>
 
-            </ul>
+                <div class="row">
+                    <!--Middle Part Start-->
+                    <div id="content" class="col-sm-9">
+                        <h2 class="title">Rental Information</h2>
+                        <h2 class="title">Status:                                            
+                            <a href="RentalInfo.aspx?rentalID=<%#Eval("rentalID") %>"><asp:Label ID="lblStatus" runat="server" Text='<%# "" + Eval("status") %>'></asp:Label></a>
+                        </h2>
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <td colspan="2" class="text-left">Rental Details</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="width: 50%;" class="text-left"><b>Rental ID:</b> 
+                                                           <a href="RentalInfo.aspx?rentalID=<%#Eval("rentalID") %>"> <asp:Label ID="lblRentalID" runat="server" Text='<%# Eval("rentalID") %>' /></a>
+								<br>
+                                        <b>Date  Created:</b>   <asp:Label ID="lblDateCreated" runat="server" Text='<%# "" + Eval("dateCreated") %>'></asp:Label>
+																<br>
+                                        <b>Pick Up Location:</b>  <asp:Label ID="lblPickUpLocation" runat="server" Text='<%# "" + Eval("pickUpLocation") %>'></asp:Label>
+								<br>
+                                        <b>Pick Up Time:</b>  <asp:Label ID="lblPickUpTime" runat="server" Text='<%# "" + Eval("pickUpTime") %>'></asp:Label>
+								<br>
+                                        <b>Return Location: </b>  <asp:Label ID="lblReturnLocvation" runat="server" Text='<%# "" + Eval("returnLocation") %>'></asp:Label>
+								<br>
+                                        <b>Return Time: </b> <asp:Label ID="lblReturnTime" runat="server" Text='<%# "" + Eval("returnTime") %>'></asp:Label>
+																
 
-            <div class="row">
-                <!--Middle Part Start-->
-                <div id="content" class="col-lg-12">
-                    <h2 class="title">Checkout</h2>
-                    <div class="so-onepagecheckout ">
+								
+								<br>
+                                    </td>
+                                    <td style="width: 50%;" class="text-left"><b>Rental Start Date:</b> <asp:Label ID="lblStartDate" runat="server" Text='<%# "" + Eval("startDate") %>'></asp:Label>
+								<br>
+                                        <b>Rental End Date:</b> <asp:Label ID="Label1" runat="server" Text='<%# "" + Eval("endDate") %>'></asp:Label> 
+																<br>
+                                        <b>Deposit:</b> <asp:Label ID="lblDeposit" runat="server" Text='<%# "" + Eval("deposit") %>'></asp:Label>
+								<br>
+                                        <b>Rental Fee:</b> <asp:Label ID="Label4" runat="server" Text='<%# "" + Eval("rentalFee") %>'></asp:Label> </td>
+                                    <br>
+                                </tr>
+                            </tbody>
+                        </table>
+        </ItemTemplate>
+    </asp:Repeater>
+
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="panel panel-white border-top-green">
+                                <div class="panel-body chat">
+                                    <div class="row chat-wrapper">
+
+                                                                                                    <form id="form1" runat="server">
+
+                                        <div class="col-sm-12">
+
+
+                                            <div>
+
+                                                <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 452px;">
+                                                    <div class="message-list-wrapper" style="overflow: hidden; width: auto; height: 452px;">
+                                                        <ul class="message-list">
+
+                                                                <asp:Repeater ID="rptMessages" runat="server">
+                                                                    <ItemTemplate>
+                                                                        <asp:Label ID="Label3" runat="server" Text='<%# retrieveMessage(Convert.ToString(Eval("Sender.MemberID")), Convert.ToString(Eval("reply")), String.Format("{0:dd MMM yy   HH:mm}", Eval("Date")))%>'></asp:Label>
+                                                                    </ItemTemplate>
+                                                                </asp:Repeater>
 
 
 
-                        <div class="col-lg-12">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="panel panel-default no-padding">
-                                        <div class="col-sm-6 checkout-shipping-methods">
-                                            <div class="panel-heading">
-                                                <h4 class="panel-title"><i class="fa fa-quotes"></i>Personal Info</h4>
-                                            </div>
-                                            <div class="panel-body">
-                                                <fieldset id="account">
-                                                    <div class="form-group required">
-                                                        <label for="input-payment-firstname" class="control-label">Full Name</label>
-                                                        <input type="text" class="form-control" id="input-payment-firstname" placeholder="Full Name" value="" name="firstname">
+
+                                                        </ul>
                                                     </div>
-                                                    <div class="form-group required">
-                                                        <label for="input-payment-email" class="control-label">E-mail</label>
-                                                        <input type="text" class="form-control" id="input-payment-email" placeholder="E-mail" value="" name="email">
-                                                    </div>
-                                                    <div class="form-group required">
-                                                        <label for="input-payment-telephone" class="control-label">Mobile Number</label>
-                                                        <input type="text" class="form-control" id="input-payment-telephone" placeholder="Mobile Number" value="" name="telephone">
-                                                    </div>
-                                                </fieldset>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6  checkout-payment-methods">
-                                            <div class="panel-heading">
-                                                <h4 class="panel-title"><i class="fa fa-truck"></i>Delivery Info</h4>
-                                            </div>
-                                            <div class="panel-body">
-                                                <fieldset id="address" class="required">
-                                                    <div class="form-group required">
-                                                        <label for="input-payment-address-1" class="control-label">Address 1</label>
-                                                        <input type="text" class="form-control" id="input-payment-address-1" placeholder="Address 1">
-                                                    </div>
-                                                    <div class="form-group required">
-                                                        <label for="input-payment-address-2" class="control-label">IC Number</label>
-                                                        <input type="text" class="form-control" id="input-payment-address-2" placeholder="IC Number">
-                                                    </div>
-                                                    <div class="form-group required">
-                                                        <label for="input-payment-city" class="control-label">City</label>
-                                                        <input type="text" class="form-control" id="input-payment-city" placeholder="City" value="" name="city">
-                                                    </div>
-                                                    <div class="form-group required">
-                                                        <label for="input-payment-postcode" class="control-label">Post Code</label>
-                                                        <input type="text" class="form-control" id="input-payment-postcode" placeholder="Post Code" value="" name="postcode">
-                                                    </div>
+                                                    <div class="slimScrollBar" style="width: 7px; position: absolute; top: 265px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 187.092px; background: rgb(0, 0, 0);"></div>
+                                                    <div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div>
+                                                </div>
 
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" checked="checked" value="1" name="shipping_address">
-                                                            My delivery and billing addresses are the same.</label>
-                                                    </div>
-                                                </fieldset>
-                                            </div>
-                                        </div>
-                                    </div>
+                                                  <asp:Panel ID="Panel1" runat="server" DefaultButton="btnSend">
 
+                                                <div class="compose-box">
+                                                    <div class="row">
+                                                        <div class="col-xs-12 mg-btm-10">
+                                                            <asp:TextBox CssClass="form-control input-sm" placeholder="Type your message here..." ID="tbxMessage" runat="server"></asp:TextBox>
+                                                        </div>
+                                                        <div class="col-xs-8">
+                                                            <button class="btn btn-green btn-sm">
+                                                                <i class="fa fa-camera"></i>
+                                                            </button>
+                                                            <button class="btn btn-green btn-sm">
+                                                                <i class="fa fa-video-camera"></i>
+                                                            </button>
+                                                            <button class="btn btn-green btn-sm">
+                                                                <i class="fa fa-file"></i>
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-xs-4">
 
-
-                                </div>
-
-
-
-
-                                <div class="col-sm-12">
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <h4 class="panel-title"><i class="fa fa-shopping-cart"></i>Shopping cart</h4>
-                                        </div>
-                                        <div class="panel-body">
-                                            <div class="table-responsive">
-                                                <table class="table table-bordered">
-                                                    <thead>
-                                                        <tr>
-                                                            <td class="text-center"></td>
-                                                            <td class="text-center">Image</td>
-                                                            <td class="text-left">Product Name</td>
-                                                            <td class="text-left">Rental Period</td>
-                                                            <td class="text-left">Rental Rate</td>
-
-                                                            <td class="text-left">Deposit Amount</td>
-                                                            <td class="text-right">Total</td>
-                                                        </tr>
-                                                    </thead>
-
-
-                                                    <tbody>
-
-
-
-
-                                                        <tr>
-                                                            <td class="text-center">
-                                                                <p></p>
-                                                                <button type="button" data-toggle="tooltip" title="Remove" class="btn btn-danger" onclick=""><i class="fa fa-times-circle"></i></button>
-                                                            </td>
-
-                                                            <asp:Repeater ID="rptItemRentalInfo" runat="server">
-                                                                <ItemTemplate>
-                                                                    <td class="text-center"><a href="product.html">
-                                                                        <img width="60px" src="/image/item/<%# DataBinder.Eval(Container.DataItem, "img1") %>" class="img-thumbnail"></a></td>
-                                                                    <td class="text-left"><a href="product.html">
-                                                                        <asp:Label ID="lblItemName" runat="server" Text='<%# Eval("name") %>' /></a></td>
-                                                                    <td class="text-left">
-                                                                        <div class="input-group btn-block" style="min-width: 100px;">
-
-                                                                            <div>
-
-                                                                                <input style="table-layout: fixed;" type="text" name="input-id" id="input-id" value="" class="form-control">
-                                                                            </div>
-
-
-
-                                                                            <span class="input-group-btn">
-                                                                                <asp:Button CssClass="btn btn-primary" ID="btnUpdate" runat="server" OnClick="btnUpdate_Click" Text="Update" />
-                                                                            </span>
-                                                                        </div>
-                                                                    </td>
-                                                                </ItemTemplate>
-                                                            </asp:Repeater>
-                                                            <td class="text-right"><asp:Label ID="lblRentalRate" runat="server" Text="Select date and Update"></asp:Label></td>
-                                                            <td class="text-right"><asp:Label ID="lblDepositAmount" runat="server" Text=""></asp:Label></td>
-                                                            <td class="text-right"><asp:Label ID="lblTotalAmount" runat="server" Text=""></asp:Label></td>
-                                                        </tr>
-
-
-
-                                                    </tbody>
-
-
-                                                    <tfoot>
-                                                        <tr>
-                                                            <td class="text-right" colspan="1"><strong>Meeting Location:</strong></td>
-                                                            <td class="text-left" colspan="6"><asp:Label ID="lblMeetingLocation" runat="server" Text=""></asp:Label></td>
-
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="text-right" colspan="6"><strong>Total Amount Payable:</strong></td>
-                                                            <td class="text-right">
-                                                                <asp:Label ID="lblTotalAmountPayable" runat="server" Text=""></asp:Label></td>
-                                                        </tr>
-                                                    </tfoot>
-                                                </table>
-                                                <label class="control-label" for="confirm_agree">
-                                                    <input type="checkbox" checked="checked" value="1" required="" class="validate required" id="confirm_agree" name="confirm agree">
-                                                    <span>I have read and agree to the <a class="agree" href="#"><b>Terms &amp; Conditions</b></a></span>
-                                                </label>
-                                                <div class="buttons">
-                                                    <div class="pull-right">
-                                                        <asp:Button ID="btnConfirm" CssClass="btn btn-primary" runat="server" Text="Confirm" />
+                                                         <asp:Button CssClass="btn btn-green btn-sm pull-right" id="btnSend" runat="server" OnClick="btnSend_Click" Text="Send" />
+                                                        </div>
                                                     </div>
                                                 </div>
+                                                      </asp:Panel>
                                             </div>
+
                                         </div>
+                                        </form>
                                     </div>
+
                                 </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- end chat -->
 
 
+                <div class="buttons clearfix">
+                    <div class="pull-right">
+                        <a class="btn btn-primary" href="#">Continue</a>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+            <!--Middle Part End-->
+            <!--Right Part Start -->
+            <aside class="col-sm-3 hidden-xs" id="column-right">
+                <h2 class="subtitle">Account</h2>
+                <div class="list-group">
+                    <ul class="list-item">
+                        <li><a href="login.html">Login</a>
+                        </li>
+                        <li><a href="register.html">Register</a>
+                        </li>
+                        <li><a href="#">Forgotten Password</a>
+                        </li>
+                        <li><a href="#">My Account</a>
+                        </li>
+                        <li><a href="#">Address Books</a>
+                        </li>
+                        <li><a href="wishlist.html">Wish List</a>
+                        </li>
+                        <li><a href="#">Order History</a>
+                        </li>
+                        <li><a href="#">Downloads</a>
+                        </li>
+                        <li><a href="#">Reward Points</a>
+                        </li>
+                        <li><a href="#">Returns</a>
+                        </li>
+                        <li><a href="#">Transactions</a>
+                        </li>
+                        <li><a href="#">Newsletter</a>
+                        </li>
+                        <li><a href="#">Recurring payments</a>
+                        </li>
+                    </ul>
+                </div>
+            </aside>
+            <!--Right Part End -->
+        </div>
+    </div>
+    <!-- //Main Container -->
+
+
+    <!-- Footer Container -->
+    <footer class="footer-container type_footer1">
+        <!-- Footer Top Container -->
+        <section class="footer-top">
+            <div class="container content">
+                <div class="row">
+                    <div class="col-sm-6 col-md-3 box-information">
+                        <div class="module clearfix">
+                            <h3 class="modtitle">Information</h3>
+                            <div class="modcontent">
+                                <ul class="menu">
+                                    <li><a href="about-us.html">About Us</a></li>
+                                    <li><a href="faq.html">FAQ</a></li>
+                                    <li><a href="order-history.html">Order history</a></li>
+                                    <li><a href="order-information.html">Order information</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-3 box-service">
+                        <div class="module clearfix">
+                            <h3 class="modtitle">Customer Service</h3>
+                            <div class="modcontent">
+                                <ul class="menu">
+                                    <li><a href="contact.html">Contact Us</a></li>
+                                    <li><a href="return.html">Returns</a></li>
+                                    <li><a href="sitemap.html">Site Map</a></li>
+                                    <li><a href="my-account.html">My Account</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-3 box-account">
+                        <div class="module clearfix">
+                            <h3 class="modtitle">My Account</h3>
+                            <div class="modcontent">
+                                <ul class="menu">
+                                    <li><a href="#">Brands</a></li>
+                                    <li><a href="gift-voucher.html">Gift Vouchers</a></li>
+                                    <li><a href="#">Affiliates</a></li>
+                                    <li><a href="#">Specials</a></li>
+                                    <li><a href="#" target="_blank">Our Blog</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-3 collapsed-block ">
+                        <div class="module clearfix">
+                            <h3 class="modtitle">Contact Us	</h3>
+                            <div class="modcontent">
+                                <ul class="contact-address">
+                                    <li><span class="fa fa-map-marker"></span>My Company, 42 avenue des Champs Elysées 75000 Paris France</li>
+                                    <li><span class="fa fa-envelope-o"></span>Email: <a href="#">sales@yourcompany.com</a></li>
+                                    <li><span class="fa fa-phone">&nbsp;</span> Phone 1: 0123456789
+                                        <br>
+                                        Phone 2: (123) 4567890</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 collapsed-block footer-links">
+                        <div class="module clearfix">
+                            <div class="modcontent">
+                                <hr class="footer-lines">
+                                <div class="footer-directory-title">
+                                    <h4 class="label-link">Top Stores : Brand Directory | Store Directory</h4>
+                                    <ul class="footer-directory">
+                                        <li>
+                                            <h4>MOST SEARCHED KEYWORDS MARKET:</h4>
+                                            <a href="#">Xiaomi Mi3</a> | <a href="#">Digiflip Pro XT 712 Tablet</a> | <a href="#">Mi 3 Phones</a> | <a href="#">View all</a></li>
+                                        <li>
+                                            <h4>MOBILES:</h4>
+                                            <a href="#">Moto E</a> | <a href="#">Samsung Mobile</a> | <a href="#">Micromax Mobile</a> | <a href="#">Nokia Mobile</a> | <a href="#">HTC Mobile</a> | <a href="#">Sony Mobile</a> | <a href="#">Apple Mobile</a> | <a href="#">LG Mobile</a> | <a href="#">Karbonn Mobile</a> | <a href="#">View all</a></li>
+                                        <li>
+                                            <h4>CAMERA:</h4>
+                                            <a href="#">Nikon Camera</a> | <a href="#">Canon Camera</a> | <a href="#">Sony Camera</a> | <a href="#">Samsung Camera</a> | <a href="#">Point shoot camera</a> | <a href="#">Camera Lens</a> | <a href="#">Camera Tripod</a> | <a href="#">Camera Bag</a> | <a href="#">View all</a></li>
+                                        <li>
+                                            <h4>LAPTOPS:</h4>
+                                            <a href="#">Apple Laptop</a> | <a href="#">Acer Laptop</a> | <a href="#">Sony Laptop</a> | <a href="#">Dell Laptop</a> | <a href="#">Asus Laptop</a> | <a href="#">Toshiba Laptop</a> | <a href="#">LG Laptop</a> | <a href="#">HP Laptop</a> | <a href="#">Notebook</a> | <a href="#">View all</a></li>
+                                        <li>
+                                            <h4>TVS:</h4>
+                                            <a href="#">Sony TV</a> | <a href="#">Samsung TV</a> | <a href="#">LG TV</a> | <a href="#">Panasonic TV</a> | <a href="#">Onida TV</a> | <a href="#">Toshiba TV</a> | <a href="#">Philips TV</a> | <a href="#">Micromax TV</a> | <a href="#">LED TV</a> | <a href="#">LCD TV</a> | <a href="#">Plasma TV</a> | <a href="#">3D TV</a> | <a href="#">Smart TV</a> | <a href="#">View all</a></li>
+                                        <li>
+                                            <h4>TABLETS:</h4>
+                                            <a href="#">Micromax Tablets</a> | <a href="#">HCL Tablets</a> | <a href="#">Samsung Tablets</a> | <a href="#">Lenovo Tablets</a> | <a href="#">Karbonn Tablets</a> | <a href="#">Asus Tablets</a> | <a href="#">Apple Tablets</a> | <a href="#">View all</a></li>
+                                        <li>
+                                            <h4>WATCHES:</h4>
+                                            <a href="#">FCUK Watches</a> | <a href="#">Titan Watches</a> | <a href="#">Casio Watches</a> | <a href="#">Fastrack Watches</a> | <a href="#">Timex Watches</a> | <a href="#">Fossil Watches</a> | <a href="#">Diesel Watches</a> | <a href="#">Luxury Watches</a> | <a href="#">View all</a></li>
+                                        <li>
+                                            <h4>CLOTHING:</h4>
+                                            <a href="#">Shirts</a> | <a href="#">Jeans</a> | <a href="#">T shirts</a> | <a href="#">Kurtis</a> | <a href="#">Sarees</a> | <a href="#">Levis Jeans</a> | <a href="#">Killer Jeans</a> | <a href="#">Pepe Jeans</a> | <a href="#">Arrow Shirts</a> | <a href="#">Ethnic Wear</a> | <a href="#">Formal Shirts</a> | <a href="#">Peter England Shirts</a> | <a href="#">View all</a></li>
+                                        <li>
+                                            <h4>FOOTWEAR:</h4>
+                                            <a href="#">Shoes</a> | <a href="#">Casual Shoes</a> | <a href="#">Adidas Shoes</a> | <a href="#">Gas Shoes</a> | <a href="#">Puma Shoes</a> | <a href="#">Reebok Shoes</a> | <a href="#">Woodland Shoes</a> | <a href="#">Red tape Shoes</a> | <a href="#">Nike Shoes</a> | <a href="#">View all</a></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!--Middle Part End -->
+            </div>
+        </section>
+        <!-- /Footer Top Container -->
 
+        <!-- Footer Bottom Container -->
+        <div class="footer-bottom-block ">
+            <div class=" container">
+                <div class="row">
+                    <div class="col-sm-5 copyright-text">© 2016 Market. All Rights Reserved. </div>
+                    <div class="col-sm-7">
+                        <div class="block-payment text-right">
+                            <img src="image/demo/content/payment.png" alt="payment" title="payment">
+                        </div>
+                    </div>
+                    <!--Back To Top-->
+                    <div class="back-to-top"><i class="fa fa-angle-up"></i><span>Top </span></div>
+
+                </div>
             </div>
         </div>
-        <!-- //Main Container -->
-
-        <!-- Footer Container -->
-        <footer class="footer-container type_footer1">
-            <!-- Footer Top Container -->
-            <section class="footer-top">
-                <div class="container content">
-                    <div class="row">
-                        <div class="col-sm-6 col-md-3 box-information">
-                            <div class="module clearfix">
-                                <h3 class="modtitle">Information</h3>
-                                <div class="modcontent">
-                                    <ul class="menu">
-                                        <li><a href="about-us.html">About Us</a></li>
-                                        <li><a href="faq.html">FAQ</a></li>
-                                        <li><a href="order-history.html">Order history</a></li>
-                                        <li><a href="order-information.html">Order information</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6 col-md-3 box-service">
-                            <div class="module clearfix">
-                                <h3 class="modtitle">Customer Service</h3>
-                                <div class="modcontent">
-                                    <ul class="menu">
-                                        <li><a href="contact.html">Contact Us</a></li>
-                                        <li><a href="return.html">Returns</a></li>
-                                        <li><a href="sitemap.html">Site Map</a></li>
-                                        <li><a href="my-account.html">My Account</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6 col-md-3 box-account">
-                            <div class="module clearfix">
-                                <h3 class="modtitle">My Account</h3>
-                                <div class="modcontent">
-                                    <ul class="menu">
-                                        <li><a href="#">Brands</a></li>
-                                        <li><a href="gift-voucher.html">Gift Vouchers</a></li>
-                                        <li><a href="#">Affiliates</a></li>
-                                        <li><a href="#">Specials</a></li>
-                                        <li><a href="#" target="_blank">Our Blog</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6 col-md-3 collapsed-block ">
-                            <div class="module clearfix">
-                                <h3 class="modtitle">Contact Us	</h3>
-                                <div class="modcontent">
-                                    <ul class="contact-address">
-                                        <li><span class="fa fa-map-marker"></span>My Company, 42 avenue des Champs Elysées 75000 Paris France</li>
-                                        <li><span class="fa fa-envelope-o"></span>Email: <a href="#">sales@yourcompany.com</a></li>
-                                        <li><span class="fa fa-phone">&nbsp;</span> Phone 1: 0123456789
-                                            <br>
-                                            Phone 2: (123) 4567890</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-12 collapsed-block footer-links">
-                            <div class="module clearfix">
-                                <div class="modcontent">
-                                    <hr class="footer-lines">
-                                    <div class="footer-directory-title">
-                                        <h4 class="label-link">Top Stores : Brand Directory | Store Directory</h4>
-                                        <ul class="footer-directory">
-                                            <li>
-                                                <h4>MOST SEARCHED KEYWORDS MARKET:</h4>
-                                                <a href="#">Xiaomi Mi3</a> | <a href="#">Digiflip Pro XT 712 Tablet</a> | <a href="#">Mi 3 Phones</a> | <a href="#">View all</a></li>
-                                            <li>
-                                                <h4>MOBILES:</h4>
-                                                <a href="#">Moto E</a> | <a href="#">Samsung Mobile</a> | <a href="#">Micromax Mobile</a> | <a href="#">Nokia Mobile</a> | <a href="#">HTC Mobile</a> | <a href="#">Sony Mobile</a> | <a href="#">Apple Mobile</a> | <a href="#">LG Mobile</a> | <a href="#">Karbonn Mobile</a> | <a href="#">View all</a></li>
-                                            <li>
-                                                <h4>CAMERA:</h4>
-                                                <a href="#">Nikon Camera</a> | <a href="#">Canon Camera</a> | <a href="#">Sony Camera</a> | <a href="#">Samsung Camera</a> | <a href="#">Point shoot camera</a> | <a href="#">Camera Lens</a> | <a href="#">Camera Tripod</a> | <a href="#">Camera Bag</a> | <a href="#">View all</a></li>
-                                            <li>
-                                                <h4>LAPTOPS:</h4>
-                                                <a href="#">Apple Laptop</a> | <a href="#">Acer Laptop</a> | <a href="#">Sony Laptop</a> | <a href="#">Dell Laptop</a> | <a href="#">Asus Laptop</a> | <a href="#">Toshiba Laptop</a> | <a href="#">LG Laptop</a> | <a href="#">HP Laptop</a> | <a href="#">Notebook</a> | <a href="#">View all</a></li>
-                                            <li>
-                                                <h4>TVS:</h4>
-                                                <a href="#">Sony TV</a> | <a href="#">Samsung TV</a> | <a href="#">LG TV</a> | <a href="#">Panasonic TV</a> | <a href="#">Onida TV</a> | <a href="#">Toshiba TV</a> | <a href="#">Philips TV</a> | <a href="#">Micromax TV</a> | <a href="#">LED TV</a> | <a href="#">LCD TV</a> | <a href="#">Plasma TV</a> | <a href="#">3D TV</a> | <a href="#">Smart TV</a> | <a href="#">View all</a></li>
-                                            <li>
-                                                <h4>TABLETS:</h4>
-                                                <a href="#">Micromax Tablets</a> | <a href="#">HCL Tablets</a> | <a href="#">Samsung Tablets</a> | <a href="#">Lenovo Tablets</a> | <a href="#">Karbonn Tablets</a> | <a href="#">Asus Tablets</a> | <a href="#">Apple Tablets</a> | <a href="#">View all</a></li>
-                                            <li>
-                                                <h4>WATCHES:</h4>
-                                                <a href="#">FCUK Watches</a> | <a href="#">Titan Watches</a> | <a href="#">Casio Watches</a> | <a href="#">Fastrack Watches</a> | <a href="#">Timex Watches</a> | <a href="#">Fossil Watches</a> | <a href="#">Diesel Watches</a> | <a href="#">Luxury Watches</a> | <a href="#">View all</a></li>
-                                            <li>
-                                                <h4>CLOTHING:</h4>
-                                                <a href="#">Shirts</a> | <a href="#">Jeans</a> | <a href="#">T shirts</a> | <a href="#">Kurtis</a> | <a href="#">Sarees</a> | <a href="#">Levis Jeans</a> | <a href="#">Killer Jeans</a> | <a href="#">Pepe Jeans</a> | <a href="#">Arrow Shirts</a> | <a href="#">Ethnic Wear</a> | <a href="#">Formal Shirts</a> | <a href="#">Peter England Shirts</a> | <a href="#">View all</a></li>
-                                            <li>
-                                                <h4>FOOTWEAR:</h4>
-                                                <a href="#">Shoes</a> | <a href="#">Casual Shoes</a> | <a href="#">Adidas Shoes</a> | <a href="#">Gas Shoes</a> | <a href="#">Puma Shoes</a> | <a href="#">Reebok Shoes</a> | <a href="#">Woodland Shoes</a> | <a href="#">Red tape Shoes</a> | <a href="#">Nike Shoes</a> | <a href="#">View all</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- /Footer Top Container -->
-
-            <!-- Footer Bottom Container -->
-            <div class="footer-bottom-block ">
-                <div class=" container">
-                    <div class="row">
-                        <div class="col-sm-5 copyright-text">© 2016 Market. All Rights Reserved. </div>
-                        <div class="col-sm-7">
-                            <div class="block-payment text-right">
-                                <img src="image/demo/content/payment.png" alt="payment" title="payment">
-                            </div>
-                        </div>
-                        <!--Back To Top-->
-                        <div class="back-to-top"><i class="fa fa-angle-up"></i><span>Top </span></div>
-
-                    </div>
-                </div>
-            </div>
-            <!-- /Footer Bottom Container -->
+        <!-- /Footer Bottom Container -->
 
 
-        </footer>
-        <!-- //end Footer Container -->
+    </footer>
+    <!-- //end Footer Container -->
 
     </div>
-
-
-
+	
+	
     <!-- Include Libs & Plugins
 	============================================ -->
     <!-- Placed at the end of the document so the pages load faster -->
@@ -1453,19 +1873,19 @@
     <script type="text/javascript" src="js/themejs/so_megamenu.js"></script>
     <script type="text/javascript" src="js/themejs/addtocart.js"></script>
     <script type="text/javascript" src="js/themejs/application.js"></script>
+    <script type="text/javascript" src="js/themejs/jquery.nicescroll.min.js"></script>
 
     <script type="text/javascript">
-        (function () {
-            // ------------------- DEMO 1 ------------------- //
+        $(function () {
+            $(".chat-list-wrapper, .message-list-wrapper").niceScroll();
+        })
 
-            var today = new Date();
-            var tomorrow = new Date();
-            tomorrow.setDate(tomorrow.getDate() + 1);
-            var HotelDatepicker = document.getElementById('input-id');
-            input1.value = fecha.format(today, 'YYYY-MM-DD') + ' - ' + fecha.format(tomorrow, 'YYYY-MM-DD');
-
-        })();
+        $(function () {
+        $(".message-list-wrapper").getNiceScroll(0).doScrollTop($(".message-list").height(), -1); // -1 is the animation duration
+        })
     </script>
+
+
+
 </body>
-        </form>
 </html>
