@@ -17,7 +17,13 @@ public partial class ViewFeedback : System.Web.UI.Page
         }
 
         if (Request["rentid"] == null)
+        { 
+
             Response.Redirect("RentalHistory.aspx");
+            return;
+        }
+
+
 
         List<Rental> rentalInfoDetails = new List<Rental>();
         Rental rentalInfo = RentalDB.getRentalbyID((Request["rentid"].ToString()));

@@ -24,18 +24,18 @@
                         <div class="row">
                             <div class="col-sm-6 new-customer">
                                 <div class="well">
-                                    <h2><i class="fa fa-file-o" aria-hidden="true"></i>New Customer</h2>
+                                    <h2><i class="fa fa-file-o" aria-hidden="true"></i> New Customer</h2>
                                     <p>By creating an account you will be able to shop faster, be up to date on an order's status, and keep track of the orders you have previously made.</p>
                                 </div>
                                 <div class="bottom-form">
-                                    <a href="#" class="btn btn-default pull-right">Continue</a>
+                                    <a href="/Register.aspx" class="btn btn-default pull-right">Continue</a>
                                 </div>
                             </div>
 
                             <div>
                                 <div class="col-sm-6 customer-login">
                                     <div class="well">
-                                        <h2><i class="fa fa-file-text-o" aria-hidden="true"></i>Returning Customer</h2>
+                                        <h2><i class="fa fa-file-text-o" aria-hidden="true"></i> Returning Customer</h2>
                                         <p><strong>I am a returning customer</strong></p>
                                         <div class="form-group">
                                             <label class="control-label " for="input-email">Email Address</label>

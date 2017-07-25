@@ -9,13 +9,7 @@ public partial class Categories : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["SearchListToDisplay"] == null)
-        {
-            List<Item> itemList = ItemDB.getAllItem();
-            repeaterItemList.DataSource = itemList;
-            repeaterItemList.DataBind();
-        }
-        else
+        if (Session["SearchListToDisplay"] != null)
         {
             List<Item> itemList = new List<Item>();
 
@@ -24,6 +18,23 @@ public partial class Categories : System.Web.UI.Page
             repeaterItemList.DataBind();
 
             Session["SearchListToDisplay"] = null;
+
+
+        }
+        else if(Request.QueryString["categoryName"] != null)
+        {
+            List<Item> itemList = new List<Item>();
+
+            itemList = ItemDB.getAllItemByCategory(Request.QueryString["categoryName"]);
+            repeaterItemList.DataSource = itemList;
+            repeaterItemList.DataBind();
+        }
+        else
+        {
+
+            List<Item> itemList = ItemDB.getAllItem();
+            repeaterItemList.DataSource = itemList;
+            repeaterItemList.DataBind();
         }
 
 

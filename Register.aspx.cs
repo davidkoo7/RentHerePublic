@@ -69,6 +69,7 @@ public partial class Register : System.Web.UI.Page
 
         if(tbxPassword.Value != tbxPasswordConfirm.Value)
         {
+            pnlMessageOutput.Visible = true;
             lblOutput.Text = "Password is not match";
             return;
         }

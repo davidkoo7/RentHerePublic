@@ -14,6 +14,8 @@ public partial class ItemRental : System.Web.UI.Page
     {
         if (Request.QueryString["itemID"] == null)
         {
+            Response.Redirect("Categories.aspx");
+            return;
         }
 
         lblDepositAmount.Text = ItemDB.getItembyID(Request.QueryString["itemID"]).Deposit.ToString();
@@ -60,10 +62,14 @@ public partial class ItemRental : System.Web.UI.Page
             List<Rental> itemRental = RentalDB.getRentalofItem(Request.QueryString["itemID"], "Scheduled");
             List<Rental> itemRentalInfo = RentalDB.getRentalofItem(Request.QueryString["itemID"], "On-going");
 
-            for (var date = itemRentalInfo[0].StartDate; date <= itemExtension.NewEndDate; date = date.AddDays(1))
+            if (itemExtension != null)
             {
-                selectedDates.Add(date);
+                for (var date = itemRentalInfo[0].StartDate; date <= itemExtension.NewEndDate; date = date.AddDays(1))
+                {
+                    selectedDates.Add(date);
+                }
             }
+
 
             foreach (Rental rental in itemRental)
             {
@@ -80,8 +86,20 @@ public partial class ItemRental : System.Web.UI.Page
 
                 string temp = selectedDates[i].ToString();
                 temp = temp.Replace(" 12:00:00 AM", "");
+                DateTime dt = new DateTime();
+                int temp2 = temp.IndexOf("/");
 
-                DateTime dt = DateTime.ParseExact(temp, "dd/M/yyyy", CultureInfo.InvariantCulture);
+                // Make sure that the day is single digit
+                if (temp2 == 1)
+                {
+                    dt = DateTime.ParseExact(temp, "d/M/yyyy", CultureInfo.InvariantCulture);
+
+                }
+                else
+                {
+                    dt = DateTime.ParseExact(temp, "dd/M/yyyy", CultureInfo.InvariantCulture);
+
+                }
 
                 disabledDate = disabledDate + "'" + dt.ToString("yyyy-MM-dd") + "'" + ", ";
 
@@ -100,12 +118,69 @@ true);
 
     protected void btnUpdate_Click(object sender, EventArgs e)
     {
+
         Item itemRental = ItemDB.getItembyID(Request.QueryString["itemID"]);
         string n = String.Format("{0}", Request.Form["input-id"]);
         DateTime startDate = Convert.ToDateTime(n.Substring(0, 10));
         DateTime endDate = Convert.ToDateTime(n.Substring(n.Length - 10));
 
-        Response.Redirect("~/Payment.aspx");
+        int numOfDays = Convert.ToInt32((endDate - startDate).TotalDays);
+        
+
+        decimal totalDayPrice = 0, totalWeekPrice = 0, totalMonthPrice = 0, amountDue = 0;
+
+        if (itemRental.PricePerMonth != 0)
+        {
+            totalMonthPrice = (numOfDays / 30) * itemRental.PricePerMonth;
+            if (itemRental.PricePerWeek != 0)
+            {
+                totalWeekPrice = (numOfDays % 30) / 7 * itemRental.PricePerWeek;
+            }
+
+
+            if (itemRental.PricePerDay != 0)
+            {
+                totalDayPrice = (numOfDays % 30) % 7 * itemRental.PricePerDay;
+
+
+
+            }
+            else
+            {
+                totalDayPrice = (numOfDays % 30) * itemRental.PricePerDay;
+            }
+
+
+        }
+        else
+        {
+            if (itemRental.PricePerWeek != 0)
+            {
+                totalWeekPrice = numOfDays / 7 * itemRental.PricePerWeek;
+            }
+
+
+            if (itemRental.PricePerDay != 0)
+            {
+                totalDayPrice = (numOfDays % 7) * itemRental.PricePerDay;
+
+
+
+            }
+            else
+            {
+                totalDayPrice = (numOfDays * itemRental.PricePerDay);
+            }
+
+
+
+            
+        }
+        amountDue = totalDayPrice + totalWeekPrice + totalMonthPrice;
+        lblRentalRate.Text = amountDue.ToString();
+
+        pnlMessageOutput.Visible = true; 
+        lblOutput.Text = "";
 
     }
 }

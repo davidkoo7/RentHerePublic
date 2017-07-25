@@ -62,7 +62,7 @@ public partial class ProductDetails : System.Web.UI.Page
 
             Label lblItemStatus = e.Item.FindControl("lblItemStatus") as Label;
             lblItemStatus.Text = itemStatus;
-            if (itemStatus == "On-going")
+            if (itemStatus == "On-going" || itemStatus == "On-going Extended")
                 btnRent.Text = "Reserve Now";
             else
                 btnRent.Text = "Rent Now";

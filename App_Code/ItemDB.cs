@@ -35,6 +35,34 @@ public class ItemDB
         return itemList;
     }
 
+    public static List<Item> getAllItemByCategory(string categoryName)
+    {
+        List<Item> itemList = new List<Item>();
+        try
+        {
+            SqlCommand command = new SqlCommand("SELECT * FROM Item WHERE categoryName = @categoryName");
+            command.Parameters.AddWithValue("@categoryName", categoryName);
+            command.Connection = connection;
+            connection.Open();
+            SqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                Item i = new Item();
+                readAItem(ref i, ref reader);
+
+                itemList.Add(i);
+            }
+            reader.Close();
+        }
+        finally
+        {
+            connection.Close();
+        }
+        return itemList;
+    }
+
+
     // Need to clarify whether this particular function is working
     public static List<Item> searchItembyName(string keyword, string location, string categoryName)
     {

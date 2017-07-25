@@ -43,7 +43,7 @@ public class Item
     }
 
     public Item() { }
-
+    
     public string ItemID { get { return itemID; } set { itemID = value; } }
     public string Name { get { return name; } set { name = value; } }
     public string Description { get { return description; } set { description = value; } }

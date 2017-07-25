@@ -10,14 +10,14 @@ public partial class ItemPostedDetails : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         List<Item> itemInfoDetails = new List<Item>();
-        Item itemInfo = ItemDB.getItembyID(("ITM000000001"));
+        Item itemInfo = ItemDB.getItembyID(("ITM000000003"));
 
         itemInfoDetails.Add(itemInfo);
 
         rptInfo.DataSource = itemInfoDetails;
         rptInfo.DataBind();
 
-            List<Rental> itemRental = RentalDB.getRentalofItem("ITM000000001", null);
+            List<Rental> itemRental = RentalDB.getRentalofItem("ITM000000003", null);
 
         rptRentalHistory.DataSource = itemRental;
         rptRentalHistory.DataBind();
@@ -31,7 +31,7 @@ public partial class ItemPostedDetails : System.Web.UI.Page
 
         if (itemExtension.ExtensionID == null)
         {
-            List<Rental> itemRental = RentalDB.getRentalofItem("ITM000000001", "On-going");
+            List<Rental> itemRental = RentalDB.getRentalofItem("ITM000000003", "On-going");
             return itemRental[0].EndDate.ToString();
             
         }
