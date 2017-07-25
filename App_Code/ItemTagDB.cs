@@ -18,7 +18,7 @@ public class ItemTagDB
         List<ItemTag> itemTagList = new List<ItemTag>();
         try
         {
-            string sqlcommand = "SELECT * FROM ItemTag IT, Item I WHERE I.itemID=IT.itemID AND ( i.pricePerDay IS NOT NULL OR I.pricePerWeek IS NOT NULL OR I.pricePerMonth IS NOT NULL ) ";
+            string sqlcommand = "SELECT * FROM ItemTag IT, Item I WHERE I.itemID=IT.itemID AND I.pricePerDay<>NULL AND I.pricePerWeek<>NULL AND I.pricePerMonth<>NULL ";
 
             if (location != null)
                 sqlcommand += "AND I.locationName = @locationName ";
@@ -80,7 +80,7 @@ public class ItemTagDB
         List<ItemTag> itemTagList = new List<ItemTag>();
         try
         {
-            string sqlcommand = "SELECT * FROM ItemTag IT, Item I WHERE I.itemID=IT.itemID AND ( I.pricePerDay IS NOT NULL OR I.pricePerWeek IS NOT  NULL OR I.pricePerMonth IS NOT  NULL ) ";
+            string sqlcommand = "SELECT * FROM ItemTag IT, Item I WHERE I.itemID=IT.itemID AND I.pricePerDay<>NULL AND I.pricePerWeek<>NULL AND I.pricePerMonth<>NULL ";
 
             if (location != null)
                 sqlcommand += "AND I.locationName = @locationName ";

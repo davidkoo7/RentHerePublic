@@ -14,7 +14,7 @@ public class ItemDB
         List<Item> itemList = new List<Item>();
         try
         {
-            SqlCommand command = new SqlCommand("SELECT * FROM Item WHERE pricePerDay IS NOT NULL OR pricePerWeek IS NOT NULL OR pricePerMonth IS NOT NULL");
+            SqlCommand command = new SqlCommand("SELECT * FROM Item pricePerDay>0 AND pricePerWeek>0 AND pricePerMonth>0");
             command.Connection = connection;
             connection.Open();
             SqlDataReader reader = command.ExecuteReader();
@@ -42,7 +42,7 @@ public class ItemDB
         try
         {
 
-            string sqlcommand = "SELECT * FROM Item WHERE name LIKE @name AND ( pricePerDay IS NOT NULL OR pricePerWeek IS NOT  NULL OR pricePerMonth IS NOT  NULL ) ";
+            string sqlcommand = "SELECT * FROM Item WHERE name LIKE @name AND pricePerDay<>NULL AND pricePerWeek<>NULL AND pricePerMonth<>NULL ";
 
             if (location != null)
                 sqlcommand += "AND locationName = @locationName ";
