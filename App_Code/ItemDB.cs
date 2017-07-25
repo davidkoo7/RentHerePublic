@@ -14,7 +14,7 @@ public class ItemDB
         List<Item> itemList = new List<Item>();
         try
         {
-            SqlCommand command = new SqlCommand("SELECT * FROM Item pricePerDay <> NULL AND pricePerWeek <> NULL AND pricePerMonth <> NULL");
+            SqlCommand command = new SqlCommand("SELECT * FROM Item WHERE pricePerDay <> NULL AND pricePerWeek <> NULL AND pricePerMonth <> NULL");
             command.Connection = connection;
             connection.Open();
             SqlDataReader reader = command.ExecuteReader();
