@@ -17,7 +17,7 @@ public partial class InboxMessage : System.Web.UI.Page
         }
 
         List<Rental> rentalInfoDetails = new List<Rental>();
-        Rental rentalInfo = RentalDB.getRentalbyID((Request["rentid"].ToString());
+        Rental rentalInfo = RentalDB.getRentalbyID((Request["rentid"].ToString()));
 
         rentalInfoDetails.Add(rentalInfo);
 

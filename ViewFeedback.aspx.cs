@@ -20,7 +20,7 @@ public partial class ViewFeedback : System.Web.UI.Page
             Response.Redirect("RentalHistory.aspx");
 
         List<Rental> rentalInfoDetails = new List<Rental>();
-        Rental rentalInfo = RentalDB.getRentalbyID((Request["rentid"].ToString());
+        Rental rentalInfo = RentalDB.getRentalbyID((Request["rentid"].ToString()));
 
         rentalInfoDetails.Add(rentalInfo);
 
@@ -264,6 +264,7 @@ public partial class ViewFeedback : System.Web.UI.Page
 
 
     }
+
 
 
 }
