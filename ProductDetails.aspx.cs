@@ -31,7 +31,7 @@ public partial class ProductDetails : System.Web.UI.Page
 
     protected void repeaterItemInformation_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
-        Extension itemExtension = ExtensionDB.getLastExtensionofItem(Request.QueryString["itemID"]);
+        Extension itemExtension = ExtensionDB.getLastExtensionofItem(Request.QueryString["itemID"], "On-going");
 
 
         if (itemExtension.ExtensionID == null)

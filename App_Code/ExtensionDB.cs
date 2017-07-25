@@ -67,9 +67,9 @@ public class ExtensionDB
         try
         {
             SqlCommand command = new SqlCommand("INSERT INTO Extension (extensionID, newReturnLocation, newReturnTime, newEndDate, unit, status, extensionRentalFee, paymentID, rentalID) values (@extensionID, @newReturnLocation, @newReturnTime, @newEndDate, @unit, @status, @extensionRentalFee, @paymentID, @rentalID)");
-            command.Parameters.AddWithValue("@extensionID", extension.ExtensionID);             command.Parameters.AddWithValue("@newReturnLocation", extension.NewReturnLocation);
-            command.Parameters.AddWithValue("@newReturnTime", extension.NewReturnTime);              command.Parameters.AddWithValue("@newEndDate", extension.NewEndDate);
-            command.Parameters.AddWithValue("@unit", extension.Unit);                           command.Parameters.AddWithValue("@status", extension.Status);
+            command.Parameters.AddWithValue("@extensionID", extension.ExtensionID); command.Parameters.AddWithValue("@newReturnLocation", extension.NewReturnLocation);
+            command.Parameters.AddWithValue("@newReturnTime", extension.NewReturnTime); command.Parameters.AddWithValue("@newEndDate", extension.NewEndDate);
+            command.Parameters.AddWithValue("@unit", extension.Unit); command.Parameters.AddWithValue("@status", extension.Status);
             command.Parameters.AddWithValue("@extensionRentalFee", extension.ExtensionRentalFee); command.Parameters.AddWithValue("@paymentID", extension.Payment.PaymentID);
             command.Parameters.AddWithValue("@rentalID", extension.Rental.RentalID);
 
@@ -88,14 +88,25 @@ public class ExtensionDB
         return -1;
     }
 
-    public static Extension getLastExtensionofItem(string itemID)
+    public static Extension getLastExtensionofItem(string itemID, string status)
     {
         Extension ext = new Extension();
         try
         {
-            SqlCommand command = new SqlCommand("SELECT * FROM Rental R, Extension E WHERE R.rentalID = E.rentalID and E.extensionID in ( " + 
-        "SELECT TOP 1 E1.extensionID FROM Extension E1 WHERE E1.rentalID = R.rentalID and E1.status <> 'Not Granted' " + 
-        "and E1.status <> 'Pending' ORDER BY E1.newEndDate desc) AND R.status = 'On-going' AND R.itemID=@itemID");
+            string commandString = "SELECT * FROM Rental R, Extension E WHERE R.rentalID = E.rentalID and E.extensionID in ( " +
+         "SELECT TOP 1 E1.extensionID FROM Extension E1 WHERE E1.rentalID = R.rentalID and E1.status <> 'Not Granted' " +
+         "and E1.status <> 'Pending' ORDER BY E1.newEndDate desc)";
+
+            if (status != null)
+                commandString += " AND R.status=@status";
+
+            commandString += " AND R.itemID = @itemID";
+
+            SqlCommand command = new SqlCommand(commandString);
+
+            if (status != null)
+                command.Parameters.AddWithValue("@status", status);
+
             command.Parameters.AddWithValue("@itemID", itemID);
             command.Connection = connection;
             connection.Open();

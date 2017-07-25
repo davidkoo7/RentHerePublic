@@ -14,7 +14,7 @@ public class ItemDB
         List<Item> itemList = new List<Item>();
         try
         {
-            SqlCommand command = new SqlCommand("SELECT * FROM Item");
+            SqlCommand command = new SqlCommand("SELECT * FROM Item AND pricePerDay>0 AND pricePerWeek>0 AND pricePerMonth>0");
             command.Connection = connection;
             connection.Open();
             SqlDataReader reader = command.ExecuteReader();
@@ -42,7 +42,7 @@ public class ItemDB
         try
         {
 
-            string sqlcommand = "SELECT * FROM Item WHERE name LIKE @name ";
+            string sqlcommand = "SELECT * FROM Item WHERE name LIKE @name AND pricePerDay>0 AND pricePerWeek>0 AND pricePerMonth>0 ";
 
             if (location != null)
                 sqlcommand += "AND locationName = @locationName ";
@@ -130,6 +130,27 @@ public class ItemDB
             connection.Close();
         }
         return itemList;
+    }
+
+    public static int deleteItem(string itemID)
+    {
+        try
+        {
+            SqlCommand command = new SqlCommand("DELETE FROM Item WHERE itemID=@itemID");
+            command.Parameters.AddWithValue("@itemID", itemID);
+            command.Connection = connection;
+            connection.Open();
+
+            if (command.ExecuteNonQuery() > 0)
+            {
+                return 1;
+            }
+        }
+        finally
+        {
+            connection.Close();
+        }
+        return -1;
     }
 
     public static int addItem(Item item)

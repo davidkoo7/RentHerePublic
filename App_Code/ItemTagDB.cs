@@ -18,7 +18,7 @@ public class ItemTagDB
         List<ItemTag> itemTagList = new List<ItemTag>();
         try
         {
-            string sqlcommand = "SELECT * FROM ItemTag IT, Item I WHERE I.itemID=IT.itemID ";
+            string sqlcommand = "SELECT * FROM ItemTag IT, Item I WHERE I.itemID=IT.itemID AND I.pricePerDay>0 AND I.pricePerWeek>0 AND I.pricePerMonth>0 ";
 
             if (location != null)
                 sqlcommand += "AND I.locationName = @locationName ";
@@ -80,7 +80,7 @@ public class ItemTagDB
         List<ItemTag> itemTagList = new List<ItemTag>();
         try
         {
-            string sqlcommand = "SELECT * FROM ItemTag IT, Item I WHERE I.itemID=IT.itemID ";
+            string sqlcommand = "SELECT * FROM ItemTag IT, Item I WHERE I.itemID=IT.itemID AND I.pricePerDay>0 AND I.pricePerWeek>0 AND I.pricePerMonth>0 ";
 
             if (location != null)
                 sqlcommand += "AND I.locationName = @locationName ";
@@ -153,6 +153,26 @@ public class ItemTagDB
                 return 1;
         }
         finally
+        {
+            connection.Close();
+        }
+        return -1;
+    }
+
+    public static int deleteItemTag(string itemID)
+    {
+        try
+        {
+            SqlCommand command = new SqlCommand("DELETE FROM ItemTag WHERE itemID=@itemID");
+            command.Parameters.AddWithValue("@itemID", itemID);
+            command.Connection = connection;
+            connection.Open();
+
+            if(command.ExecuteNonQuery() > 0)
+            {
+                return 1;
+            }
+        } finally
         {
             connection.Close();
         }

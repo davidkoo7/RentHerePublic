@@ -55,7 +55,7 @@ public partial class ItemRental : System.Web.UI.Page
         {
             var selectedDates = new List<DateTime?>();
 
-            Extension itemExtension = ExtensionDB.getLastExtensionofItem(Request.QueryString["itemID"]);
+            Extension itemExtension = ExtensionDB.getLastExtensionofItem(Request.QueryString["itemID"], "On-going");
 
             List<Rental> itemRental = RentalDB.getRentalofItem(Request.QueryString["itemID"], "Scheduled");
             List<Rental> itemRentalInfo = RentalDB.getRentalofItem(Request.QueryString["itemID"], "On-going");
