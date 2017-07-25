@@ -50,7 +50,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
             if (ddlLocation.SelectedIndex > 0)
                 location = ddlLocation.SelectedValue;
 
-            itemTagList = ItemTagDB.getItemsWithTagsLike(tags, location, category);
+            itemTagList = ItemTagDB.getItemsWithTags(tags, location, category);
 
             foreach (ItemTag it in itemTagList)
                 itemList.Add(it.Item);

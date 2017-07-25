@@ -13,6 +13,5 @@ public partial class User : System.Web.UI.Page
 
         repeaterItemList.DataSource = ItemDB.getAllItemofMember(MemberDB.getMemberbyEmail(Session["user"].ToString()).MemberID);
         repeaterItemList.DataBind();
-
     }
 }

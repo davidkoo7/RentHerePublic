@@ -26,7 +26,7 @@ public partial class ItemPostedDetails : System.Web.UI.Page
 
     public string checkEndDate(string itemID)
     {
-        Extension itemExtension = ExtensionDB.getLastExtensionofItem(itemID);
+        Extension itemExtension = ExtensionDB.getLastExtensionofItem(itemID, "On-going");
 
 
         if (itemExtension.ExtensionID == null)
