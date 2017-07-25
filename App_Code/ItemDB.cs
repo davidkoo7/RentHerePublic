@@ -42,7 +42,7 @@ public class ItemDB
         try
         {
 
-            string sqlcommand = "SELECT * FROM Item WHERE name LIKE @name AND pricePerDay <>NULL AND pricePerWeek <> NULL AND pricePerMont <>NULL ";
+            string sqlcommand = "SELECT * FROM Item WHERE name LIKE @name AND pricePerDay <>NULL AND pricePerWeek <> NULL AND pricePerMonth <>NULL ";
 
             if (location != null)
                 sqlcommand += "AND locationName = @locationName ";
