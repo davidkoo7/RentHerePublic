@@ -13,12 +13,12 @@ public class ItemTagDB
     static SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString);
 
     //insert null to location if you dont want to search based on location
-    public static List<ItemTag> getItemsWithTags(List<string> tagName, string location,string categoryName)
+    public static List<ItemTag> getItemsWithTags(List<string> tagName, string location, string categoryName)
     {
         List<ItemTag> itemTagList = new List<ItemTag>();
         try
         {
-            string sqlcommand = "SELECT * FROM ItemTag IT, Item I WHERE I.itemID=IT.itemID AND I.pricePerDay<>NULL AND I.pricePerWeek<>NULL AND I.pricePerMonth<>NULL ";
+            string sqlcommand = "SELECT * FROM ItemTag IT, Item I WHERE I.itemID=IT.itemID AND ( i.pricePerDay IS NOT NULL OR I.pricePerWeek IS NOT NULL OR I.pricePerMonth IS NOT NULL ) ";
 
             if (location != null)
                 sqlcommand += "AND I.locationName = @locationName ";
@@ -80,7 +80,7 @@ public class ItemTagDB
         List<ItemTag> itemTagList = new List<ItemTag>();
         try
         {
-            string sqlcommand = "SELECT * FROM ItemTag IT, Item I WHERE I.itemID=IT.itemID AND I.pricePerDay<>NULL AND I.pricePerWeek<>NULL AND I.pricePerMonth<>NULL ";
+            string sqlcommand = "SELECT * FROM ItemTag IT, Item I WHERE I.itemID=IT.itemID AND ( I.pricePerDay IS NOT NULL OR I.pricePerWeek IS NOT  NULL OR I.pricePerMonth IS NOT  NULL ) ";
 
             if (location != null)
                 sqlcommand += "AND I.locationName = @locationName ";
@@ -168,11 +168,12 @@ public class ItemTagDB
             command.Connection = connection;
             connection.Open();
 
-            if(command.ExecuteNonQuery() > 0)
+            if (command.ExecuteNonQuery() > 0)
             {
                 return 1;
             }
-        } finally
+        }
+        finally
         {
             connection.Close();
         }
