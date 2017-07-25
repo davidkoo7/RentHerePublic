@@ -46,25 +46,7 @@ public partial class Register : System.Web.UI.Page
         }
         else
         {
-            string num = "0123456789";
-            int len = num.Length;
-            otp = string.Empty;
-
-            //digits
-            int otpdigit = 5;
-            string finaldigit;
-            int getindex;
-            for (int i = 0; i < otpdigit; i++)
-            {
-                do
-                {
-                    getindex = new Random().Next(0, len);
-                    finaldigit = num.ToCharArray()[getindex].ToString();
-
-                } while (otp.IndexOf(finaldigit) != -1);
-                otp += finaldigit;
-
-            }
+            string otp = Utility.getRandomizedChar(5, 0);
 
             var message = MessageResource.Create(
             to: new PhoneNumber("+65" + tbxPhone.Value),
@@ -72,11 +54,7 @@ public partial class Register : System.Web.UI.Page
             body: otp + " is your RentHere OTP.");
 
             Session["OTP"] = otp;
-          
-
         }
-
-
     }
     
 
@@ -89,16 +67,23 @@ public partial class Register : System.Web.UI.Page
         else
             gender = "Female";
 
+        if(tbxPassword.Value != tbxPasswordConfirm.Value)
+        {
+            lblOutput.Text = "Password is not match";
+            return;
+        }
+
         if (MemberDB.getMemberbyEmail(tbxEmail.Value).Email != null)
         {
             pnlMessageOutput.Visible = true;
             lblOutput.Text = "Please Enter a Different Email";
+            return;
         }
 
-        else if (Session["OTP"].ToString() == "Verified")
+        if (Session["OTP"].ToString() == "Verified")
         {
             MemberDB.addMember(new Member("NULL", tbxFullName.Value, tbxAddress.Value, Convert.ToInt32(tbxPostCode.Value), tbxPasswordConfirm.Value, tbxEmail.Value, Convert.ToInt32(tbxPhone.Value), "NULL", "NULL", DateTime.Now, new DateTime(), gender, Convert.ToDateTime(tbxDOB.Value), "Active", "NULL"));
-        }
+        }        
         else
         {
             pnlMessageOutput.Visible = true;

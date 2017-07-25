@@ -81,4 +81,33 @@ public class Utility
 
         return tags;
     }
+
+    //This function return randomized characters(number/alphabet) to produce randomized password or OTP verification
+    //WhatToInclude: gives 0 to only return numbers, give 1 to return numbers and non capital characters, give 2 to return numbers, noncapital and capital letter
+    public static string getRandomizedChar(int howLong, int whatToInclude)
+    {
+        Random r = new Random();
+        string randomPswd = "";
+        int iRange, iUnicode = 0;
+        for (int x = 0; x < howLong; x++)
+        {
+            iRange = r.Next(0, whatToInclude+1);
+            switch (iRange)
+            {
+                case 0:
+                    iUnicode = r.Next(48, 58);
+                    break;
+
+                case 1:
+                    iUnicode = r.Next(65, 91);
+                    break;
+
+                case 2:
+                    iUnicode = r.Next(97, 123);
+                    break;
+            }
+            randomPswd += (char)iUnicode;
+        }
+        return randomPswd;
+    }
 }
