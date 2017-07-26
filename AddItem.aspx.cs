@@ -24,16 +24,18 @@ public partial class AddItem : System.Web.UI.Page
 
     }
 
-    protected void btnSubimt_Click(object sender, EventArgs e)
+
+    protected void btnSubmit_Click(object sender, EventArgs e)
     {
         Item newItem = new Item();
-        newItem.Name = "Sony Xperia";
+
+        newItem.Name = tbxItemName.Text;
         newItem.CategoryName = CategoryDB.getCategorybyName("Services");
         newItem.Deposit = Convert.ToDecimal(tbxRefundableDeposit.Text);
         newItem.Location = LocationDB.getLocationbyID(ddlMRTLocation.SelectedValue);
-        newItem.PricePerDay = Convert.ToDecimal(50);
-        newItem.PricePerWeek = Convert.ToDecimal(50);
-        newItem.PricePerMonth = Convert.ToDecimal(50);
+        newItem.PricePerDay = Convert.ToDecimal(tbxPricePerDay);
+        newItem.PricePerWeek = Convert.ToDecimal(tbxPricePerWeek);
+        newItem.PricePerMonth = Convert.ToDecimal(tbxPricePerMonth);
         newItem.Renter = MemberDB.getMemberbyEmail(Session["user"].ToString());
         newItem.Description = tbxDescription.InnerText;
         newItem.PostedDate = DateTime.Now;
@@ -52,5 +54,4 @@ public partial class AddItem : System.Web.UI.Page
             }
         }
     }
-
 }
