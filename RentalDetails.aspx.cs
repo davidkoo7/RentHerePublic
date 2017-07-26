@@ -23,9 +23,28 @@ public partial class RentalDetails : System.Web.UI.Page
         //}
 
         List<Rental> rentalInfo = new List<Rental>();
-        rentalInfo.Add(RentalDB.getRentalbyID("RNT000000013"));
+        rentalInfo.Add(RentalDB.getRentalbyID("RNT000000003"));
         rptItemRentalInfo.DataSource = rentalInfo;
         rptItemRentalInfo.DataBind();
+
+        if (Session["user"].ToString() == rentalInfo[0].Item.Renter.Email)
+        {
+            if (rentalInfo[0].Status == "Ended")
+                btnRetrivalCode.Visible = true;
+
+            if (rentalInfo[0].Status == "Ended & Returned")
+                btnDispute.Visible = true;
+        }
+        else
+        {
+            if (rentalInfo[0].Status == "Pending")
+                btnReleaseCode.Visible = true;
+
+            if (rentalInfo[0].Status == "On-going")
+                btnExtend.Visible = true;
+        }
+
+
 
     }
 
@@ -37,12 +56,12 @@ public partial class RentalDetails : System.Web.UI.Page
 
         if (itemExtension.ExtensionID == null)
         {
-            return itemRental.StartDate.ToString() + itemRental.EndDate.ToString();
+            return String.Format("{0:MM/dd/yy}", itemRental.StartDate) +" - " + String.Format("{0:MM/dd/yy}", itemRental.EndDate);
 
         }
         else
         {
-            return itemRental.StartDate.ToString() + itemExtension.NewEndDate.ToString();
+            return String.Format("{0:MM/dd/yy}", itemRental.StartDate) +" - " + String.Format("{0:MM/dd/yy}", itemExtension.NewEndDate);
         }
     }
 
@@ -50,7 +69,7 @@ public partial class RentalDetails : System.Web.UI.Page
 
     protected void rptItemRentalInfo_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
-        Rental rentalInfo = RentalDB.getRentalbyID("RNT000000013");
+        Rental rentalInfo = RentalDB.getRentalbyID("RNT000000003");
 
         if (e.Item.ItemType == ListItemType.Item)
         {
@@ -67,4 +86,37 @@ public partial class RentalDetails : System.Web.UI.Page
         }
     }
 
+
+    protected void btnExtend_Click(object sender, EventArgs e)
+    {
+        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Your message cannot exceed 255 characters!')", true);
+
+    }
+
+    protected void btnDispute_Click(object sender, EventArgs e)
+    {
+        // Help Stanley
+        
+    }
+
+
+    protected void btnRetrivalCode_Click(object sender, EventArgs e)
+    {
+
+        lblTitle.Text = "Deposit Retrival";
+        lblCode.Text = "Please enter Deposit Retrival Code";
+
+
+    }
+
+    protected void btnReleaseCode_Click(object sender, EventArgs e)
+    {
+
+    }
+
+
+    protected void btnSubmit_Click(object sender, EventArgs e)
+    {
+
+    }
 }

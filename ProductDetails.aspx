@@ -93,7 +93,7 @@
                                                     <span>Refundable Deposit: </span>
                                                     <asp:Label ID="lblDeposit" runat="server" Text='<%# Eval("deposit") %>' />
                                                 </div>
-                                                <div class="reward"><span><asp:Label CssClass="status-stock" ID="lblStatus" runat="server" Text='<%# Eval("deposit") %>'></asp:Label></span></div>
+                                                <div class="reward"><span><asp:Label CssClass="status-stock" ID="lblItemStatus" runat="server" Text='<%# Eval("deposit") %>'></asp:Label></span></div>
                                             </div>
                                         </div>
 

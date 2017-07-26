@@ -16,17 +16,23 @@ public partial class DisputePage : System.Web.UI.Page
             return;
         }
 
+        if (Request["rentid"].ToString() == null)
+        {
+            Response.Redirect("Default.aspx");
+            return;
+        }
+
         List<Rental> rentalInfoDetails = new List<Rental>();
-        Rental rentalInfo = RentalDB.getRentalbyID("RNT000000001");
+        Rental rentalInfo = RentalDB.getRentalbyID(Request["rentid"].ToString());
 
         rentalInfoDetails.Add(rentalInfo);
 
         rptInfo.DataSource = rentalInfoDetails;
         rptInfo.DataBind();
 
-        Session["user"] = "merandson@gmail.com";
+        Session["user"] = Session["user"];
 
-        Dispute dis = DisputeDB.getDisputeforRental("RNT000000001");
+        Dispute dis = DisputeDB.getDisputeforRental(Request["rentid"].ToString());
 
         if (dis.DisputeID != null)
         {
@@ -48,14 +54,14 @@ public partial class DisputePage : System.Web.UI.Page
         }
         else
         {
-            if (RentalDB.getRentalbyID("RNT000000002").Rentee.Email == Session["user"].ToString())
+            if (RentalDB.getRentalbyID(Request["rentid"].ToString()).Rentee.Email == Session["user"].ToString())
             {
                 for (int x = 1; x < 5; x++)
                 {
                     ddlReason.Items[x].Enabled = false;
                 }
             }
-            else if (RentalDB.getRentalbyID("RNT000000002").Item.Renter.Email == Session["user"].ToString())
+            else if (RentalDB.getRentalbyID(Request["rentid"].ToString()).Item.Renter.Email == Session["user"].ToString())
             {
                 for (int x = 1; x < ddlReason.Items.Count ; x++)
                 {
@@ -86,7 +92,7 @@ public partial class DisputePage : System.Web.UI.Page
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Your message cannot exceed 255 characters!')", true);
             return;
         }
-        Dispute dis = DisputeDB.getDisputeforRental("RNT000000002");
+        Dispute dis = DisputeDB.getDisputeforRental(Request["rentid"].ToString());
 
 
 
@@ -108,7 +114,7 @@ public partial class DisputePage : System.Web.UI.Page
                     dis = new Dispute();
                     dis.Reason = ddlReason.SelectedItem.Value;
                     dis.Date = DateTime.Now;
-                    dis.Rental = RentalDB.getRentalbyID("RNT000000002");
+                    dis.Rental = RentalDB.getRentalbyID(Request["rentid"].ToString());
                     dis.Status = "Pending";
                     dis.SubmittedBy = MemberDB.getMemberbyEmail(Session["user"].ToString());
                     DisputeDB.addDispute(dis);
@@ -119,7 +125,7 @@ public partial class DisputePage : System.Web.UI.Page
                     return;
             }
 
-            dis = DisputeDB.getDisputeforRental("RNT000000002");
+            dis = DisputeDB.getDisputeforRental(Request["rentid"].ToString());
 
             MessageDispute msgDis = new MessageDispute();
 
