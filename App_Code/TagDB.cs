@@ -35,6 +35,29 @@ public class TagDB
         return presence;
     }
 
+    public static int getNoOfTagUsed(string tagName)
+    {
+        int noOfTagPresent = 0;
+        try
+        {
+            SqlCommand command = new SqlCommand("SELECT COUNT(*) AS NoofTagUsed FROM ItemTag WHERE tagName = @tagName");
+            command.Parameters.AddWithValue("@tagName", tagName);
+            command.Connection = connection;
+            connection.Open();
+            SqlDataReader reader = command.ExecuteReader();
+
+            if (reader.Read())
+                noOfTagPresent = Convert.ToInt32(reader["NoofTagUsed"]);
+
+            reader.Close();
+        }
+        finally
+        {
+            connection.Close();
+        }
+        return noOfTagPresent;
+    }
+
     public static int addTag(string tagName)
     {
         try
