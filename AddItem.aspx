@@ -43,7 +43,9 @@
                             <div class="content-product-right col-sm-6 col-xs-12">
                                 <div class="title-product">
                                     <h1>
-                                        <asp:TextBox ID="tbxItemName" placeholder="Item Name" runat="server"></asp:TextBox></h1>
+                                        <asp:TextBox ID="tbxItemName" placeholder="Item Name" runat="server"></asp:TextBox>
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="tbxItemName" ErrorMessage="Name Cannot Be Empty">*</asp:RequiredFieldValidator>
+                                    </h1>
                                 </div>
                                 <!-- Review ---->
                                 <div class="box-review form-group">
@@ -65,6 +67,8 @@
                                     <div class="product_page_price price" itemprop="offerDetails" itemscope="" itemtype="http://data-vocabulary.org/Offer">
                                         <span class="price-new" itemprop="price">S$
                                             <asp:TextBox placeholder="1.5" ID="tbxPricePerDay" type="number" runat="server" Width="200px"></asp:TextBox></span>
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="tbxPricePerDay" ErrorMessage="At Least Price Per Day must be filled!" InitialValue="&lt;Select&gt;"></asp:RequiredFieldValidator>
+
                                         <span class="price-old" style="font-size: 20; text-decoration: none;">per day</span>
                                     </div>
                                 </div>
@@ -89,6 +93,8 @@
                                         <div class="price-tax">
                                             <span>Refundable Deposit:</span>
                                             <asp:TextBox placeholder="500" type="number" CssClass="form-control" ID="tbxRefundableDeposit" runat="server"></asp:TextBox>
+                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="tbxRefundableDeposit" ErrorMessage="Please enter refundable deposit!" InitialValue="&lt;Select&gt;"></asp:RequiredFieldValidator>
+
                                         </div>
                                     </div>
                                 </div>
@@ -100,6 +106,8 @@
 
                                         <asp:DropDownList ID="ddlMRTLocation" runat="server">
                                         </asp:DropDownList>
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="ddlMRTLocation" ErrorMessage="Please enter the preferred MRT location!" InitialValue="&lt;Select&gt;"></asp:RequiredFieldValidator>
+
                                         <br />
                                     </div>
                                 </div>
@@ -110,7 +118,7 @@
 
                                     <div class="form-group box-info-product">
                                         <div class="cart">
-                                            <asp:Button CssClass="btn btn-mega btn-lg" OnClick="btnSubimt_Click" ID="btnSubimt" runat="server" Text="Submit" />
+                                            <asp:Button CssClass="btn btn-mega btn-lg" OnClick="btnSubmit_Click" ID="btnSubmit" runat="server" Text="Submit" />
                                         </div>
                                         <div class="add-to-links wish_comp">
                                             <ul class="blank list-inline">
