@@ -16,10 +16,22 @@ public partial class InboxMessage : System.Web.UI.Page
             return;
         }
 
-        List<MemberMessage> memberMessageList = MemberMessageDB.getMsgforMember("1");
+        if (Request.QueryString["memberInboxID"] == null)
+        {
+            Response.Redirect("Default.aspx");
+            return;
+        }
+
+            List<MemberMessage> memberMessageList = MemberMessageDB.getMsgforMember(Request.QueryString["memberInboxID"].ToString());
 
          rptMessages.DataSource = memberMessageList;
          rptMessages.DataBind();
+
+        List<Item> itemInfo = new List<Item>();
+        itemInfo.Add(ItemDB.getItembyID(MemberInboxDB.getMemberInboxID(Request.QueryString["memberInboxID"].ToString()).Item.ItemID ));
+        rptItemInfo.DataSource = itemInfo;
+        rptItemInfo.DataBind();
+
     }
 
     protected string retrieveMessage(string senderID, string reply, string datePosted)
@@ -78,7 +90,7 @@ public partial class InboxMessage : System.Web.UI.Page
             msgDis.Date = DateTime.Now;
             msgDis.Reply = tbxMessage.Text;
             msgDis.Sender = MemberDB.getMemberbyEmail(Session["user"].ToString());
-            msgDis.MemberInbox = MemberInboxDB.getMemberInboxID("1");
+            msgDis.MemberInbox = MemberInboxDB.getMemberInboxID(Request.QueryString["memberInboxID"].ToString());
             //msgDis.Receiver = MemberDB.getMemberbyID(MemberDB.getMemberbyID("MEM000000001").MemberID);
             //msgDis.Item = ItemDB.getItembyID("ITM000000003");
 

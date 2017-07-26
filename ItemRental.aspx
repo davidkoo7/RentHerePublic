@@ -51,6 +51,8 @@
 
     <script type="text/javascript" src="dist/fecha.min.js"></script>
     <script type="text/javascript" src="dist/hotel-datepicker.js"></script>
+    <link rel='stylesheet' type='text/css'href='css/timepicki.css'/>
+
 
 
 </head>
@@ -1144,7 +1146,7 @@
                                                         </div>
                                                         <div class="form-group required">
                                                             <label for="input-payment-firstname" class="control-label">Pick Up Time</label>
-                                                            <input type="text" class="form-control" runat="server" id="tbxPickUpTime" placeholder="Pick up time" value="" name="firstname">
+                <input type="text" runat="server" id="pickUpTime" name="timepicker" class="time_element"/>
                                                         </div>
                                                     </fieldset>
                                                 </div>
@@ -1163,7 +1165,7 @@
                                                         </div>
                                                         <div class="form-group required">
                                                             <label for="input-payment-firstname" class="control-label">Return Time</label>
-                                                                                                                        <input type="text" class="form-control" runat="server" id="tbxReturnTime" placeholder="Return  Time" value="" name="firstname">
+                <input type="text" runat="server"  id="tbxTimePicker" name="timepicker" class="time_element"/>
 
                                                         </div>
                                                     </fieldset>
@@ -1444,6 +1446,8 @@
         <script type="text/javascript" src="js/jquery-ui/jquery-ui.min.js"></script>
 
 
+
+
         <!-- Theme files
 	============================================ -->
 
@@ -1463,7 +1467,17 @@
                 input1.value = fecha.format(today, 'YYYY-MM-DD') + ' - ' + fecha.format(tomorrow, 'YYYY-MM-DD');
 
             })();
+
         </script>
+        
+        <script src="js/jquery.js"></script>
+<script src="js/timepicki.js"></script>
+<script>
+            $(document).ready(function () {
+                $(".time_element").timepicki();
+            });
+</script>
+
     </body>
 </form>
 </html>

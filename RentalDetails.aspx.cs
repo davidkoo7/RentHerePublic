@@ -30,7 +30,11 @@ public partial class RentalDetails : System.Web.UI.Page
         if (Session["user"].ToString() == rentalInfo[0].Item.Renter.Email)
         {
             if (rentalInfo[0].Status == "Ended")
+            {
                 btnRetrivalCode.Visible = true;
+                lblTitle.Text = "Deposit Retrival";
+                lblCode.Text = "Please enter Deposit Retrival Code";
+            }
 
             if (rentalInfo[0].Status == "Ended & Returned")
                 btnDispute.Visible = true;
@@ -38,7 +42,11 @@ public partial class RentalDetails : System.Web.UI.Page
         else
         {
             if (rentalInfo[0].Status == "Pending")
+            {
                 btnReleaseCode.Visible = true;
+                lblTitle.Text = "Payment Release Code";
+                lblCode.Text = "Please enter Payment Release Code";
+            }
 
             if (rentalInfo[0].Status == "On-going")
                 btnExtend.Visible = true;
@@ -56,12 +64,12 @@ public partial class RentalDetails : System.Web.UI.Page
 
         if (itemExtension.ExtensionID == null)
         {
-            return String.Format("{0:MM/dd/yy}", itemRental.StartDate) +" - " + String.Format("{0:MM/dd/yy}", itemRental.EndDate);
+            return String.Format("{0:MM/dd/yy}", itemRental.StartDate) + " - " + String.Format("{0:MM/dd/yy}", itemRental.EndDate);
 
         }
         else
         {
-            return String.Format("{0:MM/dd/yy}", itemRental.StartDate) +" - " + String.Format("{0:MM/dd/yy}", itemExtension.NewEndDate);
+            return String.Format("{0:MM/dd/yy}", itemRental.StartDate) + " - " + String.Format("{0:MM/dd/yy}", itemExtension.NewEndDate);
         }
     }
 
@@ -89,22 +97,24 @@ public partial class RentalDetails : System.Web.UI.Page
 
     protected void btnExtend_Click(object sender, EventArgs e)
     {
-        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Your message cannot exceed 255 characters!')", true);
+
 
     }
 
     protected void btnDispute_Click(object sender, EventArgs e)
     {
         // Help Stanley
-        
+
     }
 
 
     protected void btnRetrivalCode_Click(object sender, EventArgs e)
     {
 
-        lblTitle.Text = "Deposit Retrival";
-        lblCode.Text = "Please enter Deposit Retrival Code";
+        // Dont forget to send the code
+
+
+
 
 
     }
@@ -112,11 +122,38 @@ public partial class RentalDetails : System.Web.UI.Page
     protected void btnReleaseCode_Click(object sender, EventArgs e)
     {
 
+
+        // Dont forget to sms send the code
+
     }
 
 
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
+        if (lblTitle.Text == "Deposit Retrival")
+        {
+            if (tbxValue.Value == RentalDB.getRentalbyID("RNT000000003").DepositRetrievalCode)
+            {
+                RentalDB.updateRentStatus("RNT000000003", "Ended & Returned");
+                btnRetrivalCode.Visible = false;
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Incorrect Retrival Code!')", true);
+            }
+        }
+        else
+        {
 
+            if (tbxValue.Value == RentalDB.getRentalbyID("RNT000000003").PaymentReleaseCode)
+            {
+                RentalDB.updateRentStatus("RNT000000003", "On-going");
+                btnReleaseCode.Visible = false;
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Incorrect Payment Release Code!')", true);
+            }
+        }
     }
 }

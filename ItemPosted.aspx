@@ -68,7 +68,7 @@
                                             <asp:Label ID="lblPricePerMonth" runat="server" Text='<%# "" + Eval("pricePerMonth") %>'></asp:Label>
                                         </td>
                                         <td class="text-center">
-                                              <a href="Messages.aspx?MemberInboxID=<%#Eval("memberInboxID") %>" >   <button class="btn btn-warning btn-sm" type="button" data-toggle="tooltip" title="View Info"><span class="">View Info</span></button></a>
+                                              <a href="Messages.aspx?MemberInboxID=<%#Eval("memberInboxID") %>" >  <button class="btn btn-warning btn-sm" type="button" data-toggle="tooltip" title="View Info"><span class="">View Info</span></button></a>
                                         </td>
                                     </tr>
 

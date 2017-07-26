@@ -9,7 +9,12 @@ public partial class SupportTicketList : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        Session["user"] = "merandson@gmail.com";
+        if (Session["user"] == null)
+        {
+            Session["pageRedirectAfterLogin"] = Request.RawUrl;
+            Response.Redirect("Login.aspx");
+            return;
+        }
 
         lsvTicketView.DataSource = SupportTicketDB.getTicketByUser(MemberDB.getMemberbyEmail(Session["user"].ToString()).MemberID);
         lsvTicketView.DataBind();

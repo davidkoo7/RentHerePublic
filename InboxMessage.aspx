@@ -1542,57 +1542,64 @@
         <div class="main-container container">
             <ul class="breadcrumb">
                 <li><a href="#"><i class="fa fa-home"></i></a></li>
-                <li><a href="#">Order History</a></li>
+                <li><a href="#">Rental Infomation	</a></li>
             </ul>
-
-            <!--Middle Part Start-->
-            <div id="content" class="col-sm-9">
-                <h2 class="title">Rental Information</h2>
-                <h2 class="title">Status: </h2>
-                <table class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <td colspan="2" class="text-left">Rental Details</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td style="width: 50%;" class="text-left"><b>Rental ID:</b> #214521
-								<br>
-                                <b>Date  Created:</b> 20/06/2016
-																<br>
-                                <b>Pick Up Location:</b> 20/06/2016
-								<br>
-                                <b>Pick Up Time:</b> 20/06/2016
-								<br>
-                                <b>Return Location: </b>15/1/12
-								<br>
-                                <b>Return Time: </b>15/1/12
-																
-
-								
-								<br>
-                            </td>
-                            <td style="width: 50%;" class="text-left"><b>Rental Start Date:</b> 123
-								<br>
-                                <b>Rental End Date:</b> Flat Shipping Rate 
-																<br>
-                                <b>Deposit:</b>11231
-								<br>
-                                <b>Rental Fee:</b> Flat Shipping Rate </td>
-                            <br>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div class="container">
+            <asp:Repeater ID="rptItemInfo" runat="server">
+                <ItemTemplate>
                     <div class="row">
-                        <div class="col-sm-8">
-                            <div class="panel panel-white border-top-green">
-                                <div class="panel-body chat">
-                                    <div class="row chat-wrapper">
+                        <!--Middle Part Start-->
+                        <div id="content" class="col-sm-9">
+                            <h2 class="title">Item Information</h2>
 
-                                                                                                    <form id="form1" runat="server">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <td colspan="2" class="text-left">Item Details</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 50%;" class="text-left"><b>Item ID:</b>
+                                            <asp:Label ID="lblRentalID" runat="server" Text='<%# Eval("itemID") %>' />
+
+                                            <br>
+                                            <b>Deposit:</b>
+                                            <asp:Label ID="lblDeposit" runat="server" Text='<%# Eval("deposit") %>' />
+
+                                            <br>
+                                            <b>Prie Per Day: </b>
+                                            <asp:Label ID="lblPricePerDay" runat="server" Text='<%# Eval("pricePerDay") %>' />
+
+                                            <br>
+                                            <b>Price Per Week:</b>
+                                            <asp:Label ID="lblPricePerWeek" runat="server" Text='<%# Eval("pricePerWeek") %>' />
+
+                                            <br>
+                                            <b>Price Per Month:</b>
+                                            <asp:Label ID="Label1" runat="server" Text='<%# Eval("pricePerMonth") %>' />
+
+
+
+
+
+                                            <br>
+                                        </td>
+
+                                        <br>
+                                    </tr>
+                                </tbody>
+                            </table>
+                </ItemTemplate>
+            </asp:Repeater>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="panel panel-white border-top-green">
+                            <div class="panel-body chat">
+                                <div class="row chat-wrapper">
+
+                                    <form id="form1" runat="server">
 
                                         <div class="col-sm-12">
 
@@ -1603,11 +1610,11 @@
                                                     <div class="message-list-wrapper" style="overflow: hidden; width: auto; height: 452px;">
                                                         <ul class="message-list">
 
-                                                                <asp:Repeater ID="rptMessages" runat="server">
-                                                                    <ItemTemplate>
-                                                                        <asp:Label ID="Label3" runat="server" Text='<%# retrieveMessage(Convert.ToString(Eval("Sender.MemberID")), Convert.ToString(Eval("reply")), String.Format("{0:dd MMM yy   HH:mm}", Eval("Date")))%>'></asp:Label>
-                                                                    </ItemTemplate>
-                                                                </asp:Repeater>
+                                                            <asp:Repeater ID="rptMessages" runat="server">
+                                                                <ItemTemplate>
+                                                                    <asp:Label ID="Label3" runat="server" Text='<%# retrieveMessage(Convert.ToString(Eval("Sender.MemberID")), Convert.ToString(Eval("reply")), String.Format("{0:dd MMM yy   HH:mm}", Eval("Date")))%>'></asp:Label>
+                                                                </ItemTemplate>
+                                                            </asp:Repeater>
 
 
 
@@ -1618,93 +1625,79 @@
                                                     <div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div>
                                                 </div>
 
-                                                  <asp:Panel ID="Panel1" runat="server" DefaultButton="btnSend">
+                                                <asp:Panel ID="Panel1" runat="server" DefaultButton="btnSend">
 
-                                                <div class="compose-box">
-                                                    <div class="row">
-                                                        <div class="col-xs-12 mg-btm-10">
-                                                            <asp:TextBox CssClass="form-control input-sm" placeholder="Type your message here..." ID="tbxMessage" runat="server"></asp:TextBox>
-                                                        </div>
-                                                        <div class="col-xs-8">
-                                                            <button class="btn btn-green btn-sm">
-                                                                <i class="fa fa-camera"></i>
-                                                            </button>
-                                                            <button class="btn btn-green btn-sm">
-                                                                <i class="fa fa-video-camera"></i>
-                                                            </button>
-                                                            <button class="btn btn-green btn-sm">
-                                                                <i class="fa fa-file"></i>
-                                                            </button>
-                                                        </div>
-                                                        <div class="col-xs-4">
+                                                    <div class="compose-box">
+                                                        <div class="row">
+                                                            <div class="col-xs-12 mg-btm-10">
+                                                                <asp:TextBox CssClass="form-control input-sm" placeholder="Type your message here..." ID="tbxMessage" runat="server"></asp:TextBox>
+                                                            </div>
+                                                            <div class="col-xs-8">
 
-                                                         <asp:Button CssClass="btn btn-green btn-sm pull-right" id="btnSend" runat="server" OnClick="btnSend_Click" Text="Send" />
+                                                            </div>
+                                                            <div class="col-xs-4">
+
+                                                                <asp:Button CssClass="btn btn-green btn-sm pull-right" ID="btnSend" runat="server" OnClick="btnSend_Click" Text="Send" />
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                      </asp:Panel>
+                                                </asp:Panel>
                                             </div>
 
                                         </div>
-                                        </form>
-                                    </div>
-
+                                    </form>
                                 </div>
+
                             </div>
                         </div>
-
                     </div>
+
                 </div>
-                <!-- end chat -->
-
-
-                <div class="buttons clearfix">
-                    <div class="pull-right">
-                        <a class="btn btn-primary" href="#">Continue</a>
-                    </div>
-                </div>
-
-
-
-
             </div>
-            <!--Middle Part End-->
-            <!--Right Part Start -->
-            <aside class="col-sm-3 hidden-xs" id="column-right">
-                <h2 class="subtitle">Account</h2>
-                <div class="list-group">
-                    <ul class="list-item">
-                        <li><a href="login.html">Login</a>
-                        </li>
-                        <li><a href="register.html">Register</a>
-                        </li>
-                        <li><a href="#">Forgotten Password</a>
-                        </li>
-                        <li><a href="#">My Account</a>
-                        </li>
-                        <li><a href="#">Address Books</a>
-                        </li>
-                        <li><a href="wishlist.html">Wish List</a>
-                        </li>
-                        <li><a href="#">Order History</a>
-                        </li>
-                        <li><a href="#">Downloads</a>
-                        </li>
-                        <li><a href="#">Reward Points</a>
-                        </li>
-                        <li><a href="#">Returns</a>
-                        </li>
-                        <li><a href="#">Transactions</a>
-                        </li>
-                        <li><a href="#">Newsletter</a>
-                        </li>
-                        <li><a href="#">Recurring payments</a>
-                        </li>
-                    </ul>
-                </div>
-            </aside>
-            <!--Right Part End -->
+            <!-- end chat -->
+
+
+
+
+
         </div>
+        <!--Middle Part End-->
+        <!--Right Part Start -->
+        <aside class="col-sm-3 hidden-xs" id="column-right">
+            <h2 class="subtitle">Account</h2>
+            <div class="list-group">
+                <ul class="list-item">
+                    <li><a href="login.html">Login</a>
+                    </li>
+                    <li><a href="register.html">Register</a>
+                    </li>
+                    <li><a href="#">Forgotten Password</a>
+                    </li>
+                    <li><a href="#">My Account</a>
+                    </li>
+                    <li><a href="#">Address Books</a>
+                    </li>
+                    <li><a href="wishlist.html">Wish List</a>
+                    </li>
+                    <li><a href="#">Order History</a>
+                    </li>
+                    <li><a href="#">Downloads</a>
+                    </li>
+                    <li><a href="#">Reward Points</a>
+                    </li>
+                    <li><a href="#">Returns</a>
+                    </li>
+                    <li><a href="#">Transactions</a>
+                    </li>
+                    <li><a href="#">Newsletter</a>
+                    </li>
+                    <li><a href="#">Recurring payments</a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+        <!--Right Part End -->
+    </div>
     </div>
     <!-- //Main Container -->
 
@@ -1872,7 +1865,7 @@
         })
 
         $(function () {
-        $(".message-list-wrapper").getNiceScroll(0).doScrollTop($(".message-list").height(), -1); // -1 is the animation duration
+            $(".message-list-wrapper").getNiceScroll(0).doScrollTop($(".message-list").height(), -1); // -1 is the animation duration
         })
     </script>
 

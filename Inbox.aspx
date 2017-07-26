@@ -42,12 +42,12 @@
                                             </a>
                                         &nbsp;</td>
                                         <td class="text-center"><a href="product.html">
-                                            <asp:Label ID="Label2"  runat="server" Text='<%# "" + Eval("Item.Renter.Name") %>'></asp:Label>
+                                            <asp:Label ID="lblRenterName"  runat="server" Text='<%# "" + Eval("Item.Renter.Name") %>'></asp:Label>
                                         </td>
                                         <td class="text-center">
-                                            <asp:Label ID="Label1" runat="server" Text='<%# ""+ String.Format("{0:dd MMM yy   HH:mm}", Eval("Date")) %>'></asp:Label></a>
+                                            <asp:Label ID="lblDate" runat="server" Text='<%# ""+ String.Format("{0:dd MMM yy   HH:mm}", Eval("Date")) %>'></asp:Label></a>
                                         </td>
-                                        <td class="text-center"><a class="btn btn-info" title="" data-toggle="tooltip" href="order-information.html" data-original-title="View"><i class="fa fa-eye"></i></a>
+                                        <td class="text-center"><a class="btn btn-info" title="" data-toggle="tooltip" href="inboxMessage.aspx?memberInboxID=<%#Eval("memberInboxID") %>" data-original-title="View"><i class="fa fa-eye"></i></a>
                                         </td>
                                     </tr>
 

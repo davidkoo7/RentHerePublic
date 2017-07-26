@@ -1,6 +1,12 @@
 ﻿<%@ Page Title="" EnableEventValidation="false" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="RentalDetails.aspx.cs" Inherits="RentalDetails" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+
+    <link rel="stylesheet" href="dist/hotel-datepicker.css">
+
+    <script type="text/javascript" src="dist/fecha.min.js"></script>
+    <script type="text/javascript" src="dist/hotel-datepicker.js"></script>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
 
@@ -128,8 +134,8 @@
 
             </div>
             <div class="pull-right">
-                <asp:Button CssClass="btn btn-primary" OnClick="btnRetrivalCode_Click" Visible="false" ID="btnRetrivalCode" runat="server" Text="Item Received" />
-                <asp:Button CssClass="btn btn-primary" OnClick="btnReleaseCode_Click" Visible="false" ID="btnReleaseCode" runat="server" Text="Item Returned" />
+                <asp:Button CssClass="btn btn-primary" data-toggle="modal" data-target="#myModal" Visible="false" ID="btnRetrivalCode" runat="server" Text="Item Received" />
+                <asp:Button CssClass="btn btn-primary" data-toggle="modal" data-target="#myModal" Visible="false" ID="btnReleaseCode" runat="server" Text="Item Returned" />
 
             </div>
         </div>
@@ -185,8 +191,7 @@
                 </tr>
             </tbody>
         </table>
-
-
+        <input style="table-layout: fixed;" type="text" name="input-id" id="input-id" value="" class="form-control">
     </div>
     <!--Middle Part End-->
     <!--Right Part Start -->
@@ -224,33 +229,54 @@
         </div>
     </aside>
     <!--Right Part End -->
+    </div>
+    </div>
 
-        <div id="myModal" class="modal fade" role="dialog">
-            <div class="modal-dialog">
+       
 
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">
-                            <asp:Label ID="lblTitle" runat="server" Text=""></asp:Label></h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>
-                            <asp:Label ID="lblCode" runat="server" Text=""></asp:Label>
-                        </p>
-                        <input id="tbxValue" runat="server" type="number" placeholder="Please enter the code" name="number" class="form-control" />
-                        <p></p>
-                        <asp:Button ID="btnSubmit" OnClick="btnSubmit_Click" CssClass="btn btn-primary" runat="server" Text="Submit" />
-                        <p></p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
+    <div id="myModalExtension" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">
+                        <asp:Label ID="lblTitle" runat="server" Text=""></asp:Label></h4>
                 </div>
-
+                <div class="modal-body">
+                    <p>
+                        <asp:Label ID="lblCode" runat="server" Text=""></asp:Label>
+                    </p>
+                    <input id="tbxValue" runat="server" type="number" placeholder="Please enter the code" name="number" class="form-control" />
+                    <p></p>
+                    <asp:Button ID="btnSubmit" OnClick="btnSubmit_Click" CssClass="btn btn-primary" runat="server" Text="Submit" />
+                    <p></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
             </div>
+
         </div>
+    </div>
+            <script type="text/javascript" src="js/datetimepicker/moment.js"></script>
+        <script type="text/javascript" src="js/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+        <script type="text/javascript" src="js/jquery-ui/jquery-ui.min.js"></script>
+
+    <script type="text/javascript">
+        (function () {
+            // ------------------- DEMO 1 ------------------- //
+
+            var today = new Date();
+            var tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            var HotelDatepicker = document.getElementById('input-id');
+            input1.value = fecha.format(today, 'YYYY-MM-DD') + ' - ' + fecha.format(tomorrow, 'YYYY-MM-DD');
+
+        })();
+
+        </script>
 
 </asp:Content>
 
