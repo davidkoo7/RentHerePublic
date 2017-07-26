@@ -126,6 +126,35 @@ public class ExtensionDB
         return ext;
     }
 
+    public static Extension getLastExtensionofRental(string rentalID)
+    {
+        Extension ext = new Extension();
+        try
+        {
+            string commandString = "SELECT * FROM Rental R, Extension E WHERE R.rentalID = E.rentalID and E.extensionID in ( " +
+         "SELECT TOP 1 E1.extensionID FROM Extension E1 WHERE E1.rentalID = R.rentalID and E1.status <> 'Not Granted' " +
+         "and E1.status <> 'Pending' ORDER BY E1.newEndDate desc) AND R.rentalID = @rentalID";
+            SqlCommand command = new SqlCommand(commandString);
+
+            command.Parameters.AddWithValue("@rentalID", rentalID);
+            command.Connection = connection;
+            connection.Open();
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            if (reader.Read())
+                readAnExtension(ref ext, ref reader);
+            else
+                ext = new Extension(null, null, new TimeSpan(), new DateTime(), null, null, 0, new Payment(), new Rental());
+            reader.Close();
+        }
+        finally
+        {
+            connection.Close();
+        }
+        return ext;
+    }
+
     private static void readAnExtension(ref Extension extent, ref SqlDataReader reader)
     {
         extent.ExtensionID = reader["extensionID"].ToString();
