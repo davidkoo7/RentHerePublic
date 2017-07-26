@@ -12,6 +12,13 @@ public partial class ItemRental : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (Session["user"] == null)
+        {
+            Session["pageRedirectAfterLogin"] = Request.RawUrl;
+            Response.Redirect("Login.aspx");
+            return;
+        }
+
         if (Request.QueryString["itemID"] == null)
         {
             Response.Redirect("Categories.aspx");
@@ -121,66 +128,81 @@ true);
 
         Item itemRental = ItemDB.getItembyID(Request.QueryString["itemID"]);
         string n = String.Format("{0}", Request.Form["input-id"]);
-        DateTime startDate = Convert.ToDateTime(n.Substring(0, 10));
-        DateTime endDate = Convert.ToDateTime(n.Substring(n.Length - 10));
 
-        int numOfDays = Convert.ToInt32((endDate - startDate).TotalDays);
-        
-
-        decimal totalDayPrice = 0, totalWeekPrice = 0, totalMonthPrice = 0, amountDue = 0;
-
-        if (itemRental.PricePerMonth != 0)
+        if (n != "")
         {
-            totalMonthPrice = (numOfDays / 30) * itemRental.PricePerMonth;
-            if (itemRental.PricePerWeek != 0)
+
+
+            DateTime startDate = Convert.ToDateTime(n.Substring(0, 10));
+            DateTime endDate = Convert.ToDateTime(n.Substring(n.Length - 10));
+
+            int numOfDays = Convert.ToInt32((endDate - startDate).TotalDays);
+
+
+            decimal totalDayPrice = 0, totalWeekPrice = 0, totalMonthPrice = 0, amountDue = 0;
+
+            if (itemRental.PricePerMonth != 0)
             {
-                totalWeekPrice = (numOfDays % 30) / 7 * itemRental.PricePerWeek;
-            }
+                totalMonthPrice = (numOfDays / 30) * itemRental.PricePerMonth;
+                if (itemRental.PricePerWeek != 0)
+                {
+                    totalWeekPrice = (numOfDays % 30) / 7 * itemRental.PricePerWeek;
+                }
 
 
-            if (itemRental.PricePerDay != 0)
-            {
-                totalDayPrice = (numOfDays % 30) % 7 * itemRental.PricePerDay;
+                if (itemRental.PricePerDay != 0)
+                {
+                    totalDayPrice = (numOfDays % 30) % 7 * itemRental.PricePerDay;
 
+
+
+                }
+                else
+                {
+                    totalDayPrice = (numOfDays % 30) * itemRental.PricePerDay;
+                }
 
 
             }
             else
             {
-                totalDayPrice = (numOfDays % 30) * itemRental.PricePerDay;
+                if (itemRental.PricePerWeek != 0)
+                {
+                    totalWeekPrice = numOfDays / 7 * itemRental.PricePerWeek;
+                }
+
+
+                if (itemRental.PricePerDay != 0)
+                {
+                    totalDayPrice = (numOfDays % 7) * itemRental.PricePerDay;
+
+
+
+                }
+                else
+                {
+                    totalDayPrice = (numOfDays * itemRental.PricePerDay);
+                }
+
+
+
+
             }
 
+            amountDue = totalDayPrice + totalWeekPrice + totalMonthPrice;
+            lblRentalRate.Text = amountDue.ToString();
 
+            lblTotalAmountPayable.Text = (amountDue + itemRental.Deposit).ToString();
+            Session["totalAmountPayable"] = (amountDue + itemRental.Deposit).ToString();
+            Response.Redirect("Payment.aspx");
         }
         else
         {
-            if (itemRental.PricePerWeek != 0)
-            {
-                totalWeekPrice = numOfDays / 7 * itemRental.PricePerWeek;
-            }
 
-
-            if (itemRental.PricePerDay != 0)
-            {
-                totalDayPrice = (numOfDays % 7) * itemRental.PricePerDay;
-
-
-
-            }
-            else
-            {
-                totalDayPrice = (numOfDays * itemRental.PricePerDay);
-            }
-
-
-
-            
+            pnlMessageOutput.Visible = true;
+            lblOutput.Text = "Please select the dates";
         }
-        amountDue = totalDayPrice + totalWeekPrice + totalMonthPrice;
-        lblRentalRate.Text = amountDue.ToString();
-
-        pnlMessageOutput.Visible = true; 
-        lblOutput.Text = "";
+    
 
     }
 }

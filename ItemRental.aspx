@@ -1134,52 +1134,37 @@
                                         <div class="panel panel-default no-padding">
                                             <div class="col-sm-6 checkout-shipping-methods">
                                                 <div class="panel-heading">
-                                                    <h4 class="panel-title"><i class="fa fa-quotes"></i>Personal Info</h4>
+                                                    <h4 class="panel-title"><i class="fa fa-quotes"></i>Delivery Info</h4>
                                                 </div>
                                                 <div class="panel-body">
                                                     <fieldset id="account">
-                                                        <div class="form-group required">
-                                                            <label for="input-payment-firstname" class="control-label">Full Name</label>
-                                                            <input type="text" class="form-control" id="input-payment-firstname" placeholder="Full Name" value="" name="firstname">
+  <div class="form-group required">
+                                                            <label for="input-payment-firstname" class="control-label">Pick Up Location</label>
+                                                            <input type="text" class="form-control" runat="server" id="tbxPickUpLocation" placeholder="Pick up location" value="" name="firstname">
                                                         </div>
                                                         <div class="form-group required">
-                                                            <label for="input-payment-email" class="control-label">E-mail</label>
-                                                            <input type="text" class="form-control" id="input-payment-email" placeholder="E-mail" value="" name="email">
-                                                        </div>
-                                                        <div class="form-group required">
-                                                            <label for="input-payment-telephone" class="control-label">Mobile Number</label>
-                                                            <input type="text" class="form-control" id="input-payment-telephone" placeholder="Mobile Number" value="" name="telephone">
+                                                            <label for="input-payment-firstname" class="control-label">Pick Up Time</label>
+                                                            <input type="text" class="form-control" runat="server" id="tbxPickUpTime" placeholder="Pick up time" value="" name="firstname">
                                                         </div>
                                                     </fieldset>
                                                 </div>
                                             </div>
+
+
                                             <div class="col-sm-6  checkout-payment-methods">
                                                 <div class="panel-heading">
-                                                    <h4 class="panel-title"><i class="fa fa-truck"></i>Delivery Info</h4>
+                                                    <h4 class="panel-title"><i class="fa fa-truck"></i>Return Info</h4>
                                                 </div>
                                                 <div class="panel-body">
                                                     <fieldset id="address" class="required">
                                                         <div class="form-group required">
-                                                            <label for="input-payment-address-1" class="control-label">Address 1</label>
-                                                            <input type="text" class="form-control" id="input-payment-address-1" placeholder="Address 1">
+                                                            <label for="input-payment-firstname" class="control-label">Return Location</label>
+                                                            <input type="text" class="form-control" runat="server" id="tbxReturnLocation" placeholder="Return Location" value="" name="firstname">
                                                         </div>
                                                         <div class="form-group required">
-                                                            <label for="input-payment-address-2" class="control-label">IC Number</label>
-                                                            <input type="text" class="form-control" id="input-payment-address-2" placeholder="IC Number">
-                                                        </div>
-                                                        <div class="form-group required">
-                                                            <label for="input-payment-city" class="control-label">City</label>
-                                                            <input type="text" class="form-control" id="input-payment-city" placeholder="City" value="" name="city">
-                                                        </div>
-                                                        <div class="form-group required">
-                                                            <label for="input-payment-postcode" class="control-label">Post Code</label>
-                                                            <input type="text" class="form-control" id="input-payment-postcode" placeholder="Post Code" value="" name="postcode">
-                                                        </div>
+                                                            <label for="input-payment-firstname" class="control-label">Return Time</label>
+                                                                                                                        <input type="text" class="form-control" runat="server" id="tbxReturnTime" placeholder="Return  Time" value="" name="firstname">
 
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input type="checkbox" checked="checked" value="1" name="shipping_address">
-                                                                My delivery and billing addresses are the same.</label>
                                                         </div>
                                                     </fieldset>
 

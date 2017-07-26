@@ -14,7 +14,7 @@ public partial class ProductDetails : System.Web.UI.Page
     {
         if (Request.QueryString["itemID"] == null)
         {
-            Server.Transfer("~/Categories.aspx");
+            Response.Redirect("~/Categories.aspx");
         }
         else
         { 

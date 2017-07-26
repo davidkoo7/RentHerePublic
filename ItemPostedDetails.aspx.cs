@@ -17,22 +17,22 @@ public partial class ItemPostedDetails : System.Web.UI.Page
         rptInfo.DataSource = itemInfoDetails;
         rptInfo.DataBind();
 
-            List<Rental> itemRental = RentalDB.getRentalofItem("ITM000000003", null);
+        List<Rental> itemRental = RentalDB.getRentalofItem("ITM000000003", null);
 
         rptRentalHistory.DataSource = itemRental;
         rptRentalHistory.DataBind();
     }
 
 
-    public string checkEndDate(string itemID)
+    public string checkEndDate(string rentalID)
     {
-        Extension itemExtension = ExtensionDB.getLastExtensionofItem(itemID, "On-going");
+        Extension itemExtension = ExtensionDB.getLastExtensionofRental(rentalID);
 
 
         if (itemExtension.ExtensionID == null)
         {
-            List<Rental> itemRental = RentalDB.getRentalofItem("ITM000000003", "On-going");
-            return itemRental[0].EndDate.ToString();
+            Rental itemRental = RentalDB.getRentalbyID(rentalID);
+            return itemRental.EndDate.ToString();
             
         }
         else

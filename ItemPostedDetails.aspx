@@ -86,7 +86,7 @@
                         <td class="text-left">
                             <asp:Label ID="lblStartDate" runat="server" Text='<%# "" + Eval("startDate") %>'></asp:Label></td>
                         <td class="text-left">
-                            <asp:Label ID="lblEndDate" runat="server" Text='<%# checkEndDate("" + Eval("Item.itemID")) %>'></asp:Label></td>
+                            <asp:Label ID="lblEndDate" runat="server" Text='<%# checkEndDate("" + Eval("rentalID")) %>'></asp:Label></td>
                         <td class="text-left">
                             <asp:Label ID="lblStatus" runat="server" Text='<%# "" + Eval("status") %>'></asp:Label></td>
                         <td class="text-left">

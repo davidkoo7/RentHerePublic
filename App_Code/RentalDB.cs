@@ -50,7 +50,9 @@ public class RentalDB
             string sqlcommand = "SELECT * FROM Rental WHERE itemID = @itemID ";
 
             if (status != null)
-                sqlcommand += " and status=@status";
+                sqlcommand += " and status=@status ";
+
+            sqlcommand += "ORDER BY startDate desc" ;
 
             SqlCommand command = new SqlCommand(sqlcommand);
 
@@ -234,7 +236,7 @@ public class RentalDB
             SqlDataReader reader = command.ExecuteReader();
 
             if (reader.Read())
-                rentNo = Convert.ToInt32(reader["noOfRental"]);
+                rentNo = Convert.ToInt32(reader["noOfRental"]); 
 
             reader.Close();
         }

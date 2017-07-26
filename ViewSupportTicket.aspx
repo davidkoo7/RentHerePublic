@@ -25,7 +25,7 @@
                 padding: 18px 20px;
                 line-height: 26px;
                 font-size: 13px;
-                border-radius: 5px;
+                border-radius: 5px; 
                 margin-bottom: 30px;
                 width: 90%;
                 position: relative;

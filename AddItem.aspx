@@ -112,6 +112,9 @@
                                         <div class="cart">
                                             <asp:Button CssClass="btn btn-mega btn-lg" OnClick="btnSubimt_Click" ID="btnSubimt" runat="server" Text="Submit" />
                                         </div>
+
+
+
                                         <div class="add-to-links wish_comp">
                                             <ul class="blank list-inline">
                                                 <li class="wishlist">
@@ -121,7 +124,12 @@
                                                 </li>
                                             </ul>
                                         </div>
-
+                                                                                <asp:Panel ID="pnlOutput" Visible="false" runat="server">
+                                            <div class="alert alert-warning">
+                                                <i class="fa fa-info-circle"></i>
+                                                <asp:Label ID="lblOutput" runat="server" Text=""></asp:Label>
+                                            </div>
+                                        </asp:Panel>
                                     </div>
 
 

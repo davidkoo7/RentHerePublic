@@ -20,12 +20,37 @@ public partial class Login : System.Web.UI.Page
             Session["user"] = tbxEmail.Value;
             if (Session["pageRedirectAfterLogin"] == null)
                 Response.Redirect("Default.aspx");
+
             else
             {
                 Response.Redirect("~" + Session["pageRedirectAfterLogin"].ToString());
                 Session["pageRedirectAfterLogin"] = null ;
             }
         }
+        else
+        {
+            pnlOutput.Visible = true;
+            lblOutput.Text = "Incorrect username or password";
+        }
     }
 
+
+    protected void btnSubmit_Click(object sender, EventArgs e)
+    {
+        string newPassword = Utility.getRandomizedChar(7, 1);
+
+        string message = "This is message is to inform you on your auto-generated password: " + newPassword;
+        message += "\nDo not reply.\n Regards, RentHere Team";
+
+        Utility.sendEmail(tbxEmail.Value, "Your Password Reset is Here", message);
+
+        pnlForgotPasswordOutput.Visible = true;
+        lblForgotEmailOutput.Text = "Your password reset has been sent to your email";
+
+        MemberDB.changeMemberPassword(tbxEmail.Value, newPassword);
+
+        Session["password"] = " ";
+
+        Response.Redirect(Request.RawUrl);
+    }
 }

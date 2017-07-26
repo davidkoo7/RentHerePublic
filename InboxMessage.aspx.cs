@@ -19,7 +19,7 @@ public partial class InboxMessage : System.Web.UI.Page
         List<MemberMessage> memberMessageList = MemberMessageDB.getMsgforMember("1");
 
          rptMessages.DataSource = memberMessageList;
-        rptMessages.DataBind();
+         rptMessages.DataBind();
     }
 
     protected string retrieveMessage(string senderID, string reply, string datePosted)
