@@ -8,7 +8,10 @@ using System.Configuration;
 
 public class PaymentDB
 {
+    // gets the connection value from "myConnectionString" in web.config to connect to database
     public static SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString);
+
+    // method to get all payments from the database
     public static List<Payment> getAllPayment()
     {
         List<Payment> paymentList = new List<Payment>();
@@ -35,6 +38,7 @@ public class PaymentDB
 
     }
 
+    // method to get payment by paymentID from the database
     public static Payment getPaymentbyID(string payID)
     {
         Payment pay = new Payment();
@@ -59,6 +63,7 @@ public class PaymentDB
         return pay;
     }
 
+    // method to add payment into the database, takes in parameter of Payment type
     public static int addPayment(Payment pay)
     {
         try
@@ -82,6 +87,8 @@ public class PaymentDB
         return -1;
     }
 
+    // method to read the column values in the database (through the referenced reader) and assign it to the correct properties of the referenced Payment object 
+    // allows for easier editing of column names if needed, used only for methods with select statments regarding Payment
     private static void readAPayment (ref Payment pay, ref SqlDataReader reader)
     {
         pay.PaymentID = reader["paymentID"].ToString();

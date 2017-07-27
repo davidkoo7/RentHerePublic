@@ -8,8 +8,10 @@ using System.Configuration;
 
 public class CategoryDB
 {
+    // gets the connection value from "myConnectionString" in web.config to connect to database
     public static SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString);
 
+    // method to get all categories from the database
     public static List<Category> getAllCategory()
     {
         List<Category> categoryList = new List<Category>();
@@ -35,6 +37,7 @@ public class CategoryDB
         return categoryList;
     }
 
+    // method to get categories by name from the database
     public static Category getCategorybyName(string catName)
     {
         Category cat = new Category();
@@ -60,6 +63,7 @@ public class CategoryDB
         return cat;
     }
 
+    // method to add category into the database, takes in parameter of type Category 
     public static int addCategory(Category categ)
     {
         try
@@ -82,6 +86,8 @@ public class CategoryDB
         return -1;
     }
 
+    // method to read the column values in the database(through the referenced reader) and assign it to the correct properties of the referenced Category object
+    // allows for easier editing of column names if needed, used only for methods with select statments regarding category
     private static void readACategory(ref Category cat, ref SqlDataReader reader)
     {
         cat.Name = reader["name"].ToString();

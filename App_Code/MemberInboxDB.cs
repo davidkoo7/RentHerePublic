@@ -10,8 +10,10 @@ using System.Data.SqlClient;
 /// </summary>
 public class MemberInboxDB
 {
+    // gets the connection value from "myConnectionString" in web.config to connect to database
     public static SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString);
 
+    // method to get all MemberInbox from the database
     public static List<MemberInbox> getAllMemberInbox()
     {
         List<MemberInbox> memberInboxList = new List<MemberInbox>();
@@ -37,6 +39,7 @@ public class MemberInboxDB
         return memberInboxList;
     }
 
+    // method to get all MemberInbox by member, takes in parameter of type Member
     public static List<MemberInbox> getAllMemberInboxByID(Member sender)
     {
         List<MemberInbox> memberInboxList = new List<MemberInbox>();
@@ -63,7 +66,7 @@ public class MemberInboxDB
         return memberInboxList;
     }
 
-
+    // method to get MemberInbox by memberInboxID from the database
     public static MemberInbox getMemberInboxID(string memberInboxID)
     {
         MemberInbox mem = new MemberInbox();
@@ -86,6 +89,7 @@ public class MemberInboxDB
         return mem;
     }
 
+    // method to add MemberInbox into the database, takes in paramater of type MemberInbox
     public static int AddMsgMember(MemberInbox msgDis)
     {
         try
@@ -109,6 +113,8 @@ public class MemberInboxDB
         return -1;
     }
 
+    // method to read the column values in the database (through the referenced reader) and assign it to the correct properties of the referenced MemberInbox object 
+    // allows for easier editing of column names if needed, used only for methods with select statments regarding MemberInbox
     private static void readAMsg(ref MemberInbox msg, ref SqlDataReader reader)
     {
         msg.MemberInboxID = Convert.ToInt32(reader["memberInboxID"]);

@@ -7,8 +7,10 @@ using System.Configuration;
 
 public class ItemDB
 {
+    // gets the connection value from "myConnectionString" in web.config to connect to database
     static SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString);
 
+    // method to get all items from the database 
     public static List<Item> getAllItem()
     {
         List<Item> itemList = new List<Item>();
@@ -35,6 +37,7 @@ public class ItemDB
         return itemList;
     }
 
+    // method to get items by category from the database
     public static List<Item> getAllItemByCategory(string categoryName)
     {
         List<Item> itemList = new List<Item>();
@@ -62,7 +65,7 @@ public class ItemDB
         return itemList;
     }
 
-
+    // method to search items by name from the database
     // Need to clarify whether this particular function is working
     public static List<Item> searchItembyName(string keyword, string location, string categoryName)
     {
@@ -108,6 +111,7 @@ public class ItemDB
         return itemList;
     }
 
+    // method to get item by itemID from the database
     public static Item getItembyID(string itemID)
     {
         Item i = new Item();
@@ -133,6 +137,7 @@ public class ItemDB
         return i;
     }
 
+    // method to get all items listed by member from the database 
     public static List<Item> getAllItemofMember(string memberID)
     {
         List<Item> itemList = new List<Item>();
@@ -160,6 +165,7 @@ public class ItemDB
         return itemList;
     }
 
+    // method to delete item by itemID from database
     public static int deleteItem(string itemID)
     {
         try
@@ -181,6 +187,7 @@ public class ItemDB
         return -1;
     }
 
+    // // method to add item in to database, takes in paramter of type Item
     public static int addItem(Item item)
     {
         /* please insert PricePerDay/Week/Month as 0 if you want them to be inserted null in the Database
@@ -251,6 +258,8 @@ public class ItemDB
         return -1;
     }
 
+    // method to read the column values in the database (through the referenced reader) and assign it to the correct properties of the referenced Item object 
+    // allows for easier editing of column names if needed, used only for methods with select statments regarding Item
     private static void readAItem(ref Item i, ref SqlDataReader reader)
     {
         i.ItemID = reader["itemID"].ToString();

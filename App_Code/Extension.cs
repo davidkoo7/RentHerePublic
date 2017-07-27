@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-/// <summary>
-/// Summary description for Extension
-/// </summary>
 public class Extension
 {
+    // properties of Extension
     public string ExtensionID { get; set; }
     public string NewReturnLocation { get; set; }
     public TimeSpan NewReturnTime { get; set; }
@@ -18,6 +16,7 @@ public class Extension
     public Payment Payment { get; set; }
     public Rental Rental { get; set; }
 
+    // constructor for Extension
     public Extension(string extensionID, string newReturnLocation, TimeSpan newReturnTime, DateTime newEndDate, string unit, string status, decimal extensionRentalFee, Payment payment, Rental rental)
     {
         ExtensionID = extensionID;
@@ -31,5 +30,6 @@ public class Extension
         Rental = rental;
     }
 
+    // empty Extension constructor
     public Extension() { }
 }

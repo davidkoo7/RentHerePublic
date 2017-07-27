@@ -5,11 +5,9 @@ using System.Web;
 using System.Net;
 using System.Net.Mail;
 
-/// <summary>
-/// Summary description for Utility
-/// </summary>
 public class Utility
 {
+    // method to convert indentity to primary key 
     public static string convertIdentitytoPK(string pkHeader, int identity)
     {
         string sPrimaryKey = pkHeader;
@@ -20,6 +18,7 @@ public class Utility
         return sPrimaryKey;
     }
 
+    // method to send email 
     public static int sendEmail(string destinationAddress, string title, string body)
     {
         SmtpClient client = new SmtpClient("smtp.gmail.com");
@@ -39,6 +38,7 @@ public class Utility
         return 1;
     }
 
+    // method to find tags written in textbox
     public static List<string> findHashTags(string textbox)
     {
         string textMessage = textbox + " ";
@@ -82,8 +82,8 @@ public class Utility
         return tags;
     }
 
-    //This function return randomized characters(number/alphabet) to produce randomized password or OTP verification
-    //WhatToInclude: gives 0 to only return numbers, give 1 to return numbers and non capital characters, give 2 to return numbers, noncapital and capital letter
+    // method to generate randomized characters(number/alphabet) to produce randomized password or OTP verification
+    // WhatToInclude: gives 0 to only return numbers, give 1 to return numbers and non capital characters, give 2 to return numbers, noncapital and capital letter
     public static string getRandomizedChar(int howLong, int whatToInclude)
     {
         Random r = new Random();

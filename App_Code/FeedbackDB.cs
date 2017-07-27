@@ -5,13 +5,12 @@ using System.Web;
 using System.Data.SqlClient;
 using System.Configuration;
 
-/// <summary>
-/// Summary description for FeedbackDB
-/// </summary>
 public class FeedbackDB
 {
+    // gets the connection value from "myConnectionString" in web.config to connect to database 
     private static SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString);
 
+    // method to get all feedbacks by member from the database 
     public static List<Feedback> getFeedbackFor(string memberID)
     {
         List<Feedback> feedList = new List<Feedback>();
@@ -40,6 +39,7 @@ public class FeedbackDB
         return feedList;
     }
 
+    // method to get feedback by feedbackID from the database
     public static Feedback getFeedbackByID(string feedbackID)
     {
         Feedback f = new Feedback();
@@ -66,6 +66,7 @@ public class FeedbackDB
         return f;
     }
 
+    // method to get feedback by rentalID from the database 
     public static Feedback getFeedbackforRental(string rentalID)
     {
         Feedback f = new Feedback();
@@ -90,8 +91,9 @@ public class FeedbackDB
             connection.Close();
         }
         return f;
-    }   
+    }
 
+    // method to add feedback into database, takes in parameter of type Feedback
     public static int addFeedback(Feedback feed)
     {
         try
@@ -125,6 +127,7 @@ public class FeedbackDB
         return 0;
     }
 
+    // method to update reply for feedback into database, takes in parameter of type Feedback
     public static int setReplyforFeedback(Feedback feed)
     {
         try
@@ -151,6 +154,8 @@ public class FeedbackDB
         return -1;
     }
 
+    // method to read the column values in the database (through the referenced reader) and assign it to the correct properties of the referenced Feedback object 
+    // allows for easier editing of column names if needed, used only for methods with select statments regarding Feedback
     private static void readAFeedback(ref Feedback feed, ref SqlDataReader reader)
     {
         feed.FeedbackID = reader["feedbackID"].ToString();

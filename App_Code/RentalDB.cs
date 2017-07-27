@@ -5,13 +5,12 @@ using System.Web;
 using System.Data.SqlClient;
 using System.Configuration;
 
-/// <summary>
-/// Summary description for RentalDB
-/// </summary>
 public class RentalDB
 {
+    // gets the connection value from "myConnectionString" in web.config to connect to database
     private static SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString);
 
+    // method to get all rentals by member from the database, takes in parameter of type Member
     public static List<Rental> getRentalforMember(Member member)
     {
         List<Rental> rentalList = new List<Rental>();
@@ -41,6 +40,7 @@ public class RentalDB
         return rentalList;
     }
 
+    // method to get all rentals by item from the database
     public static List<Rental> getRentalofItem(string itemID, string status)
     {
         List<Rental> rentList = new List<Rental>();
@@ -81,6 +81,7 @@ public class RentalDB
         return rentList;
     }
 
+    // method to insert rental into the database, takes in parameter of type Rental
     public static int addRental(Rental rent)
     {
         try
@@ -128,6 +129,7 @@ public class RentalDB
         return -1;
     }
 
+    // method to get rentee from rental record from the database
     public static Member getRenteeforRental(string rentalID)
     {
         Member m = new Member();
@@ -152,6 +154,7 @@ public class RentalDB
         return m;
     }
 
+    // method to get rental by rentalID from the database
     public static Rental getRentalbyID(string rentalID)
     {
         Rental rent = new Rental();
@@ -178,6 +181,7 @@ public class RentalDB
         return rent;
     }
 
+    // method to change status of rental in the database
     public static int updateRentStatus(string rentalID, string status)
     {
         try
@@ -199,6 +203,7 @@ public class RentalDB
         return -1;
     }
 
+    // method to get number of rentals where member is rentee from the database
     public static int getNoofRentalAsRentee(string memberID)
     {
         int rentNo = 0;
@@ -223,6 +228,7 @@ public class RentalDB
         return rentNo;
     }
 
+    // method to get number of rentals where member is renter from the database
     public static int getNoofRentalAsRenter(string memberID)
     {
         int rentNo = 0;
@@ -247,6 +253,7 @@ public class RentalDB
         return rentNo;
     }
 
+    // method to get rental that has exceeded the due date from the database
     public static List<Rental> getRentalsThatExceeds(DateTime dueDate)
     {
         List<Rental> rentList = new List<Rental>();
@@ -280,6 +287,7 @@ public class RentalDB
         return rentList;
     }
 
+    // method to get rental that has extension that has exceeded the due date from the database
     public static List<Rental> getRentalsWithExtensionThatExceeds(DateTime dueDate)
     {
         List<Rental> rentList = new List<Rental>();
@@ -315,6 +323,8 @@ public class RentalDB
         return rentList;
     }
 
+    // method to read the column values in the database (through the referenced reader) and assign it to the correct properties of the referenced Rental object 
+    // allows for easier editing of column names if needed, used only for methods with select statments regarding Rental
     private static void readARental(ref Rental rent, ref SqlDataReader reader)
     {
         rent.RentalID = Convert.ToString(reader["rentalID"]);

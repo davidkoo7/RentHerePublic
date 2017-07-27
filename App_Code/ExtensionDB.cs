@@ -5,13 +5,12 @@ using System.Web;
 using System.Data.SqlClient;
 using System.Configuration;
 
-/// <summary>
-/// Summary description for ExtensionDB
-/// </summary>
 public class ExtensionDB
 {
+    // gets the connection value from "myConnectionString" in web.config to connect to database
     public static SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString);
 
+    // method to get extension by extensionID from the database
     public static Extension getExtensionbyID(string extID)
     {
         Extension ext = new Extension();
@@ -37,6 +36,7 @@ public class ExtensionDB
         return ext;
     }
 
+    // method to get extension by rentalID from the database
     public static Extension getExtensionbyRental(string rentalID)
     {
         Extension ext = new Extension();
@@ -62,6 +62,7 @@ public class ExtensionDB
         return ext;
     }
 
+    // method to add extension into database, takes in parameter of type Extension
     public static int addExtension(Extension extension)
     {
         try
@@ -88,6 +89,7 @@ public class ExtensionDB
         return -1;
     }
 
+    // method to get last extension by item from the database
     public static Extension getLastExtensionofItem(string itemID, string status)
     {
         Extension ext = new Extension();
@@ -126,6 +128,7 @@ public class ExtensionDB
         return ext;
     }
 
+    // method to get last extension of item by rental from the database
     public static Extension getLastExtensionofRental(string rentalID)
     {
         Extension ext = new Extension();
@@ -155,6 +158,8 @@ public class ExtensionDB
         return ext;
     }
 
+    // method to read the column values in the database (through the referenced reader) and assign it to the correct properties of the referenced Extension object 
+    // allows for easier editing of column names if needed, used only for methods with select statments regarding Extension
     private static void readAnExtension(ref Extension extent, ref SqlDataReader reader)
     {
         extent.ExtensionID = reader["extensionID"].ToString();

@@ -3,17 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-/// <summary>
-/// Summary description for TicketMsg
-/// </summary>
 public class TicketMsg
 {
-
+    // TicketMsg fields
     private DateTime date;
     private string msg;
     private string person;
     private SupportTicket ticket;
 
+    // empty TicketMsg constructor 
     public TicketMsg()
     {
     }
@@ -24,6 +22,8 @@ public class TicketMsg
     //    this.person = person;
     //    this.ticket = ticket;
     //}
+     
+    // constructor for TicketMsg
     public TicketMsg(DateTime date, string msg, string person, SupportTicket ticket)
     {
         this.date = date;
@@ -32,6 +32,7 @@ public class TicketMsg
         this.ticket = ticket;
     }
 
+    // properties of TicketMsg
     public DateTime Date { get; set; }
     public string Msg { get; set; }
     public string Person { get; set; }
