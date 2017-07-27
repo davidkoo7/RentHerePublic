@@ -15,10 +15,10 @@ public class Extension
     public string Unit { get; set; }
     public string Status { get; set; }
     public decimal ExtensionRentalFee { get; set; }
-    public Payment Payment { get; set; }
+    public PaymentPay Payment { get; set; }
     public Rental Rental { get; set; }
 
-    public Extension(string extensionID, string newReturnLocation, TimeSpan newReturnTime, DateTime newEndDate, string unit, string status, decimal extensionRentalFee, Payment payment, Rental rental)
+    public Extension(string extensionID, string newReturnLocation, TimeSpan newReturnTime, DateTime newEndDate, string unit, string status, decimal extensionRentalFee, PaymentPay payment, Rental rental)
     {
         ExtensionID = extensionID;
         NewReturnLocation = newReturnLocation;

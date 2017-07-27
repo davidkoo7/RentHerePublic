@@ -1,4 +1,4 @@
-.alert-jpn {
+﻿.alert-jpn {
 	border-width: 1px;
     border-style: solid;
     border-radius: 4px;
@@ -39,9 +39,8 @@
 }
 
 .alert-jpn.alert-custom {
-	background: #f1f2f0;
-	border-color: #DDD;
-	color: #666;
+display: none !important;
+
 	
 }
 

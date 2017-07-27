@@ -134,8 +134,8 @@
 
             </div>
             <div class="pull-right">
-                <asp:Button CssClass="btn btn-primary" data-toggle="modal" data-target="#myModal" Visible="false" ID="btnRetrivalCode" runat="server" Text="Item Received" />
-                <asp:Button CssClass="btn btn-primary" data-toggle="modal" data-target="#myModal" Visible="false" ID="btnReleaseCode" runat="server" Text="Item Returned" />
+                <asp:Button CssClass="btn btn-primary" data-toggle="modal" data-target="#myModal" Visible="false" ID="btnRetrivalCode" runat="server" Text="Item Returned" />
+                <asp:Button CssClass="btn btn-primary" data-toggle="modal" data-target="#myModal" Visible="false" ID="btnReleaseCode" runat="server" Text="Item Received" />
 
             </div>
         </div>

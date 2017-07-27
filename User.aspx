@@ -98,8 +98,6 @@
                                     </ItemTemplate>
                                 </asp:Repeater>
                                 <td style="width: 50%;" class="text-left">
-                                    <a class="btn btn-primary btn-block" href="/">Contact</a>
-                                    <a class="btn btn-danger btn-block" href="#">Report</a>
                                 </td>
                                 </tr>
 

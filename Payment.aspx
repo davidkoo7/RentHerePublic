@@ -56,10 +56,6 @@
                                             <table class="table table-bordered">
                                                 <thead>
                                                     <tr>
-
-
-
-                                                        <td class="text-center"></td>
                                                         <td class="text-center">Image</td>
                                                         <td class="text-left">Product Name</td>
                                                         <td class="text-left">Rental Period</td>
@@ -69,49 +65,46 @@
                                                         <td class="text-right">Total</td>
                                                     </tr>
                                                 </thead>
+
+
                                                 <tbody>
+
+
+
+
                                                     <tr>
-                                                        <td class="text-center">
-                                                            <p></p>
-                                                            <button type="button" data-toggle="tooltip" title="Remove" class="btn btn-danger" onclick=""><i class="fa fa-times-circle"></i></button>
-                                                        </td>
-
-                                                        <td class="text-center"><a href="product.html">
-                                                            <img width="60px" src="image/demo/shop/product/E4.jpg" alt="Xitefun Causal Wear Fancy Shoes" title="Xitefun Causal Wear Fancy Shoes" class="img-thumbnail"></a></td>
-                                                        <td class="text-left"><a href="product.html">Emasa rumas gacem</a></td>
-                                                        <td class="text-left">
-                                                            <div class="input-group btn-block" style="min-width: 100px;">
-
-                                                                <form method="POST" action="checkout.html">
-
-                                                                    <input style="table-layout: fixed;" type="text" name="input-id" id="input-id" value="" class="form-control">
-                                                                </form>
 
 
-
-                                                                <span class="input-group-btn">
-                                                                    <button type="submit" data-toggle="tooltip" title="Update" class="btn btn-primary"><i class="fa fa-refresh"></i></button>
-                                                                </span>
-                                                            </div>
-                                                        </td>
-                                                        <td class="text-right">$114.35</td>
-                                                        <td class="text-right">$114.35</td>
-                                                        <td class="text-right">$114.35</td>
+                                                        <asp:Repeater ID="rptItemRentalInfo" runat="server">
+                                                            <ItemTemplate>
+                                                                <td class="text-center"><a href="product.html">
+                                                                    <img width="60px" src="/image/item/<%# DataBinder.Eval(Container.DataItem, "img1") %>" class="img-thumbnail"></a></td>
+                                                                <td class="text-left"><a href="product.html">
+                                                                    <asp:Label ID="lblItemName" runat="server" Text='<%# Eval("name") %>' /></a></td>
+                                                            </ItemTemplate>
+                                                        </asp:Repeater>
+                                                        <td class="text-right">
+                                                            <asp:Label ID="lblRentalPeriod" runat="server" Text=""></asp:Label></td>
+                                                        <td class="text-right">
+                                                            <asp:Label ID="lblRentalRate" runat="server" Text="Select date and Update"></asp:Label></td>
+                                                        <td class="text-right">
+                                                            <asp:Label ID="lblDepositAmount" runat="server" Text=""></asp:Label></td>
+                                                        <td class="text-right">
+                                                            <asp:Label ID="lblTotalAmount" runat="server" Text=""></asp:Label></td>
                                                     </tr>
-
 
 
 
                                                 </tbody>
+
+
                                                 <tfoot>
                                                     <tr>
-                                                        <td class="text-right" colspan="1"><strong>Meeting Location:</strong></td>
-                                                        <td class="text-left" colspan="6">$93.73</td>
-
                                                     </tr>
                                                     <tr>
-                                                        <td class="text-right" colspan="6"><strong>Total Amount Payable:</strong></td>
-                                                        <td class="text-right">$121.85</td>
+                                                        <td class="text-right" colspan="5"><strong>Total Amount Payable:</strong></td>
+                                                        <td class="text-right">
+                                                            <asp:Label ID="lblTotalAmountPayable" runat="server" Text=""></asp:Label></td>
                                                     </tr>
                                                 </tfoot>
                                             </table>
@@ -142,7 +135,7 @@
                                                 <div id="card-errors" role="alert"></div>
                                             </div>
 
-                                            <asp:Button ID="btnPay" OnClick="btnPay_Click" runat="server" Text="Button" />
+                                            <asp:Button ID="btnPay" OnClick="btnPay_Click" runat="server" Text="Pay Now" />
 
                                         </div>
                                     </div>

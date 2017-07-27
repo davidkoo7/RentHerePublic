@@ -29,7 +29,6 @@ public partial class AddItem : System.Web.UI.Page
     {
         Item newItem = new Item();
 
-        newItem.Name = tbxItemName.Text;
         newItem.CategoryName = CategoryDB.getCategorybyName("Services");
         newItem.Deposit = Convert.ToDecimal(tbxRefundableDeposit.Text);
         newItem.Location = LocationDB.getLocationbyID(ddlMRTLocation.SelectedValue);

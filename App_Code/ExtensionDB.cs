@@ -27,7 +27,7 @@ public class ExtensionDB
             if (reader.Read())
                 readAnExtension(ref ext, ref reader);
             else
-                ext = new Extension(null, null, new TimeSpan(), new DateTime(), null, null, 0, new Payment(), new Rental());
+                ext = new Extension(null, null, new TimeSpan(), new DateTime(), null, null, 0, new PaymentPay(), new Rental());
             reader.Close();
         }
         finally
@@ -52,7 +52,7 @@ public class ExtensionDB
             if (reader.Read())
                 readAnExtension(ref ext, ref reader);
             else
-                ext = new Extension(null, null, new TimeSpan(), new DateTime(), null, null, 0, new Payment(), new Rental());
+                ext = new Extension(null, null, new TimeSpan(), new DateTime(), null, null, 0, new PaymentPay(), new Rental());
             reader.Close();
         }
         finally
@@ -61,6 +61,8 @@ public class ExtensionDB
         }
         return ext;
     }
+
+
 
     public static int addExtension(Extension extension)
     {
@@ -116,7 +118,7 @@ public class ExtensionDB
             if (reader.Read())
                 readAnExtension(ref ext, ref reader);
             else
-                ext = new Extension(null, null, new TimeSpan(), new DateTime(), null, null, 0, new Payment(), new Rental());
+                ext = new Extension(null, null, new TimeSpan(), new DateTime(), null, null, 0, new PaymentPay(), new Rental());
             reader.Close();
         }
         finally
@@ -145,7 +147,7 @@ public class ExtensionDB
             if (reader.Read())
                 readAnExtension(ref ext, ref reader);
             else
-                ext = new Extension(null, null, new TimeSpan(), new DateTime(), null, null, 0, new Payment(), new Rental());
+                ext = new Extension(null, null, new TimeSpan(), new DateTime(), null, null, 0, new PaymentPay(), new Rental());
             reader.Close();
         }
         finally

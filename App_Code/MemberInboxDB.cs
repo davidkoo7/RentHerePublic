@@ -37,6 +37,8 @@ public class MemberInboxDB
         return memberInboxList;
     }
 
+
+
     public static List<MemberInbox> getAllMemberInboxByID(Member sender)
     {
         List<MemberInbox> memberInboxList = new List<MemberInbox>();
@@ -71,6 +73,56 @@ public class MemberInboxDB
         {
             SqlCommand command = new SqlCommand("Select * from MemberInbox WHERE memberInboxID = @memberInboxID");
             command.Parameters.AddWithValue("@memberInboxID", memberInboxID);
+            command.Connection = connection;
+            connection.Open();
+            SqlDataReader reader = command.ExecuteReader();
+            if (reader.Read())
+                readAMsg(ref mem, ref reader);
+
+            reader.Close();
+        }
+        finally
+        {
+            connection.Close();
+        }
+        return mem;
+    }
+
+
+    public static MemberInbox searchMemberInbox(string senderID, string itemID)
+    {
+        MemberInbox memInbox = new MemberInbox();
+        try
+        {
+            SqlCommand command = new SqlCommand("SELECT * FROM MemberInbox Where senderID= @senderID AND itemID=@itemID");
+            command.Parameters.AddWithValue("@senderID", senderID);
+            command.Parameters.AddWithValue("@itemID", itemID);
+            command.Connection = connection;
+            connection.Open();
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            if (reader.Read())
+                readAMsg(ref memInbox, ref reader);
+            
+            reader.Close();
+        }
+        finally
+        {
+            connection.Close();
+        }
+        return memInbox;
+    }
+
+
+    public static MemberInbox getMemberInboxBetweenSenderAndItemOWner(string senderID, string itemID)
+    {
+        MemberInbox mem = new MemberInbox();
+        try
+        {
+            SqlCommand command = new SqlCommand("SELECT * FROM MemberInbox Where SenderID=@senderID' AND itemID=@itemID");
+            command.Parameters.AddWithValue("@senderID", senderID);
+            command.Parameters.AddWithValue("@itemID", itemID);
             command.Connection = connection;
             connection.Open();
             SqlDataReader reader = command.ExecuteReader();

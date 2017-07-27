@@ -51,20 +51,7 @@
                                             </h1>
                                         </div>
                                         <!-- Review ---->
-                                        <div class="box-review form-group">
-                                            <div class="ratings">
-                                                <div class="rating-box">
-                                                    <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                                    <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                                    <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                                    <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                                    <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                                </div>
-                                            </div>
-
-                                            <a class="reviews_button" href="" onclick="$('a[href=\'#tab-review\']').trigger('click'); return false;">0 reviews</a>	| 
-									<a class="write_review_button" href="" onclick="$('a[href=\'#tab-review\']').trigger('click'); return false;">Write a review</a>
-                                        </div>
+                                        <br />
 
                                         <div class="product-label form-group">
                                             <div class="product_page_price price" itemprop="offerDetails" itemscope="" itemtype="http://data-vocabulary.org/Offer">
@@ -93,17 +80,20 @@
                                                     <span>Refundable Deposit: </span>
                                                     <asp:Label ID="lblDeposit" runat="server" Text='<%# Eval("deposit") %>' />
                                                 </div>
-                                                <div class="reward"><span><asp:Label CssClass="status-stock" ID="lblItemStatus" runat="server" Text='<%# Eval("deposit") %>'></asp:Label></span></div>
+                                                <div class="stock">
+                                                    <span>Availability:</span> <span class="status-stock">
+                                                        <asp:Label ID="lblItemStatus" runat="server" Text='<%# Eval("deposit") %>'></asp:Label></span>
+                                                </div>
                                             </div>
                                         </div>
 
 
                                         <div class="product-box-desc">
                                             <div class="inner-box-desc">
-                                                <div class="renter-info"><span>Renter Information</span></div>
-                                                CHANGE
-                                                <%--										<div class="reward"><span>User: <asp:Label ID="lblRenterName" runat="server" Text='<%# Eval("renterID") %>' /> </span></div>--%>
-                                                <div class="reward"><span>Rating:</span></div>
+
+                                                <asp:Button ID="btnRentalProfile" OnClick="btnRenterProfile_Click" CssClass="btn btn-primary" runat="server" Text="View Renter Profile" />
+
+                                                <asp:Button ID="btnContactRenter" OnClick="btnContactRenter_Click" CssClass="btn btn-primary" runat="server" Text="Contact Renter" />
                                             </div>
                                         </div>
 
@@ -115,15 +105,7 @@
                                                 <div class="cart">
                                                     <asp:Button ID="btnRent" OnClick="btnRent_Click" CssClass="btn btn-mega btn-lg" runat="server" Text="Rent Now" />
                                                 </div>
-                                                <div class="add-to-links wish_comp">
-                                                    <ul class="blank list-inline">
-                                                        <li class="wishlist">
-                                                            <a class="icon" data-toggle="tooltip" title=""
-                                                                onclick="wishlist.add('50');" data-original-title="Add to Wish List"><i class="fa fa-heart"></i>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
+
 
                                             </div>
 
@@ -147,9 +129,7 @@
                             <div class="tabsslider  col-xs-12">
                                 <ul class="nav nav-tabs">
                                     <li class="active"><a data-toggle="tab" href="#tab-1">Description</a></li>
-                                    <li class="item_nonactive"><a data-toggle="tab" href="#tab-review">Reviews</a></li>
-                                    <li class="item_nonactive"><a data-toggle="tab" href="#tab-4">Tags</a></li>
-                                    <li class="item_nonactive"><a data-toggle="tab" href="#tab-5">Message Renter</a></li>
+
                                 </ul>
                                 <div class="tab-content col-xs-12">
                                     <div id="tab-1" class="tab-pane fade active in">
@@ -260,199 +240,6 @@
                         </div>
                         <!-- //Product Tabs -->
 
-                        <!-- Related Products -->
-                        <div class="related titleLine products-list grid module ">
-                            <h3 class="modtitle">Related Products  </h3>
-                            <div class="releate-products ">
-                                <div class="product-layout">
-                                    <div class="product-item-container">
-                                        <div class="left-block">
-                                            <div class="product-image-container second_img ">
-                                                <img src="image/demo/shop/product/e11.jpg" title="Apple Cinema 30&quot;" class="img-responsive" />
-                                                <img src="image/demo/shop/product/e12.jpg" title="Apple Cinema 30&quot;" class="img_0 img-responsive" />
-                                            </div>
-                                            <!--Sale Label-->
-                                            <span class="label label-sale">Sale</span>
-                                            <!--full quick view block-->
-                                            <a class="quickview iframe-link visible-lg" data-fancybox-type="iframe" href="quickview.html">Quickview</a>
-                                            <!--end full quick view block-->
-                                        </div>
-
-                                        <div class="right-block">
-                                            <div class="caption">
-                                                <h4><a href="product.html">Apple Cinema 30&quot;</a></h4>
-                                                <div class="ratings">
-                                                    <div class="rating-box">
-                                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                                    </div>
-                                                </div>
-
-                                                <div class="price">
-                                                    <span class="price-new">$74.00</span>
-                                                    <span class="price-old">$122.00</span>
-                                                    <span class="label label-percent">-40%</span>
-                                                </div>
-                                                <div class="description item-desc hidden">
-                                                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut l..</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="button-group">
-                                                <button class="addToCart" type="button" data-toggle="tooltip" title="Add to Cart"><i class="fa fa-shopping-cart"></i><span class="hidden-xs">Add to Cart</span></button>
-                                                <button class="wishlist" type="button" data-toggle="tooltip" title="Add to Wish List" onclick="wishlist.add('42');"><i class="fa fa-heart"></i></button>
-                                                <button class="compare" type="button" data-toggle="tooltip" title="Compare this Product" onclick="compare.add('42');"><i class="fa fa-exchange"></i></button>
-                                            </div>
-                                        </div>
-                                        <!-- right block -->
-
-                                    </div>
-                                </div>
-                                <div class="product-layout ">
-                                    <div class="product-item-container">
-                                        <div class="left-block">
-                                            <div class="product-image-container second_img ">
-                                                <img src="image/demo/shop/product/11.jpg" title="Apple Cinema 30&quot;" class="img-responsive" />
-                                                <img src="image/demo/shop/product/10.jpg" title="Apple Cinema 30&quot;" class="img_0 img-responsive" />
-
-                                            </div>
-                                        </div>
-
-
-                                        <div class="right-block">
-                                            <div class="caption">
-                                                <h4><a href="product.html">Apple Cinema 30&quot;</a></h4>
-                                                <div class="ratings">
-                                                    <div class="rating-box">
-                                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                                    </div>
-                                                </div>
-
-                                                <div class="price">
-                                                    <span class="price-new">$74.00</span>
-                                                    <span class="price-old">$122.00</span>
-                                                    <span class="label label-percent">-40%</span>
-                                                </div>
-                                                <div class="description item-desc hidden">
-                                                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut l..</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="button-group">
-                                                <button class="addToCart" type="button" data-toggle="tooltip" title="Add to Cart" onclick="cart.add('42', '1');"><i class="fa fa-shopping-cart"></i><span class="hidden-xs">Add to Cart</span></button>
-                                                <button class="wishlist" type="button" data-toggle="tooltip" title="Add to Wish List" onclick="wishlist.add('42');"><i class="fa fa-heart"></i></button>
-                                                <button class="compare" type="button" data-toggle="tooltip" title="Compare this Product" onclick="compare.add('42');"><i class="fa fa-exchange"></i></button>
-                                            </div>
-                                        </div>
-                                        <!-- right block -->
-
-                                    </div>
-                                </div>
-                                <div class="product-layout ">
-                                    <div class="product-item-container">
-                                        <div class="left-block">
-                                            <div class="product-image-container second_img ">
-                                                <img src="image/demo/shop/product/35.jpg" title="Apple Cinema 30&quot;" class="img-responsive" />
-                                                <img src="image/demo/shop/product/34.jpg" title="Apple Cinema 30&quot;" class="img_0 img-responsive" />
-                                            </div>
-                                            <!--Sale Label-->
-                                            <span class="label label-sale">Sale</span>
-                                            <!--full quick view block-->
-                                            <a class="quickview iframe-link visible-lg" data-fancybox-type="iframe" href="quickview.html">Quickview</a>
-                                            <!--end full quick view block-->
-                                        </div>
-
-
-                                        <div class="right-block">
-                                            <div class="caption">
-                                                <h4><a href="product.html">Apple Cinema 30&quot;</a></h4>
-                                                <div class="ratings">
-                                                    <div class="rating-box">
-                                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                                    </div>
-                                                </div>
-
-                                                <div class="price">
-                                                    <span class="price-new">$74.00</span>
-                                                    <span class="price-old">$122.00</span>
-                                                    <span class="label label-percent">-40%</span>
-                                                </div>
-                                                <div class="description item-desc hidden">
-                                                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut l..</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="button-group">
-                                                <button class="addToCart" type="button" data-toggle="tooltip" title="Add to Cart" onclick="cart.add('42', '1');"><i class="fa fa-shopping-cart"></i><span class="hidden-xs">Add to Cart</span></button>
-                                                <button class="wishlist" type="button" data-toggle="tooltip" title="Add to Wish List" onclick="wishlist.add('42');"><i class="fa fa-heart"></i></button>
-                                                <button class="compare" type="button" data-toggle="tooltip" title="Compare this Product" onclick="compare.add('42');"><i class="fa fa-exchange"></i></button>
-                                            </div>
-                                        </div>
-                                        <!-- right block -->
-
-                                    </div>
-                                </div>
-                                <div class="product-layout ">
-                                    <div class="product-item-container">
-                                        <div class="left-block">
-                                            <div class="product-image-container second_img ">
-                                                <img src="image/demo/shop/product/14.jpg" title="Apple Cinema 30&quot;" class="img-responsive" />
-                                                <img src="image/demo/shop/product/15.jpg" title="Apple Cinema 30&quot;" class="img_0 img-responsive" />
-                                            </div>
-                                            <!--Sale Label-->
-                                            <span class="label label-sale">Sale</span>
-                                            <!--full quick view block-->
-                                            <a class="quickview iframe-link visible-lg" data-fancybox-type="iframe" href="quickview.html">Quickview</a>
-                                            <!--end full quick view block-->
-                                        </div>
-
-
-                                        <div class="right-block">
-                                            <div class="caption">
-                                                <h4><a href="product.html">Apple Cinema 30&quot;</a></h4>
-                                                <div class="ratings">
-                                                    <div class="rating-box">
-                                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                                    </div>
-                                                </div>
-
-                                                <div class="price">
-                                                    <span class="price-new">$74.00</span>
-                                                    <span class="price-old">$122.00</span>
-                                                    <span class="label label-percent">-40%</span>
-                                                </div>
-                                                <div class="description item-desc hidden">
-                                                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut l..</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="button-group">
-                                                <button class="addToCart" type="button" data-toggle="tooltip" title="Add to Cart" onclick="cart.add('42', '1');"><i class="fa fa-shopping-cart"></i><span class="hidden-xs">Add to Cart</span></button>
-                                                <button class="wishlist" type="button" data-toggle="tooltip" title="Add to Wish List" onclick="wishlist.add('42');"><i class="fa fa-heart"></i></button>
-                                                <button class="compare" type="button" data-toggle="tooltip" title="Compare this Product" onclick="compare.add('42');"><i class="fa fa-exchange"></i></button>
-                                            </div>
-                                        </div>
-                                        <!-- right block -->
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
 
 
@@ -893,121 +680,7 @@
 
                             </div>
                         </div>
-                        <div class="module latest-product titleLine">
-                            <h3 class="modtitle">Latest Product</h3>
-                            <div class="modcontent ">
-                                <div class="product-latest-item">
-                                    <div class="media">
-                                        <div class="media-left">
-                                            <a href="#">
-                                                <img src="image/demo/shop/product/m1.jpg" alt="Cisi Chicken" title="Cisi Chicken" class="img-responsive" style="width: 100px; height: 82px;"></a>
-                                        </div>
-                                        <div class="media-body">
-                                            <div class="caption">
-                                                <h4><a href="#">Sunt Molup</a></h4>
 
-                                                <div class="price">
-                                                    <span class="price-new">$100.00</span>
-                                                </div>
-                                                <div class="ratings">
-                                                    <div class="rating-box">
-                                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-latest-item">
-                                    <div class="media">
-                                        <div class="media-left">
-                                            <a href="#">
-                                                <img src="image/demo/shop/product/m2.jpg" alt="Cisi Chicken" title="Cisi Chicken" class="img-responsive" style="width: 100px; height: 82px;"></a>
-                                        </div>
-                                        <div class="media-body">
-                                            <div class="caption">
-                                                <h4><a href="#">Et Spare</a></h4>
-
-                                                <div class="price">
-                                                    <span class="price-new">$99.00</span>
-                                                </div>
-                                                <div class="ratings">
-                                                    <div class="rating-box">
-                                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-latest-item">
-                                    <div class="media">
-                                        <div class="media-left">
-                                            <a href="#">
-                                                <img src="image/demo/shop/product/18.jpg" alt="Cisi Chicken" title="Cisi Chicken" class="img-responsive" style="width: 100px; height: 82px;"></a>
-                                        </div>
-                                        <div class="media-body">
-                                            <div class="caption">
-                                                <h4><a href="#">Cisi Chicken</a></h4>
-
-                                                <div class="price">
-                                                    <span class="price-new">$59.00</span>
-                                                </div>
-                                                <div class="ratings">
-                                                    <div class="rating-box">
-                                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-latest-item transition">
-                                    <div class="media">
-                                        <div class="media-left">
-                                            <a href="#">
-                                                <img src="image/demo/shop/product/9.jpg" alt="Cisi Chicken" title="Cisi Chicken" class="img-responsive" style="width: 100px; height: 82px;"></a>
-                                        </div>
-                                        <div class="media-body">
-                                            <div class="caption">
-                                                <h4><a href="#">Kevin Labor</a></h4>
-                                                <div class="price">
-                                                    <span class="price-new">$245.00</span>
-                                                </div>
-                                                <div class="ratings">
-                                                    <div class="rating-box">
-                                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                            </div>
-
-                        </div>
                         <div class="module titleLine">
                             <h3 class="modtitle">Clients say</h3>
                             <div class="modcontent">

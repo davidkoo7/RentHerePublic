@@ -17,14 +17,14 @@ public partial class ProductDetails : System.Web.UI.Page
             Response.Redirect("~/Categories.aspx");
         }
         else
-        { 
+        {
 
-        List<Item> productDetails = new List<Item>();
-        productDetails.Add(ItemDB.getItembyID(Request.QueryString["itemID"].ToString()));
+            List<Item> productDetails = new List<Item>();
+            productDetails.Add(ItemDB.getItembyID(Request.QueryString["itemID"].ToString()));
 
 
-        repeaterItemInformation.DataSource = productDetails;
-        repeaterItemInformation.DataBind();
+            repeaterItemInformation.DataSource = productDetails;
+            repeaterItemInformation.DataBind();
 
         }
     }
@@ -40,8 +40,8 @@ public partial class ProductDetails : System.Web.UI.Page
             if (itemRental.Count == 0)
             {
                 itemStatus = "Available";
-                
-                
+
+
             }
             else
             {
@@ -51,7 +51,7 @@ public partial class ProductDetails : System.Web.UI.Page
         }
         else
         {
-            itemStatus = "On-going Extended";   
+            itemStatus = "On-going Extended";
             // itemExtension.NewEndDate
         }
 
@@ -66,7 +66,7 @@ public partial class ProductDetails : System.Web.UI.Page
                 btnRent.Text = "Reserve Now";
             else
                 btnRent.Text = "Rent Now";
-            
+
 
         }
     }
@@ -86,4 +86,44 @@ public partial class ProductDetails : System.Web.UI.Page
         }
 
     }
+
+    protected void btnRenterProfile_Click(object sender, EventArgs e)
+    {
+        // Redirect to renter's profile page
+        Item itemInfo = ItemDB.getItembyID(Request.QueryString["itemID"].ToString());
+        Response.Redirect("~/User.aspx?memberID=" + MemberDB.getMemberbyID(ItemDB.getItembyID(Request.QueryString["itemID"].ToString()).Renter.MemberID).MemberID);
+    }
+
+
+    protected void btnContactRenter_Click(object sender, EventArgs e)
+    {
+        if (Session["user"].ToString() == null)
+        {
+            Response.Redirect("Login.aspx");
+            return;
+        }
+        else
+        {
+            // If memberInbox doesnt exist
+            if (MemberInboxDB.searchMemberInbox(MemberDB.getMemberbyEmail(Session["user"].ToString()).MemberID, ItemDB.getItembyID(Request.QueryString["itemID"].ToString()).ItemID) == null)
+            {
+                MemberInbox mem = new MemberInbox();
+                mem.Date = DateTime.Now;
+                mem.Item = ItemDB.getItembyID(Request.QueryString["itemID"]);
+                mem.Sender = MemberDB.getMemberbyEmail(Session["user"].ToString());
+
+                int memberInboxID = MemberInboxDB.AddMsgMember(mem);
+                Response.Redirect("/inboxMessage.aspx?memberInboxID=" + memberInboxID);
+            }
+
+            else
+            {
+
+                Response.Redirect("/inboxMessage.aspx?memberInboxID=" + MemberInboxDB.searchMemberInbox(MemberDB.getMemberbyEmail(Session["user"].ToString()).MemberID, ItemDB.getItembyID(Request.QueryString["itemID"].ToString()).ItemID).MemberInboxID);
+            }
+
+
+        }
+    }
+
 }

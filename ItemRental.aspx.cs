@@ -33,91 +33,58 @@ public partial class ItemRental : System.Web.UI.Page
         rptItemRentalInfo.DataBind();
 
 
-        if (Session["itemStatus"].ToString() == "Available")
+        var selectedDates = new List<DateTime?>();
+
+        Extension itemExtension = ExtensionDB.getLastExtensionofItem(Request.QueryString["itemID"], "On-going");
+
+        List<Rental> itemRental = RentalDB.getRentalofItem(Request.QueryString["itemID"], "Scheduled");
+        List<Rental> itemRentalInfo = RentalDB.getRentalofItem(Request.QueryString["itemID"], "On-going");
+
+        if (itemExtension != null)
         {
-            var selectedDates = new List<DateTime?>();
-
-            List<Rental> itemRental = RentalDB.getRentalofItem(Request.QueryString["itemID"], "Scheduled");
-
-            foreach (Rental rental in itemRental)
+            for (var date = itemRentalInfo[0].StartDate; date <= itemExtension.NewEndDate; date = date.AddDays(1))
             {
-                for (var date = rental.StartDate; date <= rental.EndDate; date = date.AddDays(1))
-                {
-                    selectedDates.Add(date);
-                }
-            }
-
-            for (int i = 0; i < selectedDates.Count(); i++)
-            {
-
-                string temp = selectedDates[i].ToString();
-                temp = temp.Replace(" 12:00:00 AM", "");
-
-                DateTime dt = DateTime.ParseExact(temp, "dd/M/yyyy", CultureInfo.InvariantCulture);
-
-                disabledDate = disabledDate + "'" + dt.ToString("yyyy-MM-dd") + "'" + ", ";
-
-
-            }
-        }
-        else
-        {
-            var selectedDates = new List<DateTime?>();
-
-            Extension itemExtension = ExtensionDB.getLastExtensionofItem(Request.QueryString["itemID"], "On-going");
-
-            List<Rental> itemRental = RentalDB.getRentalofItem(Request.QueryString["itemID"], "Scheduled");
-            List<Rental> itemRentalInfo = RentalDB.getRentalofItem(Request.QueryString["itemID"], "On-going");
-
-            if (itemExtension != null)
-            {
-                for (var date = itemRentalInfo[0].StartDate; date <= itemExtension.NewEndDate; date = date.AddDays(1))
-                {
-                    selectedDates.Add(date);
-                }
-            }
-
-
-            foreach (Rental rental in itemRental)
-            {
-                for (var date = rental.StartDate; date <= rental.EndDate; date = date.AddDays(1))
-                {
-                    selectedDates.Add(date);
-                }
-            }
-
-
-
-            for (int i = 0; i < selectedDates.Count(); i++)
-            {
-
-                string temp = selectedDates[i].ToString();
-                temp = temp.Replace(" 12:00:00 AM", "");
-                DateTime dt = new DateTime();
-                int temp2 = temp.IndexOf("/");
-
-                // Make sure that the day is single digit
-                if (temp2 == 1)
-                {
-                    dt = DateTime.ParseExact(temp, "d/M/yyyy", CultureInfo.InvariantCulture);
-
-                }
-                else
-                {
-                    dt = DateTime.ParseExact(temp, "dd/M/yyyy", CultureInfo.InvariantCulture);
-
-                }
-
-                disabledDate = disabledDate + "'" + dt.ToString("yyyy-MM-dd") + "'" + ", ";
-
-
+                selectedDates.Add(date);
             }
         }
 
 
-        ClientScript.RegisterStartupScript(GetType(),
-"datePickerInit", "var datepicker = new HotelDatepicker(document.getElementById('input-id'), { disabledDates: [ " + disabledDate + "   ]   });",
-true);
+        foreach (Rental rental in itemRental)
+        {
+            for (var date = rental.StartDate; date <= rental.EndDate; date = date.AddDays(1))
+            {
+                selectedDates.Add(date);
+            }
+        }
+
+
+
+        for (int i = 0; i < selectedDates.Count(); i++)
+        {
+
+            string temp = selectedDates[i].ToString();
+            temp = temp.Replace(" 12:00:00 AM", "");
+            DateTime dt = new DateTime();
+            int temp2 = temp.IndexOf("/");
+
+            // Make sure that the day is single digit
+            if (temp2 == 1)
+            {
+                dt = DateTime.ParseExact(temp, "d/M/yyyy", CultureInfo.InvariantCulture);
+
+            }
+            else
+            {
+                dt = DateTime.ParseExact(temp, "dd/M/yyyy", CultureInfo.InvariantCulture);
+
+            }
+
+            disabledDate = disabledDate + "'" + dt.ToString("yyyy-MM-dd") + "'" + ", ";
+
+        }
+
+
+        ClientScript.RegisterStartupScript(GetType(), "datePickerInit", "var datepicker = new HotelDatepicker(document.getElementById('input-id'), { disabledDates: [ " + disabledDate + "   ]   });", true);
 
     }
 
@@ -194,7 +161,15 @@ true);
 
             lblTotalAmountPayable.Text = (amountDue + itemRental.Deposit).ToString();
             Session["totalAmountPayable"] = (amountDue + itemRental.Deposit).ToString();
-            Response.Redirect("Payment.aspx");
+            Session["rentalPeriod"] = n;
+            Session["pickUpLocation"] = tbxPickUpLocation.Value;
+            Session["pickUpTime"] = tbxPickUpTime.Value;
+            Session["returnLocation"] = tbxReturnLocation.Value;
+            Session["returnTime"] = tbxReturnTime.Value;
+            Session["rentalRate"] = lblRentalRate.Text;
+
+            Response.Redirect("Payment.aspx?itemID=" + Request.QueryString["itemID"]);
+
         }
         else
         {
@@ -202,8 +177,10 @@ true);
             pnlMessageOutput.Visible = true;
             lblOutput.Text = "Please select the dates";
         }
-    
+
 
     }
+
+
 }
 

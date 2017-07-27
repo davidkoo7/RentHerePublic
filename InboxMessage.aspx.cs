@@ -22,10 +22,10 @@ public partial class InboxMessage : System.Web.UI.Page
             return;
         }
 
-            List<MemberMessage> memberMessageList = MemberMessageDB.getMsgforMember(Request.QueryString["memberInboxID"].ToString());
+        List<MemberMessage> memberMessageList = MemberMessageDB.getMsgforMember(Request.QueryString["memberInboxID"].ToString());
 
-         rptMessages.DataSource = memberMessageList;
-         rptMessages.DataBind();
+        rptMessages.DataSource = memberMessageList;
+        rptMessages.DataBind();
 
         List<Item> itemInfo = new List<Item>();
         itemInfo.Add(ItemDB.getItembyID(MemberInboxDB.getMemberInboxID(Request.QueryString["memberInboxID"].ToString()).Item.ItemID ));

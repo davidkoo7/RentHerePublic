@@ -1541,8 +1541,8 @@
         <!-- Main Container  -->
         <div class="main-container container">
             <ul class="breadcrumb">
-                <li><a href="#"><i class="fa fa-home"></i></a></li>
-                <li><a href="#">Rental Infomation	</a></li>
+                <li><a href="/Default.aspx"><i class="fa fa-home"></i></a></li>
+                <li><a href="/Inbox.aspx">Messages	</a></li>
             </ul>
             <asp:Repeater ID="rptItemInfo" runat="server">
                 <ItemTemplate>

@@ -59,21 +59,6 @@
 
                 <div id="wrapper" class="wrapper-full banners-effect-7">
 
-                    <!-- Preloading Screen -->
-                    <div class="ip-header">
-                        <h1 class="ip-logo">
-                            <a href="Default.aspx">
-                                <img src="image/demo/logos/theme_logo.png" alt="SW Shoppy">
-                            </a>
-                        </h1>
-                        <div class="ip-loader">
-                            <svg class="ip-inner" width="60px" height="60px" viewBox="0 0 80 80">
-                                <path class="ip-loader-circlebg" d="M40,10C57.351,10,71,23.649,71,40.5S57.351,71,40.5,71 S10,57.351,10,40.5S23.649,10,40.5,10z"></path>
-                                <path id="ip-loader-circle" class="ip-loader-circle" d="M40,10C57.351,10,71,23.649,71,40.5S57.351,71,40.5,71 S10,57.351,10,40.5S23.649,10,40.5,10z" style="stroke-dashoffset: 0; stroke-dasharray: 192.617;"></path>
-                            </svg>
-                        </div>
-                    </div>
-                    <!-- End Preloading Screen -->
 
                     <!-- Header Container  -->
                     <header id="header" class=" variantleft type_1">
@@ -607,7 +592,7 @@
                         <div class="footer-bottom-block ">
                             <div class=" container">
                                 <div class="row">
-                                    <div class="col-sm-5 copyright-text">© 2016 Market. All Rights Reserved. </div>
+                                    <div class="col-sm-5 copyright-text">© 2017 Market. All Rights Reserved. </div>
                                     <div class="col-sm-7">
                                         <div class="block-payment text-right">
                                             <img src="image/demo/content/payment.png" alt="payment" title="payment">

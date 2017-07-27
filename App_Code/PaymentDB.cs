@@ -9,9 +9,9 @@ using System.Configuration;
 public class PaymentDB
 {
     public static SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString);
-    public static List<Payment> getAllPayment()
+    public static List<PaymentPay> getAllPayment()
     {
-        List<Payment> paymentList = new List<Payment>();
+        List<PaymentPay> paymentList = new List<PaymentPay>();
         try
         {
             SqlCommand command = new SqlCommand("Select * from Payment");
@@ -20,7 +20,7 @@ public class PaymentDB
             SqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
-                Payment p = new Payment();
+                PaymentPay p = new PaymentPay();
                 readAPayment(ref p, ref reader);
 
                 paymentList.Add(p);
@@ -35,9 +35,9 @@ public class PaymentDB
 
     }
 
-    public static Payment getPaymentbyID(string payID)
+    public static PaymentPay getPaymentbyID(string payID)
     {
-        Payment pay = new Payment();
+        PaymentPay pay = new PaymentPay();
         try
         {
             SqlCommand command = new SqlCommand("Select * from Payment WHERE paymentID = @paymentID");
@@ -48,7 +48,7 @@ public class PaymentDB
             if (reader.Read())
                 readAPayment(ref pay, ref reader);
             else
-                pay = new Payment(null, null);
+                pay = new PaymentPay(null, null);
 
             reader.Close();
         }
@@ -59,12 +59,11 @@ public class PaymentDB
         return pay;
     }
 
-    public static int addPayment(Payment pay)
+    public static int addPayment(PaymentPay pay)
     {
         try
         {
-            SqlCommand command = new SqlCommand("INSERT INTO Payment (paymentID, stripeRefNum) values (@paymentID, @stripeRefNum)");
-            command.Parameters.AddWithValue("@paymentID", pay.PaymentID);
+            SqlCommand command = new SqlCommand("INSERT INTO Payment (stripeRefNum) values (@stripeRefNum)");
             command.Parameters.AddWithValue("@stripeRefNum", pay.StripeRefNum);
 
             command.Connection = connection;
@@ -82,7 +81,7 @@ public class PaymentDB
         return -1;
     }
 
-    private static void readAPayment (ref Payment pay, ref SqlDataReader reader)
+    private static void readAPayment (ref PaymentPay pay, ref SqlDataReader reader)
     {
         pay.PaymentID = reader["paymentID"].ToString();
         pay.StripeRefNum = reader["stripeRefNum"].ToString();

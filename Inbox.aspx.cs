@@ -19,7 +19,7 @@ public partial class Inbox : System.Web.UI.Page
 
         lsvInboxMessage.DataSource = getMessageOfThisMember();
         lsvInboxMessage.DataBind();
-
+            
     }
 
     private List<MemberInbox> getMessageOfThisMember()

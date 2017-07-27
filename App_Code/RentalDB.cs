@@ -167,7 +167,7 @@ public class RentalDB
             if (reader.Read())
                 readARental(ref rent, ref reader);
             else
-                rent = new Rental(null, null, new TimeSpan(), null, new TimeSpan(), 0, null, 0, new DateTime(), new DateTime(), new DateTime(), null, null, null, new Item(), new Payment(), new Member());
+                rent = new Rental(null, null, new TimeSpan(), null, new TimeSpan(), 0, null, 0, new DateTime(), new DateTime(), new DateTime(), null, null, null, new Item(), new PaymentPay(), new Member());
 
             reader.Close();
         }

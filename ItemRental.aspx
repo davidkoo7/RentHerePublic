@@ -1146,7 +1146,7 @@
                                                         </div>
                                                         <div class="form-group required">
                                                             <label for="input-payment-firstname" class="control-label">Pick Up Time</label>
-                <input type="text" runat="server" id="pickUpTime" name="timepicker" class="time_element"/>
+                <input type="text" runat="server" id="tbxPickUpTime" name="timepicker" class="time_element"/>
                                                         </div>
                                                     </fieldset>
                                                 </div>
@@ -1165,7 +1165,7 @@
                                                         </div>
                                                         <div class="form-group required">
                                                             <label for="input-payment-firstname" class="control-label">Return Time</label>
-                <input type="text" runat="server"  id="tbxTimePicker" name="timepicker" class="time_element"/>
+                <input type="text" runat="server"  id="tbxReturnTime" name="timepicker" class="time_element"/>
 
                                                         </div>
                                                     </fieldset>
@@ -1192,7 +1192,6 @@
                                                     <table class="table table-bordered">
                                                         <thead>
                                                             <tr>
-                                                                <td class="text-center"></td>
                                                                 <td class="text-center">Image</td>
                                                                 <td class="text-left">Product Name</td>
                                                                 <td class="text-left">Rental Period</td>
@@ -1210,10 +1209,7 @@
 
 
                                                             <tr>
-                                                                <td class="text-center">
-                                                                    <p></p>
-                                                                    <button type="button" data-toggle="tooltip" title="Remove" class="btn btn-danger" onclick=""><i class="fa fa-times-circle"></i></button>
-                                                                </td>
+
 
                                                                 <asp:Repeater ID="rptItemRentalInfo" runat="server">
                                                                     <ItemTemplate>
@@ -1253,22 +1249,16 @@
 
                                                         <tfoot>
                                                             <tr>
-                                                                <td class="text-right" colspan="1"><strong>Meeting Location:</strong></td>
-                                                                <td class="text-left" colspan="6">
-                                                                    <asp:Label ID="lblMeetingLocation" runat="server" Text=""></asp:Label></td>
 
                                                             </tr>
                                                             <tr>
-                                                                <td class="text-right" colspan="6"><strong>Total Amount Payable:</strong></td>
+                                                                <td class="text-right" colspan="5"><strong>Total Amount Payable:</strong></td>
                                                                 <td class="text-right">
                                                                     <asp:Label ID="lblTotalAmountPayable" runat="server" Text=""></asp:Label></td>
                                                             </tr>
                                                         </tfoot>
                                                     </table>
-                                                    <label class="control-label" for="confirm_agree">
-                                                        <input type="checkbox" checked="checked" value="1" required="" class="validate required" id="confirm_agree" name="confirm agree">
-                                                        <span>I have read and agree to the <a class="agree" href="#"><b>Terms &amp; Conditions</b></a></span>
-                                                    </label>
+
                                                     <asp:Panel Visible="false" ID="pnlMessageOutput" runat="server">
                                                         <div class="alert alert-warning">
                                                             <i class="fa fa-warning"></i>
@@ -1278,7 +1268,6 @@
                                                     </asp:Panel>
                                                     <div class="buttons">
                                                         <div class="pull-right">
-                                                            <asp:Button ID="btnConfirm" CssClass="btn btn-primary" runat="server" Text="Confirm" />
                                                         </div>
                                                     </div>
                                                 </div>

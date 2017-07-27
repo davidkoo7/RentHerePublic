@@ -16,14 +16,14 @@ public partial class RentalDetails : System.Web.UI.Page
             return;
         }
 
-        //if (Request.QueryString["rentalID"] == null)
-        //{
-        //    Response.Redirect("RentalHistory.aspx");
-        //    return;
-        //}
+        if (Request.QueryString["rentalID"] == null)
+        {
+            Response.Redirect("RentalHistory.aspx");
+            return;
+        }
 
         List<Rental> rentalInfo = new List<Rental>();
-        rentalInfo.Add(RentalDB.getRentalbyID("RNT000000003"));
+        rentalInfo.Add(RentalDB.getRentalbyID(Request.QueryString["rentalID"].ToString()));
         rptItemRentalInfo.DataSource = rentalInfo;
         rptItemRentalInfo.DataBind();
 
@@ -41,7 +41,7 @@ public partial class RentalDetails : System.Web.UI.Page
         }
         else
         {
-            if (rentalInfo[0].Status == "Pending")
+            if (rentalInfo[0].Status == "Scheduled" && DateTime.Today == rentalInfo[0].StartDate)
             {
                 btnReleaseCode.Visible = true;
                 lblTitle.Text = "Payment Release Code";
@@ -77,7 +77,7 @@ public partial class RentalDetails : System.Web.UI.Page
 
     protected void rptItemRentalInfo_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
-        Rental rentalInfo = RentalDB.getRentalbyID("RNT000000003");
+        Rental rentalInfo = RentalDB.getRentalbyID(Request.QueryString["rentalID"].ToString());
 
         if (e.Item.ItemType == ListItemType.Item)
         {
@@ -98,7 +98,6 @@ public partial class RentalDetails : System.Web.UI.Page
     protected void btnExtend_Click(object sender, EventArgs e)
     {
 
-
     }
 
     protected void btnDispute_Click(object sender, EventArgs e)
@@ -111,19 +110,13 @@ public partial class RentalDetails : System.Web.UI.Page
     protected void btnRetrivalCode_Click(object sender, EventArgs e)
     {
 
-        // Dont forget to send the code
-
-
-
-
-
     }
 
     protected void btnReleaseCode_Click(object sender, EventArgs e)
     {
 
 
-        // Dont forget to sms send the code
+        
 
     }
 
@@ -132,9 +125,9 @@ public partial class RentalDetails : System.Web.UI.Page
     {
         if (lblTitle.Text == "Deposit Retrival")
         {
-            if (tbxValue.Value == RentalDB.getRentalbyID("RNT000000003").DepositRetrievalCode)
+            if (tbxValue.Value == RentalDB.getRentalbyID(Request.QueryString["rentalID"].ToString()).DepositRetrievalCode)
             {
-                RentalDB.updateRentStatus("RNT000000003", "Ended & Returned");
+                RentalDB.updateRentStatus(Request.QueryString["rentalID"].ToString(), "Ended & Returned");
                 btnRetrivalCode.Visible = false;
             }
             else
@@ -145,9 +138,9 @@ public partial class RentalDetails : System.Web.UI.Page
         else
         {
 
-            if (tbxValue.Value == RentalDB.getRentalbyID("RNT000000003").PaymentReleaseCode)
+            if (tbxValue.Value == RentalDB.getRentalbyID(Request.QueryString["rentalID"].ToString()).PaymentReleaseCode)
             {
-                RentalDB.updateRentStatus("RNT000000003", "On-going");
+                RentalDB.updateRentStatus(Request.QueryString["rentalID"].ToString(), "On-going");
                 btnReleaseCode.Visible = false;
             }
             else
