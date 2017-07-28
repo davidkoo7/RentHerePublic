@@ -5,13 +5,12 @@ using System.Web;
 using System.Data.SqlClient;
 using System.Configuration;
 
-/// <summary>
-/// Summary description for DisputeDB
-/// </summary>
 public class DisputeDB
 {
+    // gets the connection value from "myConnectionString" in web.config to connect to database
     public static SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString);
 
+    // method to get dispute by rental from the database
     public static Dispute getDisputeforRental(string rentalID)
     {
         Dispute dis = new Dispute();
@@ -41,6 +40,7 @@ public class DisputeDB
         return dis;
     }
 
+    /// method to get dispute by ID from the database
     public static Dispute getDisputeybyID(string disputeID)
     {
         Dispute dis = new Dispute();
@@ -67,6 +67,7 @@ public class DisputeDB
         return dis;
     }
 
+    // method to add dispute into the database, takes in parameter of type Dispute
     public static int addDispute(Dispute dis)
     {
         try
@@ -96,6 +97,7 @@ public class DisputeDB
         return -1;
     }
 
+    // method to change dispute status to 'Resolved' in the database, takes in disputeID string as parameter
     public static int resolveDispute(string disputeID)
     {        
         try
@@ -122,6 +124,7 @@ public class DisputeDB
         return -1;
     }
 
+    // method to get all disputes based on status 
     public static List<Dispute> getAllDisputeforRentals(string condition)
     {
         List<Dispute> disList = new List<Dispute>();
@@ -159,6 +162,8 @@ public class DisputeDB
         return disList;
     }
 
+    // method to read the column values in the database (through the referenced reader) and assign it to the correct properties of the referenced Dispute object  
+    // allows for easier editing of column names if needed, used only for methods with select statments regarding Dispute
     public static void readADispute(ref Dispute dis, ref SqlDataReader reader)
     {
         dis.DisputeID = reader["disputeID"].ToString();

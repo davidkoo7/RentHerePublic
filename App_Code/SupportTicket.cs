@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-/// <summary>
-/// Summary description for SupportTicket
-/// </summary>
 public class SupportTicket
 {
+    // properties of SupportTicket
     public string TicketID { get; set; }
     public string Title { get; set; }
     public string Description { get; set; }
@@ -15,6 +13,8 @@ public class SupportTicket
     public string Status { get; set; }
     public string Urgency { get; set; }
     public Member Member { get; set; }
+
+    // constructor for SupportTicket
     public SupportTicket(string ticketID, string title, string description, DateTime date, string status, string urgency, Member member)
     {
         TicketID = ticketID;
@@ -26,6 +26,7 @@ public class SupportTicket
         Member = member;
     }
 
+    // empty SupportTicket constructor
     public SupportTicket() { }
 
 

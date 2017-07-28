@@ -5,13 +5,12 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
-/// <summary>
-/// Summary description for TagDB
-/// </summary>
 public class TagDB
 {
+    // gets the connection value from "myConnectionString" in web.config to connect to database
     static SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString);
 
+    // method to check if tag exists in database
     public static bool isTagPresent(string tagName)
     {
         bool presence = false;
@@ -35,6 +34,7 @@ public class TagDB
         return presence;
     }
 
+    // method to get number of times that has a specific tagName in the database
     public static int getNoOfTagUsed(string tagName)
     {
         int noOfTagPresent = 0;
@@ -58,6 +58,7 @@ public class TagDB
         return noOfTagPresent;
     }
 
+    // method to insert new tag into the datase
     public static int addTag(string tagName)
     {
         try

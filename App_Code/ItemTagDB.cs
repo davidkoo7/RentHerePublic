@@ -5,14 +5,13 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
-/// <summary>
-/// Summary description for ItemTagDB
-/// </summary>
 public class ItemTagDB
 {
+    // gets the connection value from "myConnectionString" in web.config to connect to database
     static SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString);
 
-    //insert null to location if you dont want to search based on location
+    // gets itemtags from the database based on user input
+    // insert null to location if you dont want to search based on location
     public static List<ItemTag> getItemsWithTags(List<string> tagName, string location, string categoryName)
     {
         List<ItemTag> itemTagList = new List<ItemTag>();
@@ -75,6 +74,7 @@ public class ItemTagDB
         return itemTagList;
     }
 
+    // gets itemtags from the database based on user input - search input for tags may not be exact same as tag in database
     public static List<ItemTag> getItemsWithTagsLike(List<string> tagName, string location, string categoryName)
     {
         List<ItemTag> itemTagList = new List<ItemTag>();
@@ -137,6 +137,7 @@ public class ItemTagDB
         return itemTagList;
     }
 
+    // adds itemtags into the database, takes in parameters of type item and string
     public static int addItemTag(Item item, string tagName)
     {
         try
@@ -159,6 +160,7 @@ public class ItemTagDB
         return -1;
     }
 
+    // delete itemtags from database based on itemID, keeps database consistent if item tags were to be modified
     public static int deleteItemTag(string itemID)
     {
         try
@@ -180,6 +182,7 @@ public class ItemTagDB
         return -1;
     }
 
+    // gets item tags based on itemID from the database
     public static List<string> getTagofItem(string itemID)
     {
         List<string> tagList = new List<string>();
@@ -210,6 +213,8 @@ public class ItemTagDB
         return tagList;
     }
 
+    // method to read the column values in the database (through the referenced reader) and assign it to the correct properties of the referenced ItemTags object 
+    // allows for easier editing of column names if needed, used only for methods with select statments regarding ItemTags
     private static void readAItemTag(ref ItemTag itemTag, ref SqlDataReader reader)
     {
         itemTag.TagName = reader["tagName"].ToString();

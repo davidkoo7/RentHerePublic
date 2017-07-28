@@ -5,13 +5,13 @@ using System.Web;
 using System.Data.SqlClient;
 using System.Configuration;
 
-/// <summary>
-/// Summary description for FAQDB
-/// </summary>
+
 public class FAQDB
 {
+    // gets the connection value from "myConnectionString" in web.config to connect to database
     public static SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString);
 
+    // method to get FAQ by faqID from the database
     public static FAQ getFAQbyID(string faqid)
     {
         FAQ faq = new FAQ();
@@ -38,6 +38,7 @@ public class FAQDB
         return faq;
     }
 
+    // method to get FAQ by staffID from the database 
     public static FAQ getFAQbyStaff(string staffID)
     {
         FAQ faq = new FAQ();
@@ -64,6 +65,7 @@ public class FAQDB
         return faq;
     }
 
+    // method to add FAQ into the database, takes in parameter of type FAQ
     public static int addFAQ(FAQ faq)
     {
         try
@@ -89,6 +91,8 @@ public class FAQDB
         return 0;
     }
 
+    // method to read the column values in the database (through the referenced reader) and assign it to the correct properties of the referenced FAQ object 
+    // allows for easier editing of column names if needed, used only for methods with select statments regarding FAQ
     private static void readAFAQ (ref FAQ faq, ref SqlDataReader reader)
     {
         faq.FaqID = reader["faqID"].ToString();

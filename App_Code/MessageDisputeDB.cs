@@ -5,13 +5,12 @@ using System.Web;
 using System.Data.SqlClient;
 using System.Configuration;
 
-/// <summary>
-/// Summary description for MessageDisputeDB
-/// </summary>
 public class MessageDisputeDB
 {
+    // gets the connection value from "myConnectionString" in web.config to connect to database
     public static SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString);
 
+    // method to get all MessagesDispute by disputeID from the database
     public static List<MessageDispute> getMsgforDispute(string disputeID)
     {
         List<MessageDispute> msgDisList = new List<MessageDispute>();
@@ -54,6 +53,7 @@ public class MessageDisputeDB
         return msgDisList;
     }
 
+    // method to add MessgaeDispute into the database, takes in parameter of type MessageDispute
     public static int addMsgDispute(MessageDispute msgDis)
     {
         try

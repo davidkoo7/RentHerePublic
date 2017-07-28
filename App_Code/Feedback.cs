@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-/// <summary>
-/// Summary description for Feedback
-/// </summary>
 public class Feedback
 {
-     public Feedback(string feedbackID, string comments, string replyFeedback, DateTime date, string rating,
+    // constructor for Feedback
+    public Feedback(string feedbackID, string comments, string replyFeedback, DateTime date, string rating,
         Member submittedBy, Member feedbackTo, Rental rent)
     {
         FeedbackID = feedbackID;
@@ -21,8 +19,10 @@ public class Feedback
         Rental = rent;
     }
 
-    public Feedback() { /* empty constructor */ }
+    // empty Feedback constructor
+    public Feedback() { }
 
+    // properties of Feedback
     public string FeedbackID { get; set; }
     public string Comments { get; set; }
     public string ReplyFeedback { get; set; }

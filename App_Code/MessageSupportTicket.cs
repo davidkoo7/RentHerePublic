@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-/// <summary>
-/// Summary description for MessageSupportTicket
-/// </summary>
 public class MessageSupportTicket
 {
+    // MessageSupportTicket fields
     private DateTime date;
     private string reply;
     private Member member;
     private Staff staff;
     private SupportTicket ticket;
 
+    // empty MessageSupportTicket constructor
     public MessageSupportTicket()
     { }
 
+    // constructor for MessageSupportTicket
     public MessageSupportTicket(DateTime date, string reply, Member member, Staff staff, SupportTicket ticket)
     {
         this.date = date;
@@ -26,6 +26,7 @@ public class MessageSupportTicket
         this.ticket = ticket;
     }
 
+    // contructor for MessageSupportTicket
     public MessageSupportTicket(DateTime date, string reply, Member member, SupportTicket ticket)
     {
         this.date = date;
@@ -34,6 +35,7 @@ public class MessageSupportTicket
         this.ticket = ticket;
     }
 
+    // contructor for MessageSupportTicket
     public MessageSupportTicket(DateTime date, string reply, Staff staff, SupportTicket ticket)
     {
         this.date = date;
@@ -42,7 +44,7 @@ public class MessageSupportTicket
         this.ticket = ticket;
     }
 
-
+    // Properties of MessageSupportTicket
     public DateTime Date { get; set; }
     public string Reply { get; set; }
     public Member Member { get; set; }

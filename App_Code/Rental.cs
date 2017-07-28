@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-/// <summary>
-/// Summary description for Rental
-/// </summary>
 public class Rental
 {
+    // properties of Rental
     public string RentalID { get; set; }
     public string PickUpLocation { get; set; }
     public TimeSpan PickUpTime { get; set; }
@@ -26,6 +24,7 @@ public class Rental
     public PaymentPay Payment { get; set; }
     public Member Rentee { get; set; }
 
+    // constructor for Rental
     public Rental(string rentalID, string pickUpLocation, TimeSpan pickUpTime, string returnLocation,
         TimeSpan returnTime, decimal rentalFee, string unit, decimal deposit, DateTime dateCreated, DateTime startDate,
         DateTime endDate, string status, string paymentReleaseCode, string depositRetrievalCode, Item itemID,
@@ -50,5 +49,6 @@ public class Rental
         Rentee = renteeID;
     }
 
+    // empty Rental constructor
     public Rental() { }    
 }

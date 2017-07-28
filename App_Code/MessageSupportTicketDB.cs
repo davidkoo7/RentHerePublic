@@ -5,13 +5,12 @@ using System.Web;
 using System.Data.SqlClient;
 using System.Configuration;
 
-/// <summary>
-/// Summary description for MessageSupportTicketDB
-/// </summary>
 public class MessageSupportTicketDB
 {
+    // gets the connection value from "myConnectionString" in web.config to connect to database
     public static SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString);
 
+    // method to get MessageSupportTicket by suport ticket from the database
     public static List<MessageSupportTicket> getMessage(SupportTicket t)
     {
         List<MessageSupportTicket> msgList = new List<MessageSupportTicket>();
@@ -54,6 +53,7 @@ public class MessageSupportTicketDB
         return msgList;
     }
 
+    // method to get MessageSupportTicket by suport ticket from the database
     public static List<TicketMsg> getMessage1(SupportTicket t)
     {
         List<TicketMsg> msgList = new List<TicketMsg>();
@@ -107,6 +107,7 @@ public class MessageSupportTicketDB
         return msgList;
     }
 
+    // method to add admin posted MessageSupportTicket into the database
     public static int insertAdminMessage(string message, DateTime date, SupportTicket ticket, string person)
     {
         try
@@ -126,6 +127,7 @@ public class MessageSupportTicketDB
         }
     }
 
+    // method to add member posted MessageSupportTicket into the database 
     public static int insertMemberMessage(string message, DateTime date, SupportTicket ticket, string person)
     {
         try

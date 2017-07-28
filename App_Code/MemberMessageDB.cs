@@ -5,15 +5,12 @@ using System.Web;
 using System.Configuration;
 using System.Data.SqlClient;
 
-/// <summary>
-/// Summary description for MemberMessageDB
-/// </summary>
 public class MemberMessageDB
 {
+    // gets the connection value from "myConnectionString" in web.config to connect to database
     public static SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString);
 
-
-
+    // method to get MemberMessage by memberInboxID from the database
     public static List<MemberMessage> getMsgforMember(string memberInboxID)
     {
         List<MemberMessage> msgDisList = new List<MemberMessage>();
@@ -54,7 +51,7 @@ public class MemberMessageDB
         return msgDisList;
     }
 
-
+    // method to get MemberMessage by Member from the database
     public static List<MemberMessage> getMessageDetailsforMember(Member sender, Member receiver, Item item)
     {
         List<MemberMessage> messageList = new List<MemberMessage>();
@@ -85,9 +82,7 @@ public class MemberMessageDB
         return messageList;
     }
 
-
-
-
+    // method to add MemberMessage into the database, takes in parameters of type MemberMessage 
     public static int AddMsgMember(MemberMessage msgDis)
     {
         try
@@ -112,6 +107,8 @@ public class MemberMessageDB
         return -1;
     }
 
+    // method to read the column values in the database (through the referenced reader) and assign it to the correct properties of the referenced MemberMessage object 
+    // allows for easier editing of column names if needed, used only for methods with select statments regarding MemberMessage
     private static void readAMsg(ref MemberMessage msg, ref SqlDataReader reader)
     {
         msg.MemberInbox = MemberInboxDB.getMemberInboxID(reader["memberInboxID"].ToString());

@@ -5,13 +5,12 @@ using System.Web;
 using System.Data.SqlClient;
 using System.Configuration;
 
-/// <summary>
-/// Summary description for SupportTicketDB
-/// </summary>
 public class SupportTicketDB
 {
+    // gets the connection value from "myConnectionString" in web.config to connect to database
     public static SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString);
 
+    // method to get all support tickets with pending status from the database
     public static List<SupportTicket> getPendingSupportTicket()
     {
         List<SupportTicket> ticketList = new List<SupportTicket>();
@@ -44,6 +43,7 @@ public class SupportTicketDB
         return ticketList;
     }
 
+    // method to get all support tickets with answered status from the database
     public static List<SupportTicket> getAnsweredSupportTicket()
     {
         List<SupportTicket> ticketList = new List<SupportTicket>();
@@ -76,6 +76,7 @@ public class SupportTicketDB
         return ticketList;
     }
 
+    // method to get all support tickets with closed status from the database
     public static List<SupportTicket> getClosedSupportTicket()
     {
         List<SupportTicket> ticketList = new List<SupportTicket>();
@@ -109,6 +110,7 @@ public class SupportTicketDB
         return ticketList;
     }
 
+    // method to change urgency of support ticket in the database, takes in parameter of type SupportTicket and string
     public static int updateUrgency(SupportTicket s, string urgency)
     {
         try
@@ -126,6 +128,7 @@ public class SupportTicketDB
         }
     }
 
+    // method to change status of support ticket in the database, takes in parameter of type SupportTicket and string
     public static int updateStatus(SupportTicket s, string status)
     {
         try
@@ -143,6 +146,7 @@ public class SupportTicketDB
         }
     }
 
+    // method to get support ticket by memberID from the data based
     public static List<SupportTicket> getTicketByUser(string memberID)
     {
         List<SupportTicket> ticketList = new List<SupportTicket>();
@@ -178,6 +182,7 @@ public class SupportTicketDB
         return ticketList;
     }
 
+    // method to add support ticket into database
     public static int insertTicket(string title, string description, DateTime date, string status, string urgency, string memberID)
     {
         try
@@ -204,7 +209,7 @@ public class SupportTicketDB
         return -1;
     }
 
-
+    // method to get support ticket by ticketID from database
     public static SupportTicket getSupportTicketbyID(string ticketID)
     {
         SupportTicket sT = new SupportTicket();
@@ -230,6 +235,8 @@ public class SupportTicketDB
         return sT;
     }
 
+    // method to read the column values in the database (through the referenced reader) and assign it to the correct properties of the referenced SupportTicket object 
+    // allows for easier editing of column names if needed, used only for methods with select statments regarding SupportTicket
     private static void readASupportTicket(ref SupportTicket sT, ref SqlDataReader reader)
     {
         sT.Date = Convert.ToDateTime(reader["date"]);

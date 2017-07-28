@@ -6,6 +6,7 @@ using System.Web;
 
 public class Member
 {
+    //  Member fields
     private string memberID;
     private string name;
     private string address;
@@ -22,7 +23,7 @@ public class Member
     private string status;
     private string profilePic;
 
-
+    // constructor for Member
     public Member(string memberID, string name, string address, int postalCode, string password, string email, 
         int phoneNumber, string identificationNumber, string identificationPicture, DateTime dateJoined, DateTime dateVerified, 
         string gender, DateTime dateOfBirth, string status, string profilePic)
@@ -45,8 +46,10 @@ public class Member
 
     }
 
-    public Member() { /* empty constructors */ }
+    // empty Member constructor
+    public Member() { }
 
+    // properties of Member
     public string MemberID { get { return memberID; } set { memberID = value; } }
     public string Name { get { return name; } set { name = value; } }
     public string Address { get { return address; } set { address = value; } }

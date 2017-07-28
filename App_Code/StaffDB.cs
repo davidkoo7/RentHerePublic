@@ -7,7 +7,10 @@ using System.Configuration;
 
 public class StaffDB
 {
+    // gets the connection value from "myConnectionString" in web.config to connect to database
     public static SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString);
+
+    // method to get all Staff from the database
     public static List<Staff> getAllStaff()
     {
         List<Staff> staffList = new List<Staff>();
@@ -33,6 +36,7 @@ public class StaffDB
         return staffList;
     }
 
+    // method to check if login is allowed based on whether input credentials exists in database
     public static bool isPermittedLogin(string email, string password)
     {
         bool permittedLogin = false;
@@ -56,6 +60,7 @@ public class StaffDB
         return permittedLogin;
     }
 
+    // method to get staff by staffID from the database
     public static Staff getStaffbyID(string staffid)
     {
         Staff staff = new Staff();
@@ -79,6 +84,7 @@ public class StaffDB
         return staff;
     }
 
+    // method to get staff by email from the database
     public static Staff getStaffbyEmail(string email)
     {
         Staff s = new Staff();
@@ -101,6 +107,8 @@ public class StaffDB
         return s;
     }
 
+    // method to read the column values in the database (through the referenced reader) and assign it to the correct properties of the referenced Staff object 
+    // allows for easier editing of column names if needed, used only for methods with select statments regarding Staff
     private static void readAStaff(ref Staff staff, ref SqlDataReader reader)
     {
         staff.StaffID = reader["staffID"].ToString();
