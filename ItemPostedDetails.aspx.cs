@@ -9,21 +9,29 @@ public partial class ItemPostedDetails : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        // check if any item is selected
+        if (Request.QueryString["itemID"] == null)
+        {
+            Response.Redirect("itemPosted.aspx"); 
+            return;
+        }
+
+        //display item details
         List<Item> itemInfoDetails = new List<Item>();
-        Item itemInfo = ItemDB.getItembyID(("ITM000000003"));
+        Item itemInfo = ItemDB.getItembyID((Request.QueryString["itemID"].ToString()));
 
         itemInfoDetails.Add(itemInfo);
 
         rptInfo.DataSource = itemInfoDetails;
         rptInfo.DataBind();
 
-        List<Rental> itemRental = RentalDB.getRentalofItem("ITM000000003", null);
+        List<Rental> itemRental = RentalDB.getRentalofItem(Request.QueryString["itemID"].ToString(), null);
 
         rptRentalHistory.DataSource = itemRental;
         rptRentalHistory.DataBind();
     }
 
-
+    // check when item is due if any
     public string checkEndDate(string rentalID)
     {
         Extension itemExtension = ExtensionDB.getLastExtensionofRental(rentalID);

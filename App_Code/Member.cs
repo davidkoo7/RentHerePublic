@@ -61,6 +61,6 @@ public class Member
     public string Gender { get { return gender; } set { gender = value; } }
     public DateTime DateOfBirth { get { return dateOfBirth; } set { dateOfBirth = value; } }
     public string Status { get { return status; } set { status = value; } }
-    public string ProfilePicture { get { return profilePic; } set { profilePic = value; } }
+    public string ProfilePic { get { return profilePic; } set { profilePic = value; } }
 
 }

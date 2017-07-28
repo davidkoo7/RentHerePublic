@@ -25,7 +25,7 @@
                 padding: 18px 20px;
                 line-height: 26px;
                 font-size: 13px;
-                border-radius: 5px; 
+                border-radius: 5px;
                 margin-bottom: 30px;
                 width: 90%;
                 position: relative;
@@ -110,123 +110,133 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <asp:Repeater ID="rptInfo" runat="server">
+        <ItemTemplate>
+            <div class="main-container container">
+                <ul class="breadcrumb">
+                    <li><a href="#"><i class="fa fa-home"></i></a></li>
+                    <li><a href="#">Ticket Infomation	</a></li>
+                </ul>
 
-    <div class="main-container container">
-        <ul class="breadcrumb">
-            <li><a href="#"><i class="fa fa-home"></i></a></li>
-            <li><a href="#">Support Ticket Infomation	</a></li>
-        </ul>
+                <div class="row">
+                    <!--Middle Part Start-->
+                    <div id="content" class="col-sm-9">
+                        <h2 class="title">Ticket Information</h2>
+                        <h2 class="title">Status:                                            
+                            <a href="RentalInfo.aspx?rentalID=<%#Eval("ticketID") %>">
+                                <asp:Label ID="lblStatus" runat="server" Text='<%# "" + Eval("status") %>'></asp:Label></a>
+                        </h2>
+                        <h2 class="title">Urgency:                                            
+                            <a href="RentalInfo.aspx?rentalID=<%#Eval("urgency") %>">
+                                <asp:Label ID="Label1" runat="server" Text='<%# "" + Eval("urgency") %>'></asp:Label></a>
+                        </h2>
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <td colspan="2" class="text-left">Ticket Details</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="width: 50%;" class="text-left"><b>Ticket ID:</b>
+                                        <a href="<%#Eval("ticketID") %>">
+                                            <asp:Label ID="lblticketID" runat="server" Text='<%# Eval("ticketID") %>' /></a>
+                                        <br>
+                                        <b>Title:</b>
+                                        <asp:Label ID="lblTitle" runat="server" Text='<%# "" + Eval("title") %>'></asp:Label>
+                                        <br>
+                                        <b>Date Posted:</b>
+                                        <asp:Label ID="lblDatePosted" runat="server" Text='<%# "" + Eval("date") %>'></asp:Label>
+                                        <br>
 
-        <div class="row">
-            <!--Middle Part Start-->
-            <div id="content" class="col-sm-9">
-                <h2 class="title">Support Ticket</h2>
-                <h2 class="title">Status: </h2>
-                <table class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <td colspan="2" class="text-left">Ticket Details</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td style="width: 50%;" class="text-left"><b>Ticket ID:</b> #214521
-								<br>
-                                <b>Date Created:</b> 20/06/2016
-																<br>
-                                <b>Title</b> 20/06/2016
-								<br>
-                                <b>Status</b> 20/06/2016
-								<br>
-                                <b>Urgency</b>15/1/12
-								<br>
 
 
-                                <br>
-                            </td>
-                            <td style="width: 50%;" class="text-left"><b>Rental Start Date:</b> 123
-								<br>
-                                <b>Rental End Date:</b> Flat Shipping Rate 
-																<br>
-                                <b>Deposit:</b>11231
-								<br>
-                                <b>Rental Fee:</b> Flat Shipping Rate </td>
-                            <br>
-                        </tr>
-                    </tbody>
-                </table>
 
-                <div class="chat">
-                    <div class="chat-history">
-                        <ul class="chat-ul">
-                            <asp:Repeater ID="rptMessages" runat="server">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblMessages" runat="server" Text='<%# retrieveMessage(Convert.ToString(Eval("Member.MemberID")), Convert.ToString(Eval("Staff.StaffID")), Convert.ToString(Eval("reply")), String.Format("{0:dd MMM yy   HH:mm}", Eval("Date")))%>'></asp:Label>
-                                </ItemTemplate>
-                            </asp:Repeater>
-                        </ul>
-                    </div>
-                    <!-- end chat-history -->
+                                        <br>
+                                    </td>
+                                    <td style="width: 50%;" class="text-left"><b>Description</b>
+                                        <asp:Label ID="lblDescription" runat="server" Text='<%# "" + Eval("description") %>'></asp:Label>
 
+                                        <br>
+                                </tr>
+                            </tbody>
+                        </table>
+        </ItemTemplate>
+    </asp:Repeater>
+
+    <div class="chat">
+        <div class="chat-history">
+            <ul class="chat-ul">
+                <asp:Repeater ID="rptMessages" runat="server">
+                    <ItemTemplate>
+                        <asp:Label ID="lblMessages" runat="server" Text='<%# retrieveMessage(Convert.ToString(Eval("Member.MemberID")), Convert.ToString(Eval("Staff.StaffID")), Convert.ToString(Eval("reply")), String.Format("{0:dd MMM yy   HH:mm}", Eval("Date")))%>'></asp:Label>
+                    </ItemTemplate>
+                </asp:Repeater>
+            </ul>
+        </div>
+        <!-- end chat-history -->
+
+    </div>
+    <!-- end chat -->
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label for="input-message" class="col-sm-2 control-label">
+                <span title="" data-toggle="tooltip" data-original-title="Optional">
+                    <asp:Label ID="lblMessages" runat="server" Text="Messages"></asp:Label></span>
+            </label>
+            <div class="col-sm-10">
+                <div class="radio">
+                    <textarea runat="server" id="txtMsg" class="form-control" rows="5" cols="40" name="message"></textarea>
                 </div>
-                <!-- end chat -->
-                <div class="form-horizontal">
-                    <div class="form-group">
-                        <label for="input-message" class="col-sm-2 control-label">
-                            <span title="" data-toggle="tooltip" data-original-title="Optional">Message</span>
-                        </label>
-                        <div class="col-sm-10">
-                            <div class="radio">
-                                <textarea runat="server" ID="txtMsg" class="form-control" rows="5" cols="40" name="message"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="buttons clearfix">
-                        <div class="pull-right">
-                            <asp:Button CssClass="btn btn-primary" ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click" />
-                        </div>
-                    </div>
-                </div>
-
-
-
             </div>
+        </div>
+        <div class="buttons clearfix">
+            <div class="pull-right">
+                <asp:Button CssClass="btn btn-primary" ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click" />
+            </div>
+        </div>
+    </div>
+
+
+    <td class="text-center"><a class="btn btn-warning" title="" data-toggle="tooltip" href="SupportTicketList.aspx" data-original-title="Return to Support Ticket List">Back<i class=""></i></a>
+
+        </div>
             <!--Middle Part End-->
-            <!--Right Part Start -->
-            <aside class="col-sm-3 hidden-xs" id="column-right">
-                <h2 class="subtitle">Account</h2>
-                <div class="list-group">
-                    <ul class="list-item">
-                        <li><a href="login.html">Login</a>
-                        </li>
-                        <li><a href="register.html">Register</a>
-                        </li>
-                        <li><a href="#">Forgotten Password</a>
-                        </li>
-                        <li><a href="#">My Account</a>
-                        </li>
-                        <li><a href="#">Address Books</a>
-                        </li>
-                        <li><a href="wishlist.html">Wish List</a>
-                        </li>
-                        <li><a href="#">Order History</a>
-                        </li>
-                        <li><a href="#">Downloads</a>
-                        </li>
-                        <li><a href="#">Reward Points</a>
-                        </li>
-                        <li><a href="#">Returns</a>
-                        </li>
-                        <li><a href="#">Transactions</a>
-                        </li>
-                        <li><a href="#">Newsletter</a>
-                        </li>
-                        <li><a href="#">Recurring payments</a>
-                        </li>
-                    </ul>
-                </div>
-            </aside>
-            <!--Right Part End -->
+        <!--Right Part Start -->
+        <aside class="col-sm-3 hidden-xs" id="column-right">
+            <h2 class="subtitle">Account</h2>
+            <div class="list-group">
+                <ul class="list-item">
+                    <li><a href="login.html">Login</a>
+                    </li>
+                    <li><a href="register.html">Register</a>
+                    </li>
+                    <li><a href="#">Forgotten Password</a>
+                    </li>
+                    <li><a href="#">My Account</a>
+                    </li>
+                    <li><a href="#">Address Books</a>
+                    </li>
+                    <li><a href="wishlist.html">Wish List</a>
+                    </li>
+                    <li><a href="#">Order History</a>
+                    </li>
+                    <li><a href="#">Downloads</a>
+                    </li>
+                    <li><a href="#">Reward Points</a>
+                    </li>
+                    <li><a href="#">Returns</a>
+                    </li>
+                    <li><a href="#">Transactions</a>
+                    </li>
+                    <li><a href="#">Newsletter</a>
+                    </li>
+                    <li><a href="#">Recurring payments</a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+        <!--Right Part End -->
         </div>
     </div>
     <!-- //Main Container -->

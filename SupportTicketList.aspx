@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="SupportTicketList.aspx.cs" Inherits="SupportTicketList" %>
+﻿<%@ Page Title="" EnableEventValidation="false" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="SupportTicketList.aspx.cs" Inherits="SupportTicketList" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
@@ -20,7 +20,7 @@
                             <tr>
                                 <td class="text-center">Ticket ID</td>
                                 <td class="text-left">
-                                Date Created/td>
+                                Date Created
                                 <td class="text-center">Status</td>
                                 <td class="text-center">Urgency</td>
                                 <td class="text-center">Title</td>
@@ -48,7 +48,7 @@
                                         <td class="text-center">
                                             <asp:Label ID="lblDate" runat="server" Text='<%# "" + String.Format("{0:dd/MM/yyyy}",Eval("date")) %>'></asp:Label>
                                         </td>
-                                                                                <td class="text-center">
+                                        <td class="text-center">
                                             <asp:Label ID="lblStatus" runat="server" Text='<%# ""+Eval("status") %>'></asp:Label></a>
                                         </td>
                                         <td class="text-center">
@@ -66,6 +66,7 @@
                             </ItemTemplate>
                         </asp:ListView>
 
+                        <td class="text-center"><a class="btn btn-primary" title="" data-toggle="tooltip" href="CreateSupportTicket.aspx" data-original-title="Create">Create Support Ticket<i class=""></i></a>
 
 
                     </table>

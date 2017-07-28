@@ -29,7 +29,7 @@
                                 <td></td>
                             </tr>
                         </thead>
-                        <asp:ListView ID="lsvRentView" GroupItemCount="3" OnPagePropertiesChanging="lsvRentView_PagePropertiesChanging" OnSelectedIndexChanging="lsvRentView_SelectedIndexChanging" runat="server">
+                        <asp:ListView ID="lsvRentView" GroupItemCount="8" OnPagePropertiesChanging="lsvRentView_PagePropertiesChanging" OnSelectedIndexChanging="lsvRentView_SelectedIndexChanging" runat="server">
                             <LayoutTemplate>
                                 <asp:PlaceHolder ID="groupPlaceHolder" runat="server"></asp:PlaceHolder>
                                 </table>
@@ -65,17 +65,17 @@
                                         <td class="text-center">
                                             <asp:LinkButton ID="lbtnFeedback" runat="server" CommandName="Select" OnClick="lbtnFeedback_Click" Text='<%# isGiveorReceiveFeedback("" + Eval("RentalID"), "" + Eval("Rentee.MemberID"), "" + Eval("Status")) %>'></asp:LinkButton>
                                         </td>
-                                        <td class="text-center"><a class="btn btn-info" title="" data-toggle="tooltip" href="order-information.html" data-original-title="View"><i class="fa fa-eye"></i></a>
+                                        <td class="text-center"><a class="btn btn-info" title="" data-toggle="tooltip" href="RentalDetails.aspx?rentalID=<%#Eval("rentalID") %>" data-original-title="View"><i class="fa fa-eye"></i></a>
                                         </td>
                                     </tr>
 
                                 </tbody>
 
                             </ItemTemplate>
-                        </asp:ListView>
+                        </asp:ListView> 
 
 
-                        <asp:DataPager ID="DataPager1" runat="server" PagedControlID="lsvRentView" PageSize="3">
+                        <asp:DataPager ID="DataPager1" runat="server" PagedControlID="lsvRentView" PageSize="6">
                             <Fields>
                                 <asp:NextPreviousPagerField ShowFirstPageButton="True" ShowNextPageButton="False" ShowPreviousPageButton="False" />
                                 <asp:NumericPagerField ButtonType="Button" />

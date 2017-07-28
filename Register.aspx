@@ -136,10 +136,8 @@
                     </fieldset>
                     <div class="buttons">
                         <div class="pull-right">
-                            I have read and agree to the <a href="#" class="agree"><b>Term of Conditions</b></a>
-                            <input class="box-checkbox" type="checkbox" name="agree" value="1">
-                            &nbsp;
-                                <asp:Button ID="btnSubmit" OnClick="btnSubmit_Click" CssClass="btn btn-primary" runat="server" Text="Register" />
+
+                                <asp:Button ID="btnSubmit" Visible="false" OnClick="btnSubmit_Click" CssClass="btn btn-primary" runat="server" Text="Register" />
                         </div>
                     </div>
                 </div>

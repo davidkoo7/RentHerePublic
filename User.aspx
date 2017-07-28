@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="User.aspx.cs" Inherits="User" %>
+﻿<%@ Page Title="" EnableEventValidation="false" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="User.aspx.cs" Inherits="User" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 
@@ -50,7 +50,8 @@
         </ul>
 
         <div class="row">
-
+                                            <asp:Repeater ID="rptMemberInfo" runat="server">
+                                    <ItemTemplate>
             <!--Middle Part Start-->
             <div id="content" class="col-md-12 col-sm-12">
                 <h3 class="offset_title">Member Profile</h3>
@@ -58,11 +59,10 @@
                     <div class="category-derc form-group">
                         <div class="row">
                             <div class="col-md-3">
-                                <img src="image/demo/shop/category/smartphone-tablets.jpg" alt="Apple Cinema 30&quot;">
+                                <img width="250" class="img-thumbnail" src="/image/users/<%# DataBinder.Eval(Container.DataItem, "profilePic") %>">
                             </div>
                             <div class="col-md-9">
-                                <asp:Repeater ID="rptMemberInfo" runat="server">
-                                    <ItemTemplate>
+
                                         <table class="table table-bordered table hover">
                                             <thead>
                                                 <tr>
@@ -71,7 +71,7 @@
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td style="width: 50%;" class="text-left"><b>Member ID:</b>
+                                                    <td style="width: 100%;" class="text-left"><b>Member ID:</b>
                                                         <asp:Label ID="lblMemberInfo" runat="server" Text='<%# "" + Eval("memberID") %>'></asp:Label>
 
 
@@ -98,10 +98,7 @@
                                     </ItemTemplate>
                                 </asp:Repeater>
                                 <td style="width: 50%;" class="text-left">
-                                </td>
-                                </tr>
-
-                                            </tbody>
+                                </tbody>
                                         </table>
 
 
@@ -124,7 +121,7 @@
                                                             </div>
 
                                                             <div class="client-info">
-                                                                <img src="/image/item/<%# DataBinder.Eval(Container.DataItem, "Rental.Item.img1") %>" alt="">
+                                                                <img width="50" height="50" src="/image/item/<%# DataBinder.Eval(Container.DataItem, "Rental.Item.img1") %>" alt="">
                                                                 <div class="client-cont">
                                                                     Reply:                                            
                                                                     <asp:Label ID="lblReply" runat="server" Text='<%# "" + Eval("replyFeedback") %>'></asp:Label>
@@ -194,14 +191,6 @@
                                         <option value="">100</option>
                                     </select>
                                 </div>
-                            </div>
-                            <div class="box-pagination col-md-3 col-sm-4 col-xs-12 text-right">
-                                <ul class="pagination">
-                                    <li class="active"><span>1</span></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="">&gt;</a></li>
-                                    <li><a href="#">&gt;|</a></li>
-                                </ul>
                             </div>
                         </div>
                     </div>

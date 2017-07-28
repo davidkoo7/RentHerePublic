@@ -9,21 +9,22 @@ public partial class ViewFeedback : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        // check if user logged in
         if (Session["user"] == null)
         {
             Session["pageRedirectAfterLogin"] = Request.RawUrl;
-            Response.Redirect("Login.aspx");
+            Response.Redirect("Login.aspx"); // not logged in, go to login page
             return;
         }
 
-        if (Request["rentid"] == null)
+        if (Request["rentid"] == null) // check if rental is selected
         { 
 
-            Response.Redirect("RentalHistory.aspx");
+            Response.Redirect("RentalHistory.aspx"); // go to rental history page if no rental selected 
             return;
         }
 
-
+        // display rental and feedback information
 
         List<Rental> rentalInfoDetails = new List<Rental>();
         Rental rentalInfo = RentalDB.getRentalbyID((Request["rentid"].ToString()));
@@ -42,6 +43,7 @@ public partial class ViewFeedback : System.Web.UI.Page
 
 
         Feedback feed = FeedbackDB.getFeedbackforRental(Request["rentid"].ToString());
+        // control display based on rating in feedback
         if (feed.FeedbackID != null)
         {
             if (feed.Rating == "Positive")
@@ -75,6 +77,8 @@ public partial class ViewFeedback : System.Web.UI.Page
 
     }
 
+
+    // display messages in format
     protected string retrieveMessage(string submittedBy, string feedbackTo, string comments, string replyFeedback, string datePosted, string rating)
     {
         if (replyFeedback != "")
@@ -200,6 +204,7 @@ public partial class ViewFeedback : System.Web.UI.Page
 
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
+        //submit feedback for rental selected 
         if (txtArea.InnerText == "" || (!rbtnNegative.Checked && !rbtnNeutral.Checked && !rbtnPositive.Checked))
             return;
 

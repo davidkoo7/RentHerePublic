@@ -9,19 +9,21 @@ public partial class RentalDetails : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        // check if logged in 
         if (Session["user"] == null)
         {
             Session["pageRedirectAfterLogin"] = Request.RawUrl;
-            Response.Redirect("Login.aspx");
+            Response.Redirect("Login.aspx"); // not logged in, transfer to login page
             return;
         }
 
-        if (Request.QueryString["rentalID"] == null)
+        if (Request.QueryString["rentalID"] == null) // check if rental is selected
         {
-            Response.Redirect("RentalHistory.aspx");
+            Response.Redirect("RentalHistory.aspx"); // nothing selected go to previous page
             return;
         }
 
+        // display rental details  
         List<Rental> rentalInfo = new List<Rental>();
         rentalInfo.Add(RentalDB.getRentalbyID(Request.QueryString["rentalID"].ToString()));
         rptItemRentalInfo.DataSource = rentalInfo;
@@ -46,6 +48,7 @@ public partial class RentalDetails : System.Web.UI.Page
                 btnReleaseCode.Visible = true;
                 lblTitle.Text = "Payment Release Code";
                 lblCode.Text = "Please enter Payment Release Code";
+
             }
 
             if (rentalInfo[0].Status == "On-going")
@@ -56,6 +59,7 @@ public partial class RentalDetails : System.Web.UI.Page
 
     }
 
+    // cget the lastest end date of rental (checks rental and extensions)
     public string checkEndDate(string rentalID)
     {
         Extension itemExtension = ExtensionDB.getLastExtensionofRental(rentalID);
@@ -77,6 +81,7 @@ public partial class RentalDetails : System.Web.UI.Page
 
     protected void rptItemRentalInfo_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
+        // display retal information
         Rental rentalInfo = RentalDB.getRentalbyID(Request.QueryString["rentalID"].ToString());
 
         if (e.Item.ItemType == ListItemType.Item)
@@ -97,7 +102,13 @@ public partial class RentalDetails : System.Web.UI.Page
 
     protected void btnExtend_Click(object sender, EventArgs e)
     {
+        Rental rentalInfo = RentalDB.getRentalbyID(Request.QueryString["rentalID"].ToString());
 
+        Session["itemStatus"] = "On-going";
+        Session["itemExtension"] = "ExtendItem";
+        Response.Redirect("ItemRental.aspx?rentalID=" + RentalDB.getRentalbyID(Request.QueryString["rentalID"].ToString()).RentalID + "&itemID=" + rentalInfo.Item.ItemID );
+
+        
     }
 
     protected void btnDispute_Click(object sender, EventArgs e)
@@ -129,6 +140,7 @@ public partial class RentalDetails : System.Web.UI.Page
             {
                 RentalDB.updateRentStatus(Request.QueryString["rentalID"].ToString(), "Ended & Returned");
                 btnRetrivalCode.Visible = false;
+                Response.Redirect(Request.RawUrl);
             }
             else
             {
@@ -142,6 +154,7 @@ public partial class RentalDetails : System.Web.UI.Page
             {
                 RentalDB.updateRentStatus(Request.QueryString["rentalID"].ToString(), "On-going");
                 btnReleaseCode.Visible = false;
+                Response.Redirect(Request.RawUrl);
             }
             else
             {

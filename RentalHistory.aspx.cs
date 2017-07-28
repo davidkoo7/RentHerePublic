@@ -9,13 +9,15 @@ public partial class RentalHistory : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["user"] == null)
+        // check if user logged in 
+        if (Session["user"] == null) // not logged in 
         {
             Session["pageRedirectAfterLogin"] = Request.RawUrl;
-            Response.Redirect("Login.aspx");
+            Response.Redirect("Login.aspx"); // transfer to login page
             return;
         }
 
+        // display rental by member
         lsvRentView.DataSource = getRentalofThisMember();
         lsvRentView.DataBind();
 
@@ -27,6 +29,7 @@ public partial class RentalHistory : System.Web.UI.Page
 
     public string isRenteeOrRenter(string renteeID, string rentalID)
     {
+        // check if member logged in is rentee or Renter
         Member member = MemberDB.getMemberbyID(renteeID);
 
         if (member.Email == Convert.ToString(Session["user"]))
@@ -35,6 +38,7 @@ public partial class RentalHistory : System.Web.UI.Page
             return "Rentee:  " + RentalDB.getRenteeforRental(rentalID).Name;
     }
 
+    // check if rental is being disputed, display different messages for different state
     public string isDisputeorDisputed(string rentalID)
     {
         Dispute dis = DisputeDB.getDisputeforRental(rentalID);
@@ -48,6 +52,7 @@ public partial class RentalHistory : System.Web.UI.Page
             return "Rental's been Disputed";
     }
 
+    // check if member logged in is giving or recieving feedback
     public string isGiveorReceiveFeedback(string rentalID, string renteeID, string rentStatus)
     {
         if (rentStatus != "On-going")
@@ -75,6 +80,7 @@ public partial class RentalHistory : System.Web.UI.Page
 
     protected void lbtnDispute_Click(object sender, EventArgs e)
     {
+        // view dispute for rental
         ListViewItem item = (ListViewItem)((LinkButton)sender).Parent;
         int itemIndex = item.DisplayIndex;
 
@@ -84,7 +90,7 @@ public partial class RentalHistory : System.Web.UI.Page
         Response.Redirect("DisputePage.aspx?rentid=" + r.RentalID);
     }
 
-    //recently added
+    //get feedback for rental
     protected void lbtnFeedback_Click(object sender, EventArgs e)
     {
         if (((LinkButton)sender).Text == "No Feedback Yet")
@@ -108,6 +114,7 @@ public partial class RentalHistory : System.Web.UI.Page
 
         ////More to be done here
     }
+
 
     protected void lsvRentView_PagePropertiesChanging(object sender, PagePropertiesChangingEventArgs e)
     {

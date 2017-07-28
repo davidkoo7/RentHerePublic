@@ -158,7 +158,7 @@ public class MemberDB
             command.Parameters.AddWithValue("@dateofBirth", m.DateOfBirth);
             command.Parameters.AddWithValue("@status", m.Status);
 
-            if (m.ProfilePicture != null)
+            if (m.ProfilePic != null)
                 command.Parameters.AddWithValue("@profilePic", DBNull.Value);
             else
                 command.Parameters.AddWithValue("@profilePic", DBNull.Value);
@@ -388,9 +388,9 @@ public class MemberDB
 
         // DefaultPic is set if there is no picture
         if (reader["profilePic"] != DBNull.Value)
-            m.ProfilePicture = reader["profilePic"].ToString();
+            m.ProfilePic = reader["profilePic"].ToString();
         else
-            m.ProfilePicture = "DefaultPic.jpg";
+            m.ProfilePic = "DefaultPic.jpg";
     }
 
 

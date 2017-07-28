@@ -9,19 +9,22 @@ public partial class DisputePage : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["user"] == null)
+        // checks if user is logged in 
+        if (Session["user"] == null) // user is not logged in, redirect to login page
         {
             Session["pageRedirectAfterLogin"] = Request.RawUrl;
             Response.Redirect("Login.aspx");
             return;
         }
 
-        if (Request["rentid"].ToString() == null)
+        if (Request["rentid"] == null)
         {
             Response.Redirect("Default.aspx");
             return;
         }
 
+
+        //display dispute by rentalID
         List<Rental> rentalInfoDetails = new List<Rental>();
         Rental rentalInfo = RentalDB.getRentalbyID(Request["rentid"].ToString());
 

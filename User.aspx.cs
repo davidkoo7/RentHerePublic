@@ -10,19 +10,21 @@ public partial class User : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
 
-
+        // check if logged in
         if (Request.QueryString["memberID"] == null)
         {
-            Response.Redirect("Default.aspx");
+            Response.Redirect("Default.aspx"); // redirect to default if not logged in 
             return;
         }
-
+        // display items listed by member
         repeaterItemList.DataSource = ItemDB.getAllItemofMember(MemberDB.getMemberbyID(Request.QueryString["memberID"].ToString()).MemberID);
         repeaterItemList.DataBind();
 
+        // display feedback by member
         rptFeedbackInfo.DataSource = FeedbackDB.getFeedbackFor(MemberDB.getMemberbyID(Request.QueryString["memberID"].ToString()).MemberID);
         rptFeedbackInfo.DataBind();
 
+        // display memebr information
         List<Member> memInfo = new List<Member>();
         memInfo.Add(MemberDB.getMemberbyID(Request.QueryString["memberID"].ToString()));
 
@@ -30,6 +32,7 @@ public partial class User : System.Web.UI.Page
         rptMemberInfo.DataBind();
     }
 
+    // check if member is verified 
     public string isVerifiedOrNot(string memberID)
     {
         if (MemberDB.getMemberbyID(memberID).DateVerified == new DateTime())

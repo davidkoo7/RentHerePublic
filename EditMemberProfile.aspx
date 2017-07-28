@@ -68,7 +68,7 @@
                                     <div class="pull-right">
                                         <asp:Button ID="btnEdit" OnClick="btnEdit_Click" CssClass="btn btn-md btn-primary" runat="server" Text="Edit" />
                                         <asp:Button ID="btnSubmit" OnClick="btnSubmit_Click" CssClass="btn btn-md btn-primary" Visible="false" runat="server" Text="Submit" />
-                                        <a href="#" data-toggle="modal" data-target="#myModal" class="forgot">Change Password</a>
+                                        <a href="#"" data-toggle="modal" data-target="#myModal" class="forgot">Change Password</a>
 
                                     </div>
                                 </div>
@@ -130,10 +130,10 @@
                 </div>
                 <div class="modal-body">
                     <p>Email:</p>
-                    <input id="tbxCurrentPassword" runat="server" type="password" placeholder="password" name="password" class="form-control" />
+                    <input id="tbxCurrentPassword" runat="server" type="password" placeholder="current password" name="password" class="form-control" />
                                         <p></p>
 
-                    <input id="tbxNewPassword" runat="server" type="password" placeholder="password" name="password" class="form-control" />
+                    <input id="tbxNewPassword" runat="server" type="password" placeholder="new password" name="password" class="form-control" />
                     <p></p>
                     <asp:Button ID="btnSubmitNewPassword" OnClick="btnSubmitNewPassword_Click" CssClass="btn btn-primary" runat="server" Text="Submit" />
                     <p></p>

@@ -9,10 +9,11 @@ public partial class ItemPosted : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["user"] == null)
+        // check if logged in 
+        if (Session["user"] == null) // not logged in 
         {
             Session["pageRedirectAfterLogin"] = Request.RawUrl;
-            Response.Redirect("Login.aspx");
+            Response.Redirect("Login.aspx"); // redirect to login page 
             return;
         }
 
@@ -20,7 +21,7 @@ public partial class ItemPosted : System.Web.UI.Page
         lsvItemPostedList.DataBind();
 
 
-
+        // get items listed by member
         if (ItemDB.getAllItemofMember(Session["user"].ToString()).Count < 1)
             DataPager1.Visible = false;
         else

@@ -14,7 +14,7 @@ public class QuartzSchedulerForEmail
     public static void Start()
     {
         IJobDetail emailJob = JobBuilder.Create<QuartzTriggerForEmail>()
-              .WithIdentity("job1")
+              .WithIdentity("job2")
               .Build();
 
         ITrigger trigger = TriggerBuilder.Create()
@@ -24,7 +24,7 @@ public class QuartzSchedulerForEmail
                 .OnEveryDay()
               )
              .ForJob(emailJob)
-             .WithIdentity("trigger1")
+             .WithIdentity("trigger2")
              .StartNow()
              .WithCronSchedule("0 0 12 * * ?")
              .Build();

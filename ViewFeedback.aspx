@@ -8,15 +8,15 @@
             <div class="main-container container">
                 <ul class="breadcrumb">
                     <li><a href="#"><i class="fa fa-home"></i></a></li>
-                    <li><a href="#">Rental Infomation	</a></li>
+                    <li><a href="#">Feedback Infomation	</a></li>
                 </ul>
 
                 <div class="row">
                     <!--Middle Part Start-->
                     <div id="content" class="col-sm-9">
-                        <h2 class="title">Rental Information</h2>
+                        <h2 class="title">Feedback Information</h2>
                         <h2 class="title">Status:                                            
-                            <a href="RentalInfo.aspx?rentalID=<%#Eval("rentalID") %>"><asp:Label ID="lblStatus" runat="server" Text='<%# "" + Eval("status") %>'></asp:Label></a>
+                            <a href="RentalDetails.aspx?rentalID=<%#Eval("rentalID") %>"><asp:Label ID="lblStatus" runat="server" Text='<%# "" + Eval("status") %>'></asp:Label></a>
                         </h2>
                         <table class="table table-bordered table-hover">
                             <thead>
@@ -27,7 +27,7 @@
                             <tbody>
                                 <tr>
                                     <td style="width: 50%;" class="text-left"><b>Rental ID:</b> 
-                                                           <a href="RentalInfo.aspx?rentalID=<%#Eval("rentalID") %>"> <asp:Label ID="lblRentalID" runat="server" Text='<%# Eval("rentalID") %>' /></a>
+                                                           <a href="RentalDetails.aspx?rentalID=<%#Eval("rentalID") %>"> <asp:Label ID="lblRentalID" runat="server" Text='<%# Eval("rentalID") %>' /></a>
 								<br>
                                         <b>Date  Created:</b>   <asp:Label ID="lblDateCreated" runat="server" Text='<%# "" + Eval("dateCreated") %>'></asp:Label>
 																<br>
@@ -109,7 +109,7 @@
                     <div class="btn btn-warning">
                         <label class="radio-inline">
                             <input runat="server" id="rbtnNeutral" type="radio" name="newsletter" value="2">
-                            Warning
+                            Neutral
                         </label>
                     </div>
 

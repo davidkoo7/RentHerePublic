@@ -14,16 +14,18 @@ public partial class Register : System.Web.UI.Page
     string otp;
     protected void Page_Load(object sender, EventArgs e)
     {
-
-        if (Session["user"] != null)
+        // check if login 
+        if (Session["user"] != null) // user not logged in 
         {
-            Response.Redirect("Default.aspx");
+            Response.Redirect("Default.aspx"); // redirect to default page
         }
 
     }
 
     protected void btnVerifyPhone_Click(object sender, EventArgs e)
     {
+        Session["password"] = tbxPassword.Value;
+        // allow otp to be entered 
         pnlPhone.Visible = true;
         btnVerifyPhone.Enabled = false;
 
@@ -60,6 +62,8 @@ public partial class Register : System.Web.UI.Page
 
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
+        Session["password"] = tbxPassword.Value;
+        // insert into database
         string gender;
 
         if (rbtnMale.Checked)
@@ -83,7 +87,9 @@ public partial class Register : System.Web.UI.Page
 
         if (Session["OTP"].ToString() == "Verified")
         {
-            MemberDB.addMember(new Member("NULL", tbxFullName.Value, tbxAddress.Value, Convert.ToInt32(tbxPostCode.Value), tbxPasswordConfirm.Value, tbxEmail.Value, Convert.ToInt32(tbxPhone.Value), "NULL", "NULL", DateTime.Now, new DateTime(), gender, Convert.ToDateTime(tbxDOB.Value), "Active", "NULL"));
+            MemberDB.addMember(new Member("NULL", tbxFullName.Value, tbxAddress.Value, Convert.ToInt32(tbxPostCode.Value), "password123", tbxEmail.Value, Convert.ToInt32(tbxPhone.Value), "NULL", "NULL", DateTime.Now, new DateTime(), gender, Convert.ToDateTime(tbxDOB.Value), "Active", "NULL"));
+            Session["user"] = tbxEmail.Value;
+            Response.Redirect("Default.aspx");
         }        
         else
         {
@@ -91,10 +97,12 @@ public partial class Register : System.Web.UI.Page
             lblOutput.Text = "Please verify your phone number.";
 
         }
+        
     }
 
     protected void btnSubmitOTP_Click(object sender, EventArgs e)
     {
+        // get otp input and verified with record in database
         if (tbxOTP.Value != Session["OTP"].ToString())
         {
             pnlMessageOutput.Visible = true;
@@ -106,6 +114,7 @@ public partial class Register : System.Web.UI.Page
             pnlPhone.Visible = false;
             lblPhoneStatus.Text = "Verified";
             Session["OTP"] = "Verified";
+            btnSubmit.Visible = true;
         }
     }
 

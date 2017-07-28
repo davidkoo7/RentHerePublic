@@ -9,6 +9,7 @@ public partial class _Default : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+    	// displays all items
         List<Item> itemList = ItemDB.getAllItem();
         Repeater1.DataSource = itemList;
         Repeater1.DataBind();

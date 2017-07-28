@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="InboxMessage.aspx.cs" Inherits="InboxMessage" %>
+﻿<%@ Page Language="C#" EnableEventValidation="false" AutoEventWireup="true" CodeFile="InboxMessage.aspx.cs" Inherits="InboxMessage" %>
 
 <!DOCTYPE html>
 
@@ -509,18 +509,6 @@
                                 </form>
                             </div>
 
-                            <div class="form-group currencies-block">
-                                <form action="index.html" method="post" enctype="multipart/form-data" id="currency">
-                                    <a class="btn btn-xs dropdown-toggle" data-toggle="dropdown">
-                                        <span class="icon icon-credit "></span>US Dollar <span class="fa fa-angle-down"></span>
-                                    </a>
-                                    <ul class="dropdown-menu btn-xs">
-                                        <li><a href="#">(€)&nbsp;Euro</a></li>
-                                        <li><a href="#">(£)&nbsp;Pounds	</a></li>
-                                        <li><a href="#">($)&nbsp;US Dollar	</a></li>
-                                    </ul>
-                                </form>
-                            </div>
                         </div>
                         <div class="header-top-right collapsed-block text-right  col-sm-6 col-xs-12 compact-hidden">
                             <h5 class="tabBlockTitle visible-xs">More<a class="expander " href="#TabBlock-1"><i class="fa fa-angle-down"></i></a></h5>
@@ -533,9 +521,7 @@
                                             <li><a href="login.html"><i class="fa fa-pencil-square-o"></i>Login</a></li>
                                         </ul>
                                     </li>
-                                    <li class="wishlist"><a href="wishlist.html" id="wishlist-total" class="top-link-wishlist" title="Wish List (2)"><span>Wish List (2)</span></a></li>
-                                    <li class="checkout"><a href="checkout.html" class="top-link-checkout" title="Checkout"><span>Checkout</span></a></li>
-                                    <li class="login"><a href="cart.html" title="Shopping Cart"><span>Shopping Cart</span></a></li>
+
                                 </ul>
                             </div>
                         </div>
@@ -585,91 +571,6 @@
                         </div>
                         <!-- //end Search -->
 
-                        <!-- Secondary menu -->
-                        <div class="col-md-2 col-sm-5 col-xs-12 shopping_cart pull-right">
-                            <!--cart-->
-                            <div id="cart" class=" btn-group btn-shopping-cart">
-                                <a data-loading-text="Loading..." class="top_cart dropdown-toggle" data-toggle="dropdown">
-                                    <div class="shopcart">
-                                        <span class="handle pull-left"></span>
-                                        <span class="title">My cart</span>
-                                        <p class="text-shopping-cart cart-total-full">2 item(s) - $1,262.00 </p>
-                                    </div>
-                                </a>
-
-                                <ul class="tab-content content dropdown-menu pull-right shoppingcart-box" role="menu">
-
-                                    <li>
-                                        <table class="table table-striped">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="text-center" style="width: 70px">
-                                                        <a href="product.html">
-                                                            <img src="image/demo/shop/product/35.jpg" style="width: 70px" alt="Filet Mign" title="Filet Mign" class="preview">
-                                                        </a>
-                                                    </td>
-                                                    <td class="text-left"><a class="cart_product_name" href="product.html">Filet Mign</a> </td>
-                                                    <td class="text-center">x1 </td>
-                                                    <td class="text-center">$1,202.00 </td>
-                                                    <td class="text-right">
-                                                        <a href="product.html" class="fa fa-edit"></a>
-                                                    </td>
-                                                    <td class="text-right">
-                                                        <a onclick="cart.remove('2');" class="fa fa-times fa-delete"></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-center" style="width: 70px">
-                                                        <a href="product.html">
-                                                            <img src="image/demo/shop/product/141.jpg" style="width: 70px" alt="Canon EOS 5D" title="Canon EOS 5D" class="preview">
-                                                        </a>
-                                                    </td>
-                                                    <td class="text-left"><a class="cart_product_name" href="product.html">Canon EOS 5D</a> </td>
-                                                    <td class="text-center">x1 </td>
-                                                    <td class="text-center">$60.00 </td>
-                                                    <td class="text-right">
-                                                        <a href="product.html" class="fa fa-edit"></a>
-                                                    </td>
-                                                    <td class="text-right">
-                                                        <a onclick="cart.remove('1');" class="fa fa-times fa-delete"></a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </li>
-                                    <li>
-                                        <div>
-                                            <table class="table table-bordered">
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="text-left"><strong>Sub-Total</strong>
-                                                        </td>
-                                                        <td class="text-right">$1,060.00</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-left"><strong>Eco Tax (-2.00)</strong>
-                                                        </td>
-                                                        <td class="text-right">$2.00</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-left"><strong>VAT (20%)</strong>
-                                                        </td>
-                                                        <td class="text-right">$200.00</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-left"><strong>Total</strong>
-                                                        </td>
-                                                        <td class="text-right">$1,262.00</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                            <p class="text-right"><a class="btn view-cart" href="cart.html"><i class="fa fa-shopping-cart"></i>View Cart</a>&nbsp;&nbsp;&nbsp; <a class="btn btn-mega checkout-cart" href="checkout.html"><i class="fa fa-share"></i>Checkout</a> </p>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <!--//cart-->
-                        </div>
                     </div>
 
                 </div>
@@ -1214,20 +1115,7 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="col-md-3">
-                                                                            <div class="column">
-                                                                                <a href="#" class="title-submenu">Shopping pages</a>
-                                                                                <div>
-                                                                                    <ul class="row-list">
-                                                                                        <li><a href="cart.html">Shopping Cart Page</a></li>
-                                                                                        <li><a href="checkout.html">Checkout Page</a></li>
-                                                                                        <li><a href="compare.html">Compare Page</a></li>
-                                                                                        <li><a href="wishlist.html">Wishlist Page</a></li>
 
-                                                                                    </ul>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
                                                                         <div class="col-md-3">
                                                                             <div class="column">
                                                                                 <a href="#" class="title-submenu">My Account pages</a>
@@ -1560,30 +1448,30 @@
                                 <tbody>
                                     <tr>
                                         <td style="width: 50%;" class="text-left"><b>Item ID:</b>
-                                            <asp:Label ID="lblRentalID" runat="server" Text='<%# Eval("itemID") %>' />
+                                            <a href="productDetails.aspx?itemID=<%#Eval("itemID") %>">
+                                                <asp:Label ID="lblRentalID" runat="server" Text='<%# Eval("itemID") %>' /></a>
 
-                                            <br>
-                                            <b>Deposit:</b>
-                                            <asp:Label ID="lblDeposit" runat="server" Text='<%# Eval("deposit") %>' />
+                                                <br>
+                                                <b>Deposit:</b>
+                                                <asp:Label ID="lblDeposit" runat="server" Text='<%# Eval("deposit") %>' />
 
-                                            <br>
-                                            <b>Prie Per Day: </b>
-                                            <asp:Label ID="lblPricePerDay" runat="server" Text='<%# Eval("pricePerDay") %>' />
+                                                <br>
+                                                <b>Prie Per Day: </b>
+                                                <asp:Label ID="lblPricePerDay" runat="server" Text='<%# Eval("pricePerDay") %>' />
 
-                                            <br>
-                                            <b>Price Per Week:</b>
-                                            <asp:Label ID="lblPricePerWeek" runat="server" Text='<%# Eval("pricePerWeek") %>' />
+                                                <br>
+                                                <b>Price Per Week:</b>
+                                                <asp:Label ID="lblPricePerWeek" runat="server" Text='<%# Eval("pricePerWeek") %>' />
 
-                                            <br>
-                                            <b>Price Per Month:</b>
-                                            <asp:Label ID="Label1" runat="server" Text='<%# Eval("pricePerMonth") %>' />
-
-
-
+                                                <br>
+                                                <b>Price Per Month:</b>
+                                                <asp:Label ID="Label1" runat="server" Text='<%# Eval("pricePerMonth") %>' />
 
 
-                                            <br>
-                                        </td>
+
+
+
+                                                <br></td>
 
                                         <br>
                                     </tr>
@@ -1633,7 +1521,6 @@
                                                                 <asp:TextBox CssClass="form-control input-sm" placeholder="Type your message here..." ID="tbxMessage" runat="server"></asp:TextBox>
                                                             </div>
                                                             <div class="col-xs-8">
-
                                                             </div>
                                                             <div class="col-xs-4">
 

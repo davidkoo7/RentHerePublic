@@ -12,51 +12,85 @@ public partial class ItemRental : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["user"] == null)
+        List<Item> itemInfo = new List<Item>();
+
+        // check if logged in
+        if (Session["user"] == null) // not logged in
         {
             Session["pageRedirectAfterLogin"] = Request.RawUrl;
-            Response.Redirect("Login.aspx");
+            Response.Redirect("Login.aspx"); // transfer to  login page
             return;
         }
 
-        if (Request.QueryString["itemID"] == null)
+        // check if user wants to extend
+        if (Session["itemExtension"].ToString() == "ExtendItem")
+        {
+            Rental rentalInfo = RentalDB.getRentalbyID(Request.QueryString["rentalID"].ToString());
+            tbxPickUpLocation.Value = rentalInfo.PickUpLocation;
+            tbxPickUpTime.Value = rentalInfo.PickUpTime.ToString();
+            tbxReturnLocation.Value = rentalInfo.ReturnLocation;
+            tbxReturnTime.Value = rentalInfo.ReturnTime.ToString();
+
+
+            tbxPickUpLocation.EnableViewState = false;
+            tbxPickUpTime.EnableViewState = false;
+            tbxReturnLocation.EnableViewState = false;
+            tbxReturnTime.EnableViewState = false;
+            itemInfo.Add(ItemDB.getItembyID(RentalDB.getRentalbyID(Request.QueryString["rentalID"].ToString()).Item.ItemID));
+
+
+        }
+        else if (Request.QueryString["itemID"] == null)
         {
             Response.Redirect("Categories.aspx");
             return;
         }
+        else
+        {
+            lblDepositAmount.Text = ItemDB.getItembyID(Request.QueryString["itemID"]).Deposit.ToString();
 
-        lblDepositAmount.Text = ItemDB.getItembyID(Request.QueryString["itemID"]).Deposit.ToString();
 
-        List<Item> itemInfo = new List<Item>();
-        itemInfo.Add(ItemDB.getItembyID(Request.QueryString["itemID"]));
+            itemInfo.Add(ItemDB.getItembyID(Request.QueryString["itemID"]));
+
+        }
+
         rptItemRentalInfo.DataSource = itemInfo;
         rptItemRentalInfo.DataBind();
-
-
         var selectedDates = new List<DateTime?>();
 
+
+        List<Rental> currentRental = RentalDB.getRentalofItem(Request.QueryString["itemID"], "On-going");
+        if (currentRental.Count > 0)
+        {
+            foreach (Rental rental in currentRental)
+            {
+                for (var date = rental.StartDate; date <= rental.EndDate; date = date.AddDays(1))
+                {
+                    selectedDates.Add(date);
+                }
+            }
+        }
+
+        List<Rental> scheduledRental = RentalDB.getRentalofItem(Request.QueryString["itemID"], "Scheduled");
+        if (scheduledRental.Count > 0)
+        {
+            foreach (Rental rental in scheduledRental)
+            {
+                for (var date = rental.StartDate; date <= rental.EndDate; date = date.AddDays(1))
+                {
+                    selectedDates.Add(date);
+                }
+            }
+        }
+
         Extension itemExtension = ExtensionDB.getLastExtensionofItem(Request.QueryString["itemID"], "On-going");
-
-        List<Rental> itemRental = RentalDB.getRentalofItem(Request.QueryString["itemID"], "Scheduled");
-        List<Rental> itemRentalInfo = RentalDB.getRentalofItem(Request.QueryString["itemID"], "On-going");
-
-        if (itemExtension != null)
+        if (itemExtension.ExtensionID != null)
         {
-            for (var date = itemRentalInfo[0].StartDate; date <= itemExtension.NewEndDate; date = date.AddDays(1))
+            for (var date = currentRental[0].StartDate; date <= itemExtension.NewEndDate; date = date.AddDays(1))
             {
                 selectedDates.Add(date);
             }
         }
-
-
-        foreach (Rental rental in itemRental)
-        {
-            for (var date = rental.StartDate; date <= rental.EndDate; date = date.AddDays(1))
-            {
-                selectedDates.Add(date);
-            }
-        }
-
 
 
         for (int i = 0; i < selectedDates.Count(); i++)
@@ -81,10 +115,13 @@ public partial class ItemRental : System.Web.UI.Page
 
             disabledDate = disabledDate + "'" + dt.ToString("yyyy-MM-dd") + "'" + ", ";
 
+
         }
 
 
-        ClientScript.RegisterStartupScript(GetType(), "datePickerInit", "var datepicker = new HotelDatepicker(document.getElementById('input-id'), { disabledDates: [ " + disabledDate + "   ]   });", true);
+        ClientScript.RegisterStartupScript(GetType(),
+"datePickerInit", "var datepicker = new HotelDatepicker(document.getElementById('input-id'), { disabledDates: [ " + disabledDate + "   ]   });",
+true);
 
     }
 
@@ -104,6 +141,31 @@ public partial class ItemRental : System.Web.UI.Page
             DateTime endDate = Convert.ToDateTime(n.Substring(n.Length - 10));
 
             int numOfDays = Convert.ToInt32((endDate - startDate).TotalDays);
+
+            List<Rental> futureRentals = RentalDB.getRentalofItem(Request.QueryString["itemID"], "Scheduled");
+
+
+            if (Session["itemExtension"].ToString() == "ExtendItem")
+            {
+                Extension lastExtension = ExtensionDB.getLastExtensionofItem(Request.QueryString["itemID"], "On-going");
+                if (startDate.CompareTo(lastExtension.NewEndDate.AddDays(1)) != 0)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Extension must start right after your rental period ends')", true);
+                    return;
+                }
+            }
+
+            if (futureRentals.Count > 0)
+            {
+                if (startDate.CompareTo(futureRentals[0].StartDate) > 0 && endDate.CompareTo(futureRentals[0].EndDate) < 0)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('You can't select dates that are passing someone rental period!')", true);
+                    return;
+                }
+            }
+
+
+
 
 
             decimal totalDayPrice = 0, totalWeekPrice = 0, totalMonthPrice = 0, amountDue = 0;
@@ -156,6 +218,7 @@ public partial class ItemRental : System.Web.UI.Page
 
             }
 
+
             amountDue = totalDayPrice + totalWeekPrice + totalMonthPrice;
             lblRentalRate.Text = amountDue.ToString();
 
@@ -168,7 +231,16 @@ public partial class ItemRental : System.Web.UI.Page
             Session["returnTime"] = tbxReturnTime.Value;
             Session["rentalRate"] = lblRentalRate.Text;
 
-            Response.Redirect("Payment.aspx?itemID=" + Request.QueryString["itemID"]);
+            if (Session["itemExtension"].ToString() == "ExtendItem")
+            {
+                Response.Redirect("Payment.aspx?itemID=" + Request.QueryString["itemID"] + "&rentalID=" + Request.QueryString["rentalID"].ToString());
+
+            }
+            else
+            {
+
+                Response.Redirect("Payment.aspx?itemID=" + Request.QueryString["itemID"]);
+            }
 
         }
         else
@@ -177,6 +249,7 @@ public partial class ItemRental : System.Web.UI.Page
             pnlMessageOutput.Visible = true;
             lblOutput.Text = "Please select the dates";
         }
+
 
 
     }

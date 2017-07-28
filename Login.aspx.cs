@@ -9,48 +9,48 @@ public partial class Login : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["user"] != null)
-            Response.Redirect("Default.aspx");
+        Form.DefaultButton = btnLogin.UniqueID;
     }
 
-    protected void btnLogin_Click(object sender, EventArgs e)
-    {
-        if (MemberDB.isPermittedLogin(tbxEmail.Value, tbxPassword.Value))
+        protected void btnLogin_Click(object sender, EventArgs e)
         {
-            Session["user"] = tbxEmail.Value;
-            if (Session["pageRedirectAfterLogin"] == null)
-                Response.Redirect("Default.aspx");
+            // check if credentials exists in database
+            if (MemberDB.isPermittedLogin(tbxEmail.Value, tbxPassword.Value)) // credentials exists in database
+            { // allow login 
+                Session["user"] = tbxEmail.Value;
+                if (Session["pageRedirectAfterLogin"] == null)
+                    Response.Redirect("Default.aspx");
 
+                else
+                { // go back to page clicked before login 
+                    Response.Redirect("~" + Session["pageRedirectAfterLogin"].ToString());
+                    Session["pageRedirectAfterLogin"] = null;
+                }
+            }
             else
-            {
-                Response.Redirect("~" + Session["pageRedirectAfterLogin"].ToString());
-                Session["pageRedirectAfterLogin"] = null ;
+            { // credentials not not exists
+                pnlOutput.Visible = true; // disallow login
+                lblOutput.Text = "Incorrect username or password";
             }
         }
-        else
+
+
+        protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            pnlOutput.Visible = true;
-            lblOutput.Text = "Incorrect username or password";
+            string newPassword = Utility.getRandomizedChar(7, 1);
+
+            string message = "This is message is to inform you on your auto-generated password: " + newPassword;
+            message += "\nDo not reply.\n Regards, RentHere Team";
+
+            Utility.sendEmail(tbxEmail.Value, "Your Password Reset is Here", message);
+
+            pnlForgotPasswordOutput.Visible = true;
+            lblForgotEmailOutput.Text = "Your password reset has been sent to your email";
+
+            MemberDB.changeMemberPassword(tbxEmail.Value, newPassword);
+
+            Session["password"] = " ";
+
+            Response.Redirect(Request.RawUrl);
         }
     }
-
-
-    protected void btnSubmit_Click(object sender, EventArgs e)
-    {
-        string newPassword = Utility.getRandomizedChar(7, 1);
-
-        string message = "This is message is to inform you on your auto-generated password: " + newPassword;
-        message += "\nDo not reply.\n Regards, RentHere Team";
-
-        Utility.sendEmail(tbxEmail.Value, "Your Password Reset is Here", message);
-
-        pnlForgotPasswordOutput.Visible = true;
-        lblForgotEmailOutput.Text = "Your password reset has been sent to your email";
-
-        MemberDB.changeMemberPassword(tbxEmail.Value, newPassword);
-
-        Session["password"] = " ";
-
-        Response.Redirect(Request.RawUrl);
-    }
-}

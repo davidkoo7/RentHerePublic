@@ -13,21 +13,21 @@ public partial class Payment : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
-        if (Session["user"] == null)
+        // check if logged in 
+        if (Session["user"] == null) // not logged in 
         {
             Session["pageRedirectAfterLogin"] = Request.RawUrl;
-            Response.Redirect("Login.aspx");
+            Response.Redirect("Login.aspx"); // go to login page
             return;
         }
 
-        if (Request.QueryString["itemID"] == null)
+        if (Request.QueryString["itemID"] == null) // if there is item selected 
         {
-            Response.Redirect("Categories.aspx");
+            Response.Redirect("Categories.aspx"); // go to categories page
             return;
         }
 
-
+        // populate payment fields 
         List<Item> itemInfo = new List<Item>();
         itemInfo.Add(ItemDB.getItembyID(Request.QueryString["itemID"]));
         rptItemRentalInfo.DataSource = itemInfo;
@@ -43,6 +43,7 @@ public partial class Payment : System.Web.UI.Page
 
     protected void btnPay_Click(object sender, EventArgs e)
     {
+        // submit payment 
 
         Item itemInfo = ItemDB.getItembyID(Request.QueryString["itemID"]);
 
@@ -69,12 +70,24 @@ public partial class Payment : System.Web.UI.Page
         var chargeService = new StripeChargeService();
         StripeCharge stripeCharge = chargeService.Create(myCharge);
 
+        PaymentPay pay = new PaymentPay();
+
+        pay.StripeRefNum = Utility.getRandomizedChar(5, 0);
+
+
+        string n = Session["rentalPeriod"].ToString();
+        string startDate = n.Substring(0, 10);
+        string endDate = n.Substring(n.Length - 10);
+
+        if (Session["itemExtension"].ToString() == "NotExtension")
+        { 
         Rental rent = new Rental();
         rent.DateCreated = DateTime.Now;
         rent.Deposit = itemInfo.Deposit;
-        rent.DepositRetrievalCode = Utility.getRandomizedChar(6, 1);
-        rent.PaymentReleaseCode = Utility.getRandomizedChar(6, 1);
+        rent.DepositRetrievalCode = Utility.getRetrivalCode(6, 0);
+        rent.PaymentReleaseCode = Utility.getRandomizedChar(6, 0);
         rent.PickUpLocation = Session["pickUpLocation"].ToString();
+        rent.RentalFee = Convert.ToDecimal(Session["totalAmountPayable"].ToString());
 
         DateTime pickUpTime = DateTime.ParseExact(Session["pickUpTime"].ToString(),
                             "hh:mm tt", CultureInfo.InvariantCulture);
@@ -91,18 +104,9 @@ public partial class Payment : System.Web.UI.Page
         rent.Item = itemInfo;
 
 
-        string n = Session["rentalPeriod"].ToString();
-        string startDate = n.Substring(0, 10);
-        string endDate = n.Substring(n.Length - 10);
-
         rent.StartDate = Convert.ToDateTime(startDate);
         rent.EndDate = Convert.ToDateTime(endDate);
         rent.Status = "Scheduled";
-
-        PaymentPay pay = new PaymentPay();
-
-
-        pay.StripeRefNum = Utility.getRandomizedChar(5,1);
 
         rent.Payment = PaymentDB.getPaymentbyID(Utility.convertIdentitytoPK("PAY", PaymentDB.addPayment(pay)));
 
@@ -112,6 +116,29 @@ public partial class Payment : System.Web.UI.Page
         rent.Unit = "Day";
 
         Response.Redirect("RentalDetails.aspx?rentalID=" + Utility.convertIdentitytoPK("RNT", RentalDB.addRental(rent)));
+        }
+        else
+        {
+            Rental rent = RentalDB.getRentalbyID(Request.QueryString["rentalID"]);
+            Extension ext = new Extension();
+            ext.ExtensionRentalFee = Convert.ToDecimal(Session["totalAmountPayable"].ToString());
+            ext.NewEndDate = Convert.ToDateTime(endDate);
+            ext.NewReturnLocation = rent.ReturnLocation;
+            int paymentID = PaymentDB.addPayment(pay);
+
+            pay.PaymentID = Utility.convertIdentitytoPK("PAY", paymentID);
+            ext.NewReturnTime = rent.ReturnTime;
+            ext.Payment = pay;
+
+            ext.Rental = rent;
+            ext.Status = "Granted";
+            ext.Unit = "Day";
+
+            ExtensionDB.addExtension(ext);
+
+            Response.Redirect("RentalDetails.aspx?rentalID=" + Request.QueryString["rentalID"]);
+
+        }
     }
 
 }

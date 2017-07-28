@@ -104,6 +104,8 @@ public class MemberInboxDB
 
             if (reader.Read())
                 readAMsg(ref memInbox, ref reader);
+            else
+                memInbox = new MemberInbox(-1, new DateTime(), new Member(), new Item());
             
             reader.Close();
         }
@@ -152,7 +154,10 @@ public class MemberInboxDB
 
 
             if (command.ExecuteNonQuery() > 0)
-                return 1;
+            {
+                command.CommandText = "Select @@identity";
+                return Convert.ToInt32(command.ExecuteScalar());
+            }
         }
         finally
         {

@@ -134,64 +134,14 @@
 
             </div>
             <div class="pull-right">
-                <asp:Button CssClass="btn btn-primary" data-toggle="modal" data-target="#myModal" Visible="false" ID="btnRetrivalCode" runat="server" Text="Item Returned" />
-                <asp:Button CssClass="btn btn-primary" data-toggle="modal" data-target="#myModal" Visible="false" ID="btnReleaseCode" runat="server" Text="Item Received" />
+                <asp:Button CssClass="btn btn-primary" data-toggle="modal" data-target="#myModal" OnClientClick="return false;" Visible="false" ID="btnRetrivalCode" runat="server" Text="Item Returned" />
+                <asp:Button CssClass="btn btn-primary" data-toggle="modal" data-target="#myModal" OnClientClick="return false;" Visible="false" ID="btnReleaseCode" runat="server" Text="Item Received" />
 
             </div>
         </div>
         <p></p>
         <br />
 
-
-        <h3>Payment History</h3>
-        <table class="table table-bordered table-hover">
-            <thead>
-                <tr>
-                    <td class="text-left">Date Added</td>
-                    <td class="text-left">Status</td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="text-left">20/06/2016</td>
-                    <td class="text-left">Processing</td>
-                </tr>
-                <tr>
-                    <td class="text-left">21/06/2016</td>
-                    <td class="text-left">Shipped</td>
-                </tr>
-                <tr>
-                    <td class="text-left">24/06/2016</td>
-                    <td class="text-left">Complete</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <h3>Payment History</h3>
-        <table class="table table-bordered table-hover">
-            <thead>
-                <tr>
-                    <td class="text-left">PaymentID</td>
-                    <td class="text-left">Amount</td>
-
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="text-left">20/06/2016</td>
-                    <td class="text-left">Processing</td>
-                </tr>
-                <tr>
-                    <td class="text-left">21/06/2016</td>
-                    <td class="text-left">Shipped</td>
-                </tr>
-                <tr>
-                    <td class="text-left">24/06/2016</td>
-                    <td class="text-left">Complete</td>
-                </tr>
-            </tbody>
-        </table>
-        <input style="table-layout: fixed;" type="text" name="input-id" id="input-id" value="" class="form-control">
     </div>
     <!--Middle Part End-->
     <!--Right Part Start -->
@@ -234,7 +184,7 @@
 
        
 
-    <div id="myModalExtension" class="modal fade" role="dialog">
+    <div id="myModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
 
             <!-- Modal content-->

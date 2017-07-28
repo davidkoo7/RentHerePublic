@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="ItemPosted.aspx.cs" Inherits="ItemPosted" %>
+﻿<%@ Page Title="" EnableEventValidation="false" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="ItemPosted.aspx.cs" Inherits="ItemPosted" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
@@ -68,7 +68,7 @@
                                             <asp:Label ID="lblPricePerMonth" runat="server" Text='<%# "" + Eval("pricePerMonth") %>'></asp:Label>
                                         </td>
                                         <td class="text-center">
-                                              <a href="Messages.aspx?MemberInboxID=<%#Eval("memberInboxID") %>" >  <button class="btn btn-warning btn-sm" type="button" data-toggle="tooltip" title="View Info"><span class="">View Info</span></button></a>
+                                              <a href="ItemPostedDetails.aspx?itemID=<%#Eval("itemID") %>" >  <button class="btn btn-warning btn-sm" type="button" data-toggle="tooltip" title="View Info"><span class="">View Info</span></button></a>
                                         </td>
                                     </tr>
 

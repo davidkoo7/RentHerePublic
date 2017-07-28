@@ -9,7 +9,8 @@ public partial class CreateSupportTicket : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["user"] == null)
+        // check if user is logged in 
+        if (Session["user"] == null) // not logged in transfer to login page
         {
             Session["pageRedirectAfterLogin"] = Request.RawUrl;
             Response.Redirect("Login.aspx");
@@ -17,6 +18,7 @@ public partial class CreateSupportTicket : System.Web.UI.Page
         }
     }
 
+    // adds support ticket to database
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
         int ticketIdentity = SupportTicketDB.insertTicket(tbxTitle.Text, txtArea.InnerText, DateTime.Now, "Pending", ddlUrgency.SelectedValue, MemberDB.getMemberbyEmail(Session["user"].ToString()).MemberID);

@@ -177,10 +177,6 @@
                     <div class="tabsslider  vertical-tabs col-xs-12">
                         <ul class="nav nav-tabs col-lg-2 col-sm-3">
                             <li class="active"><a data-toggle="tab" href="#tab-1">Description</a></li>
-                            <li class="item_nonactive"><a data-toggle="tab" href="#tab-review">Reviews (1)</a></li>
-                            <li class="item_nonactive"><a data-toggle="tab" href="#tab-4">Tags</a></li>
-                            <li class="item_nonactive"><a data-toggle="tab" href="#tab-5">Custom Tab</a></li>
-                        </ul>
                         <div class="tab-content col-lg-10 col-sm-9 col-xs-12">
                             <div id="tab-1" class="tab-pane fade active in">
                                 <textarea runat="server" id="tbxDescription" cols="50" rows="10"></textarea>

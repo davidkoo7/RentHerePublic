@@ -10,8 +10,6 @@
             <div class="main-container container">
                 <ul class="breadcrumb">
                     <li><a href="#"><i class="fa fa-home"></i></a></li>
-                    <li><a href="#">Smartphone & Tablets</a></li>
-                    <li><a href="#">Bint Beef</a></li>
 
                 </ul>
 

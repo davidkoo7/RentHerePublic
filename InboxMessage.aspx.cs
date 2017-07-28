@@ -9,16 +9,17 @@ public partial class InboxMessage : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["user"] == null)
+        // check if logged in 
+        if (Session["user"] == null) // user not logged in 
         {
             Session["pageRedirectAfterLogin"] = Request.RawUrl;
-            Response.Redirect("Login.aspx");
+            Response.Redirect("Login.aspx"); // transfer to login page
             return;
         }
 
-        if (Request.QueryString["memberInboxID"] == null)
+        if (Request.QueryString["memberInboxID"] == null) // check if inbox is empty
         {
-            Response.Redirect("Default.aspx");
+            Response.Redirect("Default.aspx"); // empty redirect to default
             return;
         }
 
@@ -34,6 +35,7 @@ public partial class InboxMessage : System.Web.UI.Page
 
     }
 
+    // get message into html
     protected string retrieveMessage(string senderID, string reply, string datePosted)
     {
         if (MemberDB.getMemberbyID(senderID).Email == Session["user"].ToString())

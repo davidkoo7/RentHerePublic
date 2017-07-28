@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="FAQ.aspx.cs" Inherits="FAQ" %>
+﻿<%@ Page Title="" EnableEventValidation="false" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="FAQ.aspx.cs" Inherits="FAQ" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
@@ -15,7 +15,6 @@
 		<div class="row">
 			<div id="content" class="col-sm-12">
 				<h3>Got Questions? We’ve Got Answers!</h3>
-				<p>Put something here later</p>
 				<p>
 					<br>
 				</p>
@@ -23,45 +22,45 @@
 					<div class="col-sm-12">
 						<ul class="yt-accordion">
 							<li class="accordion-group">
-								<h3 class="accordion-heading"><i class="fa fa-plus-square"></i><span>First FAQ</span></h3>
+								<h3 class="accordion-heading"><i class="fa fa-plus-square"></i><span>What is RentHere?</span></h3>
 								<div class="accordion-inner">
-									<p>BLA BLA BLA BLA</p>
+									<p>RentHere is an online rental platform for you to list items/services to rent or rent items/services you need.</p>
 								</div>
 							</li>
 							<li class="accordion-group">
-								<h3 class="accordion-heading"><i class="fa fa-plus-square"></i><span>Second FAQ</span></h3>
+								<h3 class="accordion-heading"><i class="fa fa-plus-square"></i><span>How does RentHere work?</span></h3>
 								<div class="accordion-inner">
-									<p>BLA BLA BLA BLA</p>
+									<p>RentHere allows you to chat and review members before transacting with them. It mainly facilitates the finding of items, renting of items as well as payments for rentals</p>
 								</div>
 							</li>
 							<li class="accordion-group">
-								<h3 class="accordion-heading"><i class="fa fa-plus-square"></i><span>Third FAQ</span></h3>
+								<h3 class="accordion-heading"><i class="fa fa-plus-square"></i><span>Why should you rent?</span></h3>
 								<div class="accordion-inner" >
-									<p>BLA BLA BLA BLA</p>
+									<p>It allows you to #EarnFromThingsAroundYou</p>
 								</div>
 							</li>
 							<li class="accordion-group">
-								<h3 class="accordion-heading"><i class="fa fa-plus-square"></i><span>Fourth FAQ</span></h3>
+								<h3 class="accordion-heading"><i class="fa fa-plus-square"></i><span>What are the general terms of use?</span></h3>
 								<div class="accordion-inner">
-									<p>BLA BLA BLA BLA</p>
+									<p>We aim to build a nice and friendly community. Do not #FlyAeroplane; Do not be #rude</p>
 								</div>
 							</li>
 							<li class="accordion-group">
-								<h3 class="accordion-heading"><i class="fa fa-plus-square"></i><span>Fifth FAQ</span></h3>
+								<h3 class="accordion-heading"><i class="fa fa-plus-square"></i><span>How much do I have to pay as Renter?</span></h3>
 								<div class="accordion-inner">
-									<p>BLA BLA BLA BLA</p>
+									<p>As of right now, nothing! RentHere is free to use by all as long as you register as a member with us! :)</p>
 								</div>
 							</li>
 							<li class="accordion-group">
-								<h3 class="accordion-heading"><i class="fa fa-plus-square"></i><span>Six FAQ </span></h3>
+								<h3 class="accordion-heading"><i class="fa fa-plus-square"></i><span>What Item can I post to RentHere? </span></h3>
 								<div class="accordion-inner" >
-									<p>BLA BLA BLA BLA</p>
+									<p>Anything that you are not currently using; e.g. evening gowns, tools, furniture, services</p>
 								</div>
 							</li>
 							<li class="accordion-group">
-								<h3 class="accordion-heading"><i class="fa fa-plus-square"></i><span>Seven FAQ</span></h3>
+								<h3 class="accordion-heading"><i class="fa fa-plus-square"></i><span>How to report a Renter/Rentee?</span></h3>
 								<div class="accordion-inner" >
-									<p>BLA BLA BLA BLA</p>
+									<p>You should use the support ticket function to submit any enquiries, complaints, reports, and suggestions if you have any</p>
 								</div>
 							</li>
 						</ul>

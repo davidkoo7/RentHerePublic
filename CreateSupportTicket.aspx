@@ -14,7 +14,7 @@
             <!--Middle Part Start-->
             <div id="content" class="col-sm-9">
                 <h2 class="title">Submit a ticket</h2>
-                <p>This gift card will be emailed to the recipient after your order has been paid for.</p>
+                <p>Please enter support ticket information</p>
 
                 <div class="form-horizontal">
                     <div class="form-group required">

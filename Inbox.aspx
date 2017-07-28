@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Inbox.aspx.cs" Inherits="Inbox" %>
+﻿<%@ Page Title="" EnableEventValidation="false" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Inbox.aspx.cs" Inherits="Inbox" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
@@ -7,17 +7,18 @@
         <div class="main-container container">
         <ul class="breadcrumb">
             <li><a href="#"><i class="fa fa-home"></i></a></li>
-            <li><a href="#">Order History</a></li>
+            <li><a href="#">Inbox History</a></li>
         </ul>
 
         <div class="row">
             <!--Middle Part Start-->
             <div id="content" class="col-sm-9">
-                <h2 class="title">Order History</h2>
+                <h2 class="title">Inbox History</h2>
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover">
                         <thead>
                             <tr>
+                                
                                 <td class="text-center">Image</td>
                                 <td class="text-center">Renter Name</td>
                                 <td class="text-center">Message</td>

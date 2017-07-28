@@ -68,11 +68,14 @@ public class ExtensionDB
     {
         try
         {
-            SqlCommand command = new SqlCommand("INSERT INTO Extension (extensionID, newReturnLocation, newReturnTime, newEndDate, unit, status, extensionRentalFee, paymentID, rentalID) values (@extensionID, @newReturnLocation, @newReturnTime, @newEndDate, @unit, @status, @extensionRentalFee, @paymentID, @rentalID)");
-            command.Parameters.AddWithValue("@extensionID", extension.ExtensionID); command.Parameters.AddWithValue("@newReturnLocation", extension.NewReturnLocation);
-            command.Parameters.AddWithValue("@newReturnTime", extension.NewReturnTime); command.Parameters.AddWithValue("@newEndDate", extension.NewEndDate);
-            command.Parameters.AddWithValue("@unit", extension.Unit); command.Parameters.AddWithValue("@status", extension.Status);
-            command.Parameters.AddWithValue("@extensionRentalFee", extension.ExtensionRentalFee); command.Parameters.AddWithValue("@paymentID", extension.Payment.PaymentID);
+            SqlCommand command = new SqlCommand("INSERT INTO Extension (newReturnLocation, newReturnTime, newEndDate, unit, status, extensionRentalFee, paymentID, rentalID) values (@newReturnLocation, @newReturnTime, @newEndDate, @unit, @status, @extensionRentalFee, @paymentID, @rentalID)");
+            command.Parameters.AddWithValue("@newReturnLocation", extension.NewReturnLocation);
+            command.Parameters.AddWithValue("@newReturnTime", extension.NewReturnTime);
+            command.Parameters.AddWithValue("@newEndDate", extension.NewEndDate);
+            command.Parameters.AddWithValue("@unit", extension.Unit);
+            command.Parameters.AddWithValue("@status", extension.Status);
+            command.Parameters.AddWithValue("@extensionRentalFee", extension.ExtensionRentalFee);
+            command.Parameters.AddWithValue("@paymentID", extension.Payment.PaymentID);
             command.Parameters.AddWithValue("@rentalID", extension.Rental.RentalID);
 
             command.Connection = connection;
@@ -80,7 +83,9 @@ public class ExtensionDB
 
             if (command.ExecuteNonQuery() > 0)
             {
-                return 1;
+                command.CommandText = "Select @@identity";
+                return Convert.ToInt32(command.ExecuteScalar());
+
             }
         }
         finally

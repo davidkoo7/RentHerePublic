@@ -9,8 +9,24 @@ public partial class MasterPage : System.Web.UI.MasterPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+
+
         if (!IsPostBack)
         {
+            if (Session["user"] == null)
+            {
+                pnlBeforeLogin.Visible = true;
+            }
+            else
+            {
+                pnlAfterLogin.Visible = true;
+                string[] fullName = MemberDB.getMemberbyEmail(Session["user"].ToString()).Name.Split(' ');
+
+                lblUsername.Text = " " + fullName[0];
+
+
+            }
+
             ddlCategory.DataSource = CategoryDB.getAllCategory();
             ddlCategory.DataBind();
 
@@ -18,6 +34,8 @@ public partial class MasterPage : System.Web.UI.MasterPage
             ddlLocation.DataBind();
 
             ddlLocation.Items.Insert(0, new ListItem("Singapore", ""));
+
+            
         }
 
     }
@@ -68,6 +86,14 @@ public partial class MasterPage : System.Web.UI.MasterPage
 
         Session["SearchListToDisplay"] = itemList;
         Response.Redirect("~/Categories.aspx");
+    }
+
+
+
+    protected void lbLogout_Click(object sender, EventArgs e)
+    {
+        Session["user"] = null;
+        Response.Redirect("Default.aspx");
     }
 
 }

@@ -9,14 +9,14 @@ public partial class Inbox : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
-        if (Session["user"] == null)
+        // check if user is logged in 
+        if (Session["user"] == null) // not logged in 
         {
             Session["pageRedirectAfterLogin"] = Request.RawUrl;
-            Response.Redirect("Login.aspx");
+            Response.Redirect("Login.aspx"); // transfer to login 
             return;
         }
-
+            // get messages by member
         lsvInboxMessage.DataSource = getMessageOfThisMember();
         lsvInboxMessage.DataBind();
             

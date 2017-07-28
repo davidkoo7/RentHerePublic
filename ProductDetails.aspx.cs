@@ -12,12 +12,14 @@ public partial class ProductDetails : System.Web.UI.Page
     string itemStatus;
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Request.QueryString["itemID"] == null)
+
+
+        if (Request.QueryString["itemID"] == null) // no item selected,
         {
-            Response.Redirect("~/Categories.aspx");
+            Response.Redirect("~/Categories.aspx");  // redirect to categories page
         }
         else
-        {
+        { // get and display item details
 
             List<Item> productDetails = new List<Item>();
             productDetails.Add(ItemDB.getItembyID(Request.QueryString["itemID"].ToString()));
@@ -31,6 +33,7 @@ public partial class ProductDetails : System.Web.UI.Page
 
     protected void repeaterItemInformation_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
+        // check if there is on going rental extenson for item selected
         Extension itemExtension = ExtensionDB.getLastExtensionofItem(Request.QueryString["itemID"], "On-going");
 
 
@@ -58,6 +61,7 @@ public partial class ProductDetails : System.Web.UI.Page
         // To display the status of the item to the user
         if (e.Item.ItemType == ListItemType.Item)
         {
+            // allow renting if no extension, allow reserve if there is 
             Button btnRent = (Button)e.Item.FindControl("btnRent");
 
             Label lblItemStatus = e.Item.FindControl("lblItemStatus") as Label;
@@ -73,9 +77,42 @@ public partial class ProductDetails : System.Web.UI.Page
 
     protected void btnRent_Click(object sender, EventArgs e)
     {
+        Item item = ItemDB.getItembyID(Request.QueryString["itemID"].ToString());
+
+        // check if logged in 
+        if (Session["user"] == null) // user not logged in 
+        {
+            Session["pageRedirectAfterLogin"] = Request.RawUrl;
+            Response.Redirect("Login.aspx"); // transfer to login page 
+            return;
+        }
+
+        if (item.Renter.Email == Session["user"].ToString())
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Cannot rent your own item!')", true);
+
+            return;
+        }
+
+        // insert rent record into database for item selected
+
+        Session["itemExtension"] = "NotExtension";
+
+
+        if (item.Renter.Email == Session["user"].ToString())
+        {
+            return;
+        }
+
+
         if (itemStatus == "Available")
         {
             Session["itemStatus"] = "Available";
+            Response.Redirect("~/itemRental.aspx?itemID=" + Request.QueryString["itemID"]);
+        }
+        else if (itemStatus == "On-going")
+        {
+            Session["itemStatus"] = "On-going";
             Response.Redirect("~/itemRental.aspx?itemID=" + Request.QueryString["itemID"]);
         }
         else
@@ -84,6 +121,8 @@ public partial class ProductDetails : System.Web.UI.Page
             Response.Redirect("~/itemRental.aspx?itemID=" + Request.QueryString["itemID"]);
 
         }
+
+
 
     }
 
@@ -97,7 +136,25 @@ public partial class ProductDetails : System.Web.UI.Page
 
     protected void btnContactRenter_Click(object sender, EventArgs e)
     {
-        if (Session["user"].ToString() == null)
+        // check if logged in 
+        if (Session["user"] == null) // user not logged in 
+        {
+            Session["pageRedirectAfterLogin"] = Request.RawUrl;
+            Response.Redirect("Login.aspx"); // transfer to login page 
+            return;
+        }
+
+        // allow Rentee to contact Renter
+        Item item = ItemDB.getItembyID(Request.QueryString["itemID"].ToString());
+
+        if (item.Renter.Email == Session["user"].ToString())
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Cannot message yourself!')", true);
+
+            return;
+        }
+        // must be logged in to contact Renter
+        if (Session["user"] == null)
         {
             Response.Redirect("Login.aspx");
             return;
@@ -105,8 +162,8 @@ public partial class ProductDetails : System.Web.UI.Page
         else
         {
             // If memberInbox doesnt exist
-            if (MemberInboxDB.searchMemberInbox(MemberDB.getMemberbyEmail(Session["user"].ToString()).MemberID, ItemDB.getItembyID(Request.QueryString["itemID"].ToString()).ItemID) == null)
-            {
+            if (MemberInboxDB.searchMemberInbox(MemberDB.getMemberbyEmail(Session["user"].ToString()).MemberID, ItemDB.getItembyID(Request.QueryString["itemID"].ToString()).ItemID).MemberInboxID == -1)
+            { // creates and send message
                 MemberInbox mem = new MemberInbox();
                 mem.Date = DateTime.Now;
                 mem.Item = ItemDB.getItembyID(Request.QueryString["itemID"]);

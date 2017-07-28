@@ -124,7 +124,7 @@
                     <div id="content" class="col-sm-9">
                         <h2 class="title">Rental Information</h2>
                         <h2 class="title">Status:                                            
-                            <a href="RentalInfo.aspx?rentalID=<%#Eval("rentalID") %>"><asp:Label ID="lblStatus" runat="server" Text='<%# "" + Eval("status") %>'></asp:Label></a>
+                            <a href="RentalDetails.aspx?rentalID=<%#Eval("rentalID") %>"><asp:Label ID="lblStatus" runat="server" Text='<%# "" + Eval("status") %>'></asp:Label></a>
                         </h2>
                         <table class="table table-bordered table-hover">
                             <thead>
@@ -135,7 +135,7 @@
                             <tbody>
                                 <tr>
                                     <td style="width: 50%;" class="text-left"><b>Rental ID:</b> 
-                                                           <a href="RentalInfo.aspx?rentalID=<%#Eval("rentalID") %>"> <asp:Label ID="lblRentalID" runat="server" Text='<%# Eval("rentalID") %>' /></a>
+                                                           <a href="RentalDetails.aspx?rentalID=<%#Eval("rentalID") %>"> <asp:Label ID="lblRentalID" runat="server" Text='<%# Eval("rentalID") %>' /></a>
 								<br>
                                         <b>Date  Created:</b>   <asp:Label ID="lblDateCreated" runat="server" Text='<%# "" + Eval("dateCreated") %>'></asp:Label>
 																<br>
@@ -198,13 +198,14 @@
         <asp:ListItem>Unacceptable Renter Review</asp:ListItem>
     </asp:DropDownList>
     <asp:TextBox ID="tbxMessage" runat="server" Style="resize: none;" TextMode="MultiLine" CssClass="table table-nonfluid .table-striped .table-condensed table-responsive" MaxLength="255"></asp:TextBox>
+    
     <div class="">
-        <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click" TabIndex="1" />
+        <asp:Button ID="btnSubmit" CssClass="btn btn-primary" runat="server" Text="Submit" OnClick="btnSubmit_Click" TabIndex="1" />
     </div>
 
     <div class="buttons clearfix">
         <div class="pull-right">
-            <a class="btn btn-primary" href="#">Continue</a>
+    <td class="text-center"><a class="btn btn-warning" title="" data-toggle="tooltip" href="RentalHistory.aspx" data-original-title="Back to Rental History">Back<i class=""></i></a>
         </div>
     </div>
 

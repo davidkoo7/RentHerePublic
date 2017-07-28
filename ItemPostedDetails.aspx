@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="ItemPostedDetails.aspx.cs" Inherits="ItemPostedDetails" %>
+﻿<%@ Page Title="" EnableEventValidation="false" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="ItemPostedDetails.aspx.cs" Inherits="ItemPostedDetails" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
@@ -33,7 +33,7 @@
                                         <asp:Label ID="lblitemName" runat="server" Text='<%# "" + Eval("name") %>'></asp:Label>
                                         <br>
                                         <b>Posted  Date:</b>
-                                        <asp:Label ID="lblPostedDate" runat="server" Text='<%# "" + Eval("postedDate") %>'></asp:Label>
+                                        <asp:Label ID="lblPostedDate" runat="server" Text='<%# "" + String.Format("{0:MM/dd/yy}", Eval("postedDate")) %>'></asp:Label>
                                         <br>
                                         <b>Location:</b>
                                         <asp:Label ID="lblLocation" runat="server" Text='<%# "" + Eval("Location.name") %>'></asp:Label>

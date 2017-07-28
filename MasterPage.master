@@ -59,7 +59,21 @@
 
                 <div id="wrapper" class="wrapper-full banners-effect-7">
 
-
+                    <!-- Preloading Screen -->
+                    <div class="ip-header">
+                        <h1 class="ip-logo">
+                            <a href="index.html">
+                                <img src="image/demo/logos/theme_logo.png" alt="SW Shoppy">
+                            </a>
+                        </h1>
+                        <div class="ip-loader">
+                            <svg class="ip-inner" width="60px" height="60px" viewBox="0 0 80 80">
+                                <path class="ip-loader-circlebg" d="M40,10C57.351,10,71,23.649,71,40.5S57.351,71,40.5,71 S10,57.351,10,40.5S23.649,10,40.5,10z"></path>
+                                <path id="ip-loader-circle" class="ip-loader-circle" d="M40,10C57.351,10,71,23.649,71,40.5S57.351,71,40.5,71 S10,57.351,10,40.5S23.649,10,40.5,10z" style="stroke-dashoffset: 0; stroke-dasharray: 192.617;"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <!-- End Preloading Screen -->
                     <!-- Header Container  -->
                     <header id="header" class=" variantleft type_1">
                         <!-- Header Top -->
@@ -85,18 +99,7 @@
                                             </form>
                                         </div>
 
-                                        <div class="form-group currencies-block">
-                                            <form action="Default.aspx" method="post" enctype="multipart/form-data" id="currency">
-                                                <a class="btn btn-xs dropdown-toggle" data-toggle="dropdown">
-                                                    <span class="icon icon-credit "></span>US Dollar <span class="fa fa-angle-down"></span>
-                                                </a>
-                                                <ul class="dropdown-menu btn-xs">
-                                                    <li><a href="#">(€)&nbsp;Euro</a></li>
-                                                    <li><a href="#">(£)&nbsp;Pounds	</a></li>
-                                                    <li><a href="#">($)&nbsp;US Dollar	</a></li>
-                                                </ul>
-                                            </form>
-                                        </div>
+
                                     </div>
                                     <div class="header-top-right collapsed-block text-right  col-sm-6 col-xs-12 compact-hidden">
                                         <h5 class="tabBlockTitle visible-xs">More<a class="expander " href="#TabBlock-1"><i class="fa fa-angle-down"></i></a></h5>
@@ -105,13 +108,23 @@
                                                 <li class="account" id="my_account">
                                                     <a href="#" title="My Account" class="btn btn-xs dropdown-toggle" data-toggle="dropdown"><span>My Account</span> <span class="fa fa-angle-down"></span></a>
                                                     <ul class="dropdown-menu ">
-                                                        <li><a href="register.html"><i class="fa fa-user"></i>Register</a></li>
-                                                        <li><a href="Login.aspx"><i class="fa fa-pencil-square-o"></i>Login</a></li>
+                                                        <asp:Panel ID="pnlBeforeLogin" Visible="false" runat="server">
+
+                                                            <li><a href="Register.aspx"><i class="fa fa-user"></i>Register</a></li>
+                                                            <li><a href="Login.aspx"><i class="fa fa-pencil-square-o"></i>Login</a></li>
+                                                        </asp:Panel>
+                                                        <asp:Panel ID="pnlAfterLogin" Visible="false" runat="server">
+
+                                                            <li><a href="EditMemberProfile.aspx"><i class="fa fa-user"></i>
+                                                                <asp:Label ID="lblUsername" runat="server" Text=""></asp:Label>
+                                                            </a></li>
+
+                                                            <li><a href="Logout.aspx">
+                                                                <i class="fa fa-long-arrow-left"></i>
+                                                                <asp:LinkButton ID="lbLogout" OnClick="lbLogout_Click" runat="server">Logout</asp:LinkButton></a></li>
+                                                        </asp:Panel>
                                                     </ul>
                                                 </li>
-                                                <li class="wishlist"><a href="wishlist.html" id="wishlist-total" class="top-link-wishlist" title="Wish List (2)"><span>Wish List (2)</span></a></li>
-                                                <li class="checkout"><a href="checkout.html" class="top-link-checkout" title="Checkout"><span>Checkout</span></a></li>
-                                                <li class="login"><a href="cart.html" title="Shopping Cart"><span>Shopping Cart</span></a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -163,91 +176,7 @@
 
                                     </div>
 
-                                    <!-- Secondary menu -->
-                                    <div class="col-md-2 col-sm-5 col-xs-12 shopping_cart pull-right">
-                                        <!--cart-->
-                                        <div id="cart" class=" btn-group btn-shopping-cart">
-                                            <a data-loading-text="Loading..." class="top_cart dropdown-toggle" data-toggle="dropdown">
-                                                <div class="shopcart">
-                                                    <span class="handle pull-left"></span>
-                                                    <span class="title">My cart</span>
-                                                    <p class="text-shopping-cart cart-total-full">2 item(s) - $1,262.00 </p>
-                                                </div>
-                                            </a>
 
-                                            <ul class="tab-content content dropdown-menu pull-right shoppingcart-box" role="menu">
-
-                                                <li>
-                                                    <table class="table table-striped">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td class="text-center" style="width: 70px">
-                                                                    <a href="product.html">
-                                                                        <img src="image/demo/shop/product/resize/2.jpg" style="width: 70px" alt="Filet Mign" title="Filet Mign" class="preview">
-                                                                    </a>
-                                                                </td>
-                                                                <td class="text-left"><a class="cart_product_name" href="product.html">Filet Mign</a> </td>
-                                                                <td class="text-center">x1 </td>
-                                                                <td class="text-center">$1,202.00 </td>
-                                                                <td class="text-right">
-                                                                    <a href="product.html" class="fa fa-edit"></a>
-                                                                </td>
-                                                                <td class="text-right">
-                                                                    <a onclick="cart.remove('2');" class="fa fa-times fa-delete"></a>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="text-center" style="width: 70px">
-                                                                    <a href="product.html">
-                                                                        <img src="image/demo/shop/product/resize/3.jpg" style="width: 70px" alt="Canon EOS 5D" title="Canon EOS 5D" class="preview">
-                                                                    </a>
-                                                                </td>
-                                                                <td class="text-left"><a class="cart_product_name" href="product.html">Canon EOS 5D</a> </td>
-                                                                <td class="text-center">x1 </td>
-                                                                <td class="text-center">$60.00 </td>
-                                                                <td class="text-right">
-                                                                    <a href="product.html" class="fa fa-edit"></a>
-                                                                </td>
-                                                                <td class="text-right">
-                                                                    <a onclick="cart.remove('1');" class="fa fa-times fa-delete"></a>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </li>
-                                                <li>
-                                                    <div>
-                                                        <table class="table table-bordered">
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td class="text-left"><strong>Sub-Total</strong>
-                                                                    </td>
-                                                                    <td class="text-right">$1,060.00</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="text-left"><strong>Eco Tax (-2.00)</strong>
-                                                                    </td>
-                                                                    <td class="text-right">$2.00</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="text-left"><strong>VAT (20%)</strong>
-                                                                    </td>
-                                                                    <td class="text-right">$200.00</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="text-left"><strong>Total</strong>
-                                                                    </td>
-                                                                    <td class="text-right">$1,262.00</td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                        <p class="text-right"><a class="btn view-cart" href="cart.html"><i class="fa fa-shopping-cart"></i>View Cart</a>&nbsp;&nbsp;&nbsp; <a class="btn btn-mega checkout-cart" href="checkout.html"><i class="fa fa-share"></i>Checkout</a> </p>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <!--//cart-->
-                                    </div>
                                 </div>
 
                             </div>
@@ -328,64 +257,64 @@
                                                                         </li>
 
                                                                         <li>
-                                                                            <li class="item-vertical">
-                                                                                <p class="close-menu"></p>
-                                                                                <a href="/Categories.aspx?categoryName=Toys & Hobbies" class="clearfix">
-                                                                                    <img src="image/theme/icons/10.png" alt="icon">
-                                                                                    <span>Toys &amp; Hobbies </span>
+                                                                        <li class="item-vertical">
+                                                                            <p class="close-menu"></p>
+                                                                            <a href="/Categories.aspx?categoryName=Toys & Hobbies" class="clearfix">
+                                                                                <img src="image/theme/icons/10.png" alt="icon">
+                                                                                <span>Toys &amp; Hobbies </span>
 
-                                                                                </a>
-                                                                            </li>
+                                                                            </a>
+                                                                        </li>
 
 
-                                                                            <li class="item-vertical">
-                                                                                <p class="close-menu"></p>
-                                                                                <a href="/Categories.aspx?categoryName=Wedding Essentials" class="clearfix">
-                                                                                    <img src="image/theme/icons/10.png" alt="icon">
-                                                                                    <span>Books & Entertainment Essentials </span>
+                                                                        <li class="item-vertical">
+                                                                            <p class="close-menu"></p>
+                                                                            <a href="/Categories.aspx?categoryName=Wedding Essentials" class="clearfix">
+                                                                                <img src="image/theme/icons/10.png" alt="icon">
+                                                                                <span>Books & Entertainment Essentials </span>
 
-                                                                                </a>
-                                                                            </li>
+                                                                            </a>
+                                                                        </li>
 
-                                                                        
-                                                                            <li class="item-vertical">
-                                                                                <p class="close-menu"></p>
-                                                                                <a href="/Categories.aspx?categoryName=Wedding Essentials" class="clearfix">
-                                                                                    <img src="image/theme/icons/10.png" alt="icon">
-                                                                                    <span>Wedding Essentials </span>
 
-                                                                                </a>
-                                                                            </li>
+                                                                        <li class="item-vertical">
+                                                                            <p class="close-menu"></p>
+                                                                            <a href="/Categories.aspx?categoryName=Wedding Essentials" class="clearfix">
+                                                                                <img src="image/theme/icons/10.png" alt="icon">
+                                                                                <span>Wedding Essentials </span>
 
-                                                                        
-                                                                            <li class="item-vertical">
-                                                                                <p class="close-menu"></p>
-                                                                                <a href="/Categories.aspx?categoryName=Wedding Essentials" class="clearfix">
-                                                                                    <img src="image/theme/icons/10.png" alt="icon">
-                                                                                    <span>Wedding Essentials </span>
+                                                                            </a>
+                                                                        </li>
 
-                                                                                </a>
-                                                                            </li>
 
-                                                                        
-                                                                            <li class="item-vertical">
-                                                                                <p class="close-menu"></p>
-                                                                                <a href="/Categories.aspx?categoryName=Wedding Essentials" class="clearfix">
-                                                                                    <img src="image/theme/icons/10.png" alt="icon">
-                                                                                    <span>Wedding Essentials </span>
+                                                                        <li class="item-vertical">
+                                                                            <p class="close-menu"></p>
+                                                                            <a href="/Categories.aspx?categoryName=Wedding Essentials" class="clearfix">
+                                                                                <img src="image/theme/icons/10.png" alt="icon">
+                                                                                <span>Wedding Essentials </span>
 
-                                                                                </a>
-                                                                            </li>
+                                                                            </a>
+                                                                        </li>
 
-                                                                            <li class="item-vertical">
-                                                                                <p class="close-menu"></p>
-                                                                                <a href="/Categories.aspx?categoryName=Wedding Essentials" class="clearfix">
-                                                                                    <img src="image/theme/icons/10.png" alt="icon">
-                                                                                    <span>Wedding Essentials </span>
 
-                                                                                </a>
-                                                                            </li>
-                                                                        </ul>
+                                                                        <li class="item-vertical">
+                                                                            <p class="close-menu"></p>
+                                                                            <a href="/Categories.aspx?categoryName=Wedding Essentials" class="clearfix">
+                                                                                <img src="image/theme/icons/10.png" alt="icon">
+                                                                                <span>Wedding Essentials </span>
+
+                                                                            </a>
+                                                                        </li>
+
+                                                                        <li class="item-vertical">
+                                                                            <p class="close-menu"></p>
+                                                                            <a href="/Categories.aspx?categoryName=Wedding Essentials" class="clearfix">
+                                                                                <img src="image/theme/icons/10.png" alt="icon">
+                                                                                <span>Wedding Essentials </span>
+
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -429,8 +358,37 @@
                                                                     <li class="with-sub-menu hover">
                                                                         <p class="close-menu"></p>
                                                                         <a href="#" class="clearfix">
-                                                                            <strong>New Category</strong>
-                                                                            <img class="label-hot" src="image/theme/icons/hot-icon.png" alt="icon items">
+                                                                            <strong>My Account</strong>
+                                                                            <b class="caret"></b>
+                                                                        </a>
+                                                                        <div class="sub-menu" style="width: 100%; right: auto;">
+                                                                            <div class="content">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-3">
+                                                                                        <div class="column">
+                                                                                            <a href="#" class="title-submenu">My Account</a>
+                                                                                            <div>
+                                                                                                <ul class="row-list">
+                                                                                                    <li><a href="ItemPosted.aspx">Your Item</a></li>
+                                                                                                    <li><a href="AddItem.aspx">Add Item</a></li>
+                                                                                                    <li><a href="EditMemberProfile.aspx">Your Profile</a></li>
+                                                                                                    <li><a href="RentalHistory.aspx">Rental History</a></li>
+                                                                                                    <li><a href="ICVerification.aspx">IC Verification</a></li>
+                                                                                                    <li><a href="Inbox.aspx">Inbox History</a></li>
+                                                                                                    
+                                                                                                </ul>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+
+                                                                    <li class="with-sub-menu hover">
+                                                                        <p class="close-menu"></p>
+                                                                        <a href="#" class="clearfix">
+                                                                            <strong>Support Ticket</strong>
                                                                             <b class="caret"></b>
                                                                         </a>
                                                                         <div class="sub-menu" style="width: 100%; right: auto;">
@@ -441,11 +399,8 @@
                                                                                             <a href="#" class="title-submenu">My Account pages</a>
                                                                                             <div>
                                                                                                 <ul class="row-list">
-                                                                                                    <li><a href="RentalHistory.aspx">Rental History</a></li>
-                                                                                                    <li><a href="DisputePage.aspx">Dispute Page</a></li>
-                                                                                                    <li><a href="Inbox.aspx">Inbox</a></li>
-                                                                                                    <li><a href="SupportTicketList.aspx">Support Ticket History</a></li>
-                                                                                                    <li><a href="AddItem.aspx">Add Item</a></li>
+                                                                                                    <li><a href="CreateSupportTicket.aspx">New Support Ticket</a></li>
+                                                                                                    <li><a href="ViewSupportTicket.aspx">Support Ticket List</a></li>
                                                                                                 </ul>
                                                                                             </div>
                                                                                         </div>
@@ -454,6 +409,34 @@
                                                                             </div>
                                                                         </div>
                                                                     </li>
+
+                                                                    <li class="with-sub-menu hover">
+                                                                        <p class="close-menu"></p>
+                                                                        <a href="#" class="clearfix">
+                                                                            <strong>RentHere</strong>
+                                                                            <b class="caret"></b>
+                                                                        </a>
+                                                                        <div class="sub-menu" style="width: 100%; right: auto;">
+                                                                            <div class="content">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-3">
+                                                                                        <div class="column">
+                                                                                            <a href="#" class="title-submenu">Company pages</a>
+                                                                                            <div>
+                                                                                                <ul class="row-list">
+                                                                                                    <li><a href="FAQ.aspx">FAQ</a></li>
+                                                                                                    <li><a href="AboutUs.aspx">About Us</a></li>
+                                                                                                    <li><a href="Categories.aspx">All Categories</a></li>
+
+                                                                                                </ul>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+
 
                                                                 </ul>
 
@@ -680,5 +663,19 @@
                 </script>
         </div>
     </form>
+
+    <!--Start of Zendesk Chat Script-->
+    <script type="text/javascript">
+        window.$zopim || (function (d, s) {
+            var z = $zopim = function (c) { z._.push(c) }, $ = z.s =
+                d.createElement(s), e = d.getElementsByTagName(s)[0]; z.set = function (o) {
+                    z.set.
+                        _.push(o)
+                }; z._ = []; z.set._ = []; $.async = !0; $.setAttribute("charset", "utf-8");
+            $.src = "https://v2.zopim.com/?4yNjCGizdbDzNUvVTiit27n3SeHNueY4"; z.t = +new Date; $.
+                type = "text/javascript"; e.parentNode.insertBefore($, e)
+        })(document, "script");
+    </script>
+    <!--End of Zendesk Chat Script-->
 </body>
 </html>

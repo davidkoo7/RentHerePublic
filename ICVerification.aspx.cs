@@ -10,17 +10,18 @@ public partial class ICVerification : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["user"] == null)
+        // check if user is logged in
+        if (Session["user"] == null) // user is not logged in 
         {
-            Session["pageRedirectAfterLogin"] = Request.RawUrl;
-            Response.Redirect("Login.aspx");
+            Session["pageRedirectAfterLogin"] = Request.RawUrl; 
+            Response.Redirect("Login.aspx"); // transfer to login page
             return;
         }
 
         // new DateTime means NULL in the DB
         if(MemberDB.getMemberbyEmail(Session["user"].ToString()).DateVerified != new DateTime() || MemberDB.getMemberbyEmail(Session["user"].ToString()).IdentificationPicture != "")
         {
-            Response.Redirect("Login.aspx");
+            Response.Redirect("Categories.aspx");
             return;
         }
 
@@ -28,6 +29,7 @@ public partial class ICVerification : System.Web.UI.Page
 
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
+        // submit IC verification 
         if (flIdentificationPicture.HasFile)
         {
             try

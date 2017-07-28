@@ -9,7 +9,8 @@ public partial class AddItem : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["user"] == null)
+    	// check if user is logged in 
+        if (Session["user"] == null) // not logged in transfer to login page
         {
             Session["pageRedirectAfterLogin"] = Request.RawUrl;
             Response.Redirect("Login.aspx");
@@ -24,17 +25,18 @@ public partial class AddItem : System.Web.UI.Page
 
     }
 
-
+    // adds item to database
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
         Item newItem = new Item();
 
+        newItem.Name = tbxItemName.Text;
         newItem.CategoryName = CategoryDB.getCategorybyName("Services");
         newItem.Deposit = Convert.ToDecimal(tbxRefundableDeposit.Text);
         newItem.Location = LocationDB.getLocationbyID(ddlMRTLocation.SelectedValue);
-        newItem.PricePerDay = Convert.ToDecimal(tbxPricePerDay);
-        newItem.PricePerWeek = Convert.ToDecimal(tbxPricePerWeek);
-        newItem.PricePerMonth = Convert.ToDecimal(tbxPricePerMonth);
+        newItem.PricePerDay = Convert.ToDecimal(tbxPricePerDay.Text);
+        newItem.PricePerWeek = Convert.ToDecimal(tbxPricePerWeek.Text);
+        newItem.PricePerMonth = Convert.ToDecimal(tbxPricePerMonth.Text);
         newItem.Renter = MemberDB.getMemberbyEmail(Session["user"].ToString());
         newItem.Description = tbxDescription.InnerText;
         newItem.PostedDate = DateTime.Now;
@@ -52,5 +54,6 @@ public partial class AddItem : System.Web.UI.Page
                 ItemTagDB.addItemTag(newItem, t);
             }
         }
+        Response.Redirect(Request.RawUrl);
     }
 }

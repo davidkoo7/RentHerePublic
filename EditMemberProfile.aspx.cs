@@ -9,10 +9,11 @@ public partial class EditMemberProfile : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        //check if user is logged in 
         if (Session["user"] == null)
         {
             Session["pageRedirectAfterLogin"] = Request.RawUrl;
-            Response.Redirect("Login.aspx");
+            Response.Redirect("Login.aspx"); // tranfer to login if not logged in 
             return;
         }
 
@@ -31,6 +32,7 @@ public partial class EditMemberProfile : System.Web.UI.Page
 
     protected void btnEdit_Click(object sender, EventArgs e)
     {
+        // button controls 
         btnEdit.Visible = false;
         btnSubmit.Visible = true;
         isEnabled(true);
@@ -40,6 +42,7 @@ public partial class EditMemberProfile : System.Web.UI.Page
 
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
+        // commit profile changes to database
         isEnabled(true);
         btnSubmit.Visible = false;
         btnEdit.Visible = true;
@@ -55,6 +58,7 @@ public partial class EditMemberProfile : System.Web.UI.Page
 
     void isEnabled (bool enabled)
     {
+        // button controls
         tbxFullName.Enabled = enabled;
         tbxAddress.Enabled = enabled;
         tbxPostalCode.Enabled = enabled;
@@ -64,6 +68,7 @@ public partial class EditMemberProfile : System.Web.UI.Page
 
     protected void btnSubmitNewPassword_Click(object sender, EventArgs e)
     {
+        // change password
         if (tbxCurrentPassword.Value == MemberDB.getMemberbyEmail(Session["user"].ToString()).Password)
         {
             pnlNewPasswordOutput.Visible = true;
