@@ -12,7 +12,7 @@ public class PaymentDB
     public static SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString);
 
     // method to get all payments from the database
-    public static List<Payment> getAllPayment()
+    public static List<PaymentPay> getAllPayment()
     {
         List<PaymentPay> paymentList = new List<PaymentPay>();
         try
@@ -39,7 +39,7 @@ public class PaymentDB
     }
 
     // method to get payment by paymentID from the database
-    public static Payment getPaymentbyID(string payID)
+    public static PaymentPay getPaymentbyID(string payID)
     {
         PaymentPay pay = new PaymentPay();
         try
@@ -64,7 +64,7 @@ public class PaymentDB
     }
 
     // method to add payment into the database, takes in parameter of Payment type
-    public static int addPayment(Payment pay)
+    public static int addPayment(PaymentPay pay)
     {
         try
         {
@@ -88,7 +88,7 @@ public class PaymentDB
 
     // method to read the column values in the database (through the referenced reader) and assign it to the correct properties of the referenced Payment object 
     // allows for easier editing of column names if needed, used only for methods with select statments regarding Payment
-    private static void readAPayment (ref Payment pay, ref SqlDataReader reader)
+    private static void readAPayment (ref PaymentPay pay, ref SqlDataReader reader)
     {
         pay.PaymentID = reader["paymentID"].ToString();
         pay.StripeRefNum = reader["stripeRefNum"].ToString();

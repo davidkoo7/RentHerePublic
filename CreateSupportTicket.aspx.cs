@@ -24,12 +24,8 @@ public partial class CreateSupportTicket : System.Web.UI.Page
         int ticketIdentity = SupportTicketDB.insertTicket(tbxTitle.Text, txtArea.InnerText, DateTime.Now, "Pending", ddlUrgency.SelectedValue, MemberDB.getMemberbyEmail(Session["user"].ToString()).MemberID);
 
 
-        string ticketID = "TIC";
-        for(int x=0; x<9- ticketIdentity.ToString().Length; x++)
-        {
-            ticketID += "0";
-        }
-        ticketID += ticketIdentity.ToString();
+        string ticketID;
+        ticketID = Utility.convertIdentitytoPK("TIC", ticketIdentity);
 
         MessageSupportTicketDB.insertMemberMessage(txtArea.InnerText, DateTime.Now, SupportTicketDB.getSupportTicketbyID(ticketID), MemberDB.getMemberbyEmail(Session["user"].ToString()).MemberID);
         Response.Redirect("ViewSupportTicket.aspx?ticketID=" + ticketID);

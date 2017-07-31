@@ -17,7 +17,7 @@ public class Extension
     public Rental Rental { get; set; }
 
     // constructor for Extension
-    public Extension(string extensionID, string newReturnLocation, TimeSpan newReturnTime, DateTime newEndDate, string unit, string status, decimal extensionRentalFee, Payment payment, Rental rental)
+    public Extension(string extensionID, string newReturnLocation, TimeSpan newReturnTime, DateTime newEndDate, string unit, string status, decimal extensionRentalFee, PaymentPay payment, Rental rental)
     {
         ExtensionID = extensionID;
         NewReturnLocation = newReturnLocation;

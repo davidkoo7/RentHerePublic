@@ -10,6 +10,13 @@ public partial class ItemPostedDetails : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         // check if any item is selected
+        if (Session["user"] == null) // user not logged in 
+        {
+            Session["pageRedirectAfterLogin"] = Request.RawUrl;
+            Response.Redirect("Login.aspx"); // transfer to login page
+            return;
+        }
+
         if (Request.QueryString["itemID"] == null)
         {
             Response.Redirect("itemPosted.aspx"); 
@@ -17,35 +24,23 @@ public partial class ItemPostedDetails : System.Web.UI.Page
         }
 
         //display item details
-        List<Item> itemInfoDetails = new List<Item>();
-        Item itemInfo = ItemDB.getItembyID((Request.QueryString["itemID"].ToString()));
-
-        itemInfoDetails.Add(itemInfo);
-
-        rptInfo.DataSource = itemInfoDetails;
-        rptInfo.DataBind();
-
-        List<Rental> itemRental = RentalDB.getRentalofItem(Request.QueryString["itemID"].ToString(), null);
-
-        rptRentalHistory.DataSource = itemRental;
-        rptRentalHistory.DataBind();
-    }
-
-    // check when item is due if any
-    public string checkEndDate(string rentalID)
-    {
-        Extension itemExtension = ExtensionDB.getLastExtensionofRental(rentalID);
-
-
-        if (itemExtension.ExtensionID == null)
+        if (ItemDB.isItemofRenterPresent(Request.QueryString["itemID"].ToString(), MemberDB.getMemberbyEmail(Session["user"].ToString()).MemberID))
         {
-            Rental itemRental = RentalDB.getRentalbyID(rentalID);
-            return itemRental.EndDate.ToString();
-            
-        }
-        else
+            List<Item> itemInfoDetails = new List<Item>();
+            Item itemInfo = ItemDB.getItembyID((Request.QueryString["itemID"].ToString()));
+
+            itemInfoDetails.Add(itemInfo);
+
+            rptInfo.DataSource = itemInfoDetails;
+            rptInfo.DataBind();
+
+            List<Rental> itemRental = RentalDB.getRentalofItem(Request.QueryString["itemID"].ToString(), null);
+
+            rptRentalHistory.DataSource = itemRental;
+            rptRentalHistory.DataBind();
+        } else
         {
-            return itemExtension.NewEndDate.ToString();
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Inaccessible Page!')", true);
         }
     }
 }

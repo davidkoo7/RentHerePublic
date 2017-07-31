@@ -27,6 +27,12 @@ public partial class Payment : System.Web.UI.Page
             return;
         }
 
+        if(Request.QueryString["rentalID"] != null && !RentalDB.isRentalOfMemberPresent(Request.QueryString["rentalID"].ToString(), MemberDB.getMemberbyEmail(Session["user"].ToString()).MemberID))
+        {
+            Response.Redirect("ProductDetails.aspx?itemID=" + Request.QueryString["rentalID"]);
+            return;
+        }
+
         // populate payment fields 
         List<Item> itemInfo = new List<Item>();
         itemInfo.Add(ItemDB.getItembyID(Request.QueryString["itemID"]));
@@ -36,8 +42,10 @@ public partial class Payment : System.Web.UI.Page
         lblDepositAmount.Text = itemInfo[0].Deposit.ToString();
         lblRentalPeriod.Text = Session["rentalPeriod"].ToString();
         lblRentalRate.Text = Session["rentalRate"].ToString();
-        lblTotalAmount.Text = Session["totalAmountPayable"].ToString();
-        lblTotalAmountPayable.Text = Session["totalAmountPayable"].ToString();
+
+        Rental rentInfo = (Rental)Session["rental"];
+        lblTotalAmount.Text = rentInfo.RentalFee.ToString();
+        lblTotalAmountPayable.Text = rentInfo.RentalFee.ToString();
 
     }
 
@@ -49,8 +57,9 @@ public partial class Payment : System.Web.UI.Page
 
         Member mem = MemberDB.getMemberbyEmail(Session["user"].ToString());
 
+        Rental rentInfo = (Rental)Session["rental"];
         var myCharge = new StripeChargeCreateOptions();
-        myCharge.Amount = 50;
+        myCharge.Amount = Convert.ToInt32(rentInfo.RentalFee) * 100;
         myCharge.Currency = "sgd";
 
         myCharge.SourceCard = new SourceCard()
@@ -74,54 +83,35 @@ public partial class Payment : System.Web.UI.Page
 
         pay.StripeRefNum = Utility.getRandomizedChar(5, 0);
 
-
         string n = Session["rentalPeriod"].ToString();
         string startDate = n.Substring(0, 10);
         string endDate = n.Substring(n.Length - 10);
 
         if (Session["itemExtension"].ToString() == "NotExtension")
-        { 
-        Rental rent = new Rental();
-        rent.DateCreated = DateTime.Now;
-        rent.Deposit = itemInfo.Deposit;
-        rent.DepositRetrievalCode = Utility.getRetrivalCode(6, 0);
-        rent.PaymentReleaseCode = Utility.getRandomizedChar(6, 0);
-        rent.PickUpLocation = Session["pickUpLocation"].ToString();
-        rent.RentalFee = Convert.ToDecimal(Session["totalAmountPayable"].ToString());
+        {
+            rentInfo.DateCreated = DateTime.Now;
+            rentInfo.Deposit = itemInfo.Deposit;
+            rentInfo.DepositRetrievalCode = Utility.getRetrivalCode(6, 0);
+            rentInfo.PaymentReleaseCode = Utility.getRandomizedChar(6, 0);
+            rentInfo.Item = itemInfo;
 
-        DateTime pickUpTime = DateTime.ParseExact(Session["pickUpTime"].ToString(),
-                            "hh:mm tt", CultureInfo.InvariantCulture);
-        TimeSpan pickUpTimeSpan = pickUpTime.TimeOfDay;
+            rentInfo.StartDate = Convert.ToDateTime(startDate);
+            rentInfo.EndDate = Convert.ToDateTime(endDate);
+            rentInfo.Status = "Scheduled";
 
-        DateTime returnTime = DateTime.ParseExact(Session["returnTime"].ToString(),
-                    "hh:mm tt", CultureInfo.InvariantCulture);
-        TimeSpan returnTimeSpan = returnTime.TimeOfDay;
+            rentInfo.Payment = PaymentDB.getPaymentbyID(Utility.convertIdentitytoPK("PAY", PaymentDB.addPayment(pay)));
+            rentInfo.Rentee = mem;
+            rentInfo.Unit = "Day";
 
-        rent.PickUpTime = pickUpTimeSpan;
-        rent.ReturnTime = returnTimeSpan;
-
-        rent.ReturnLocation = Session["returnLocation"].ToString();
-        rent.Item = itemInfo;
-
-
-        rent.StartDate = Convert.ToDateTime(startDate);
-        rent.EndDate = Convert.ToDateTime(endDate);
-        rent.Status = "Scheduled";
-
-        rent.Payment = PaymentDB.getPaymentbyID(Utility.convertIdentitytoPK("PAY", PaymentDB.addPayment(pay)));
-
-        rent.Rentee = mem;
-
-
-        rent.Unit = "Day";
-
-        Response.Redirect("RentalDetails.aspx?rentalID=" + Utility.convertIdentitytoPK("RNT", RentalDB.addRental(rent)));
+            Response.Redirect("RentalDetails.aspx?rentalID=" + Utility.convertIdentitytoPK("RNT", RentalDB.addRental(rentInfo)));
         }
         else
         {
             Rental rent = RentalDB.getRentalbyID(Request.QueryString["rentalID"]);
+
             Extension ext = new Extension();
-            ext.ExtensionRentalFee = Convert.ToDecimal(Session["totalAmountPayable"].ToString());
+
+            ext.ExtensionRentalFee = rentInfo.RentalFee;
             ext.NewEndDate = Convert.ToDateTime(endDate);
             ext.NewReturnLocation = rent.ReturnLocation;
             int paymentID = PaymentDB.addPayment(pay);
@@ -137,7 +127,6 @@ public partial class Payment : System.Web.UI.Page
             ExtensionDB.addExtension(ext);
 
             Response.Redirect("RentalDetails.aspx?rentalID=" + Request.QueryString["rentalID"]);
-
         }
     }
 

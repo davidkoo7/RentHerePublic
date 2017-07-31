@@ -178,7 +178,7 @@
 
                                                             <div class="button-group">
                                                                 <a href="ProductDetails.aspx?itemID=<%#Eval("itemID") %>">
-                                                                    <button class="addToCart" type="button" data-toggle="tooltip" title="View Information"><i class="fa fa-shopping-cart"></i><span class="">View	 Information</span></button></a>
+                                                                    <asp:button class="addToCart" type="button" data-toggle="tooltip" title="View Information"><i class="fa fa-shopping-cart"></i><span class="">View	 Information</span></asp:button></a>
                                                             </div>
                                                         </div>
                                                         <!-- right block -->

@@ -71,8 +71,10 @@
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td style="width: 100%;" class="text-left"><b>Member ID:</b>
-                                                        <asp:Label ID="lblMemberInfo" runat="server" Text='<%# "" + Eval("memberID") %>'></asp:Label>
+                                                    <td style="width: 100%;" class="text-left">
+                                                        <br>
+                                                        <b>Name:</b>
+                                                        <asp:Label ID="Label1" runat="server" Text='<%# "" + Eval("name") %>'></asp:Label>
 
 
                                                         <br>
@@ -127,8 +129,8 @@
                                                                     <asp:Label ID="lblReply" runat="server" Text='<%# "" + Eval("replyFeedback") %>'></asp:Label>
 
                                                                     <br>
-                                                                    Member:                                            
-                                                                    <asp:Label ID="lblMemberName" runat="server" Text='<%# "" + Eval("feedbackTo.name") %>'></asp:Label>
+                                                                    Submitted By:                                            
+                                                                    <asp:Label ID="lblMemberName" runat="server" Text='<%# "" + Eval("SubmittedBy.Name") %>'></asp:Label>
 
                                                                 </div>
                                                                 <br>

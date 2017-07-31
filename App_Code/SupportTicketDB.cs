@@ -8,7 +8,7 @@ using System.Configuration;
 public class SupportTicketDB
 {
     // gets the connection value from "myConnectionString" in web.config to connect to database
-    public static SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString);
+    private static SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString);
 
     // method to get all support tickets with pending status from the database
     public static List<SupportTicket> getPendingSupportTicket()
@@ -23,14 +23,7 @@ public class SupportTicketDB
             while (reader.Read())
             {
                 SupportTicket t = new SupportTicket();
-                t.TicketID = reader["ticketID"].ToString();
-                t.Title = reader["title"].ToString();
-                t.Description = reader["description"].ToString();
-                t.Date = Convert.ToDateTime(reader["Date"]);
-                t.Status = reader["status"].ToString();
-                t.Urgency = reader["urgency"].ToString();
-
-                t.Member = MemberDB.getMemberbyID(reader["memberID"].ToString());
+                readASupportTicket(ref t, ref reader);
                 
                 ticketList.Add(t);
             }
@@ -41,6 +34,31 @@ public class SupportTicketDB
             connection.Close();
         }
         return ticketList;
+    }
+
+    public static bool isTicketforMemberPresent(string ticketID, string memberID)
+    {
+        bool isPresent = false;
+        try
+        {
+            SqlCommand command = new SqlCommand("SELECT * FROM SupportTicket WHERE ticketID=@ticketID and memberID=@memberID");
+            command.Parameters.AddWithValue("@ticketID", ticketID);
+            command.Parameters.AddWithValue("@memberID", memberID);
+            command.Connection = connection;
+            connection.Open();
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            if (reader.Read())
+                isPresent = true;
+
+            reader.Close();
+        }
+        finally
+        {
+            connection.Close();
+        }
+        return isPresent;
     }
 
     // method to get all support tickets with answered status from the database
@@ -56,14 +74,7 @@ public class SupportTicketDB
             while (reader.Read())
             {
                 SupportTicket t = new SupportTicket();
-                t.TicketID = reader["ticketID"].ToString();
-                t.Title = reader["title"].ToString();
-                t.Description = reader["description"].ToString();
-                t.Date = Convert.ToDateTime(reader["Date"]);
-                t.Status = reader["status"].ToString();
-                t.Urgency = reader["urgency"].ToString();
-
-                t.Member = MemberDB.getMemberbyID(reader["memberID"].ToString());
+                readASupportTicket(ref t, ref reader);
                 
                 ticketList.Add(t);
             }
@@ -90,14 +101,7 @@ public class SupportTicketDB
             while (reader.Read())
             {
                 SupportTicket t = new SupportTicket();
-                t.TicketID = reader["ticketID"].ToString();
-                t.Title = reader["title"].ToString();
-                t.Description = reader["description"].ToString();
-                t.Date = Convert.ToDateTime(reader["Date"]);
-                t.Status = reader["status"].ToString();
-                t.Urgency = reader["urgency"].ToString();
-
-                t.Member = MemberDB.getMemberbyID(reader["memberID"].ToString());
+                readASupportTicket(ref t, ref reader);
                 
                 ticketList.Add(t);
             }
@@ -162,14 +166,8 @@ public class SupportTicketDB
             while (reader.Read())
             {
                 SupportTicket t = new SupportTicket();
-                t.TicketID = reader["ticketID"].ToString();
-                t.Title = reader["title"].ToString();
-                t.Description = reader["description"].ToString();
-                t.Date = Convert.ToDateTime(reader["Date"]);
-                t.Status = reader["status"].ToString();
-                t.Urgency = reader["urgency"].ToString();
 
-                t.Member = MemberDB.getMemberbyID(reader["memberID"].ToString());
+                readASupportTicket(ref t, ref reader);
                 
                 ticketList.Add(t);
             }

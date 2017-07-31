@@ -23,61 +23,46 @@ public partial class RentalDetails : System.Web.UI.Page
             return;
         }
 
-        // display rental details  
-        List<Rental> rentalInfo = new List<Rental>();
-        rentalInfo.Add(RentalDB.getRentalbyID(Request.QueryString["rentalID"].ToString()));
-        rptItemRentalInfo.DataSource = rentalInfo;
-        rptItemRentalInfo.DataBind();
-
-        if (Session["user"].ToString() == rentalInfo[0].Item.Renter.Email)
+        if (RentalDB.isRentalOfMemberPresent(Request.QueryString["rentalID"].ToString(), MemberDB.getMemberbyEmail(Session["user"].ToString()).MemberID))
         {
-            if (rentalInfo[0].Status == "Ended")
+            // display rental details  
+            List<Rental> rentalInfo = new List<Rental>();
+            rentalInfo.Add(RentalDB.getRentalbyID(Request.QueryString["rentalID"].ToString()));
+            rptItemRentalInfo.DataSource = rentalInfo;
+            rptItemRentalInfo.DataBind();
+
+            if (Session["user"].ToString() == rentalInfo[0].Item.Renter.Email)
             {
-                btnRetrivalCode.Visible = true;
-                lblTitle.Text = "Deposit Retrival";
-                lblCode.Text = "Please enter Deposit Retrival Code";
+                if (rentalInfo[0].Status == "Ended")
+                {
+                    btnRetrivalCode.Visible = true;
+                    lblTitle.Text = "Deposit Retrieval";
+                    lblCode.Text = "Please enter Deposit Retrival Code";
+                }
+
+                if (rentalInfo[0].Status == "Ended & Returned")
+                    btnDispute.Visible = true;
+            }
+            else
+            {
+                if (rentalInfo[0].Status == "Scheduled" && DateTime.Today == rentalInfo[0].StartDate)
+                {
+                    btnReleaseCode.Visible = true;
+                    lblTitle.Text = "Payment Release Code";
+                    lblCode.Text = "Please enter Payment Release Code";
+
+                }
+
+                if (rentalInfo[0].Status == "On-going")
+                    btnExtend.Visible = true;
             }
 
-            if (rentalInfo[0].Status == "Ended & Returned")
-                btnDispute.Visible = true;
-        }
-        else
+        } else
         {
-            if (rentalInfo[0].Status == "Scheduled" && DateTime.Today == rentalInfo[0].StartDate)
-            {
-                btnReleaseCode.Visible = true;
-                lblTitle.Text = "Payment Release Code";
-                lblCode.Text = "Please enter Payment Release Code";
-
-            }
-
-            if (rentalInfo[0].Status == "On-going")
-                btnExtend.Visible = true;
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Inaccessible Page!')", true);
         }
-
-
 
     }
-
-    // cget the lastest end date of rental (checks rental and extensions)
-    public string checkEndDate(string rentalID)
-    {
-        Extension itemExtension = ExtensionDB.getLastExtensionofRental(rentalID);
-        Rental itemRental = RentalDB.getRentalbyID(rentalID);
-
-
-        if (itemExtension.ExtensionID == null)
-        {
-            return String.Format("{0:MM/dd/yy}", itemRental.StartDate) + " - " + String.Format("{0:MM/dd/yy}", itemRental.EndDate);
-
-        }
-        else
-        {
-            return String.Format("{0:MM/dd/yy}", itemRental.StartDate) + " - " + String.Format("{0:MM/dd/yy}", itemExtension.NewEndDate);
-        }
-    }
-
-
 
     protected void rptItemRentalInfo_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
@@ -92,16 +77,26 @@ public partial class RentalDetails : System.Web.UI.Page
 
             Label lblItemStatus = e.Item.FindControl("lblItemStatus") as Label;
             lblTotalAmount.Text = rentalInfo.RentalFee.ToString();
+
             lblTotalAmountPayable.Text = rentalInfo.RentalFee.ToString();
             lblMeetingLocation.Text = rentalInfo.PickUpLocation;
-
-
+           
         }
     }
 
+    private string isRenteeOrRenter(string renteeID, string rentalID)
+    {
+        // check if member logged in is rentee or Renter
+        Member member = MemberDB.getMemberbyID(renteeID);
+
+        if (member.Email == Convert.ToString(Session["user"]))
+            return "Renter:  " + MemberDB.getMemberbyID(ItemDB.getItembyID(RentalDB.getRentalbyID(rentalID).Item.ItemID).Renter.MemberID).Name;
+        else
+            return "Rentee:  " + RentalDB.getRenteeforRental(rentalID).Name;
+    }
 
     protected void btnExtend_Click(object sender, EventArgs e)
-    {
+    {        
         Rental rentalInfo = RentalDB.getRentalbyID(Request.QueryString["rentalID"].ToString());
 
         Session["itemStatus"] = "On-going";

@@ -37,6 +37,31 @@ public class ItemDB
         return itemList;
     }
 
+    public static bool isItemofRenterPresent(string itemID, string renterID)
+    {
+        bool isPresent = false;
+        try
+        {
+            SqlCommand command = new SqlCommand("SELECT * FROM Item WHERE itemID=@itemID and renterID=@renterID");
+            command.Parameters.AddWithValue("@itemID", itemID);
+            command.Parameters.AddWithValue("@renterID", renterID);
+            command.Connection = connection;
+            connection.Open();
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            if (reader.Read())
+                isPresent = true;
+
+            reader.Close();
+        }
+        finally
+        {
+            connection.Close();
+        }
+        return isPresent;
+    }
+
     // method to get items by category from the database
     public static List<Item> getAllItemByCategory(string categoryName)
     {

@@ -24,53 +24,55 @@ public partial class DisputePage : System.Web.UI.Page
         }
 
 
-        //display dispute by rentalID
-        List<Rental> rentalInfoDetails = new List<Rental>();
-        Rental rentalInfo = RentalDB.getRentalbyID(Request["rentid"].ToString());
-
-        rentalInfoDetails.Add(rentalInfo);
-
-        rptInfo.DataSource = rentalInfoDetails;
-        rptInfo.DataBind();
-
-        Session["user"] = Session["user"];
-
-        Dispute dis = DisputeDB.getDisputeforRental(Request["rentid"].ToString());
-
-        if (dis.DisputeID != null)
+        //display dispute by rentalID if rentalID belongs to appropriate logged on user
+        if(RentalDB.isRentalOfMemberPresent(Request["rentid"].ToString(), MemberDB.getMemberbyEmail(Session["user"].ToString()).MemberID))
         {
-            ddlReason.SelectedValue = dis.Reason;
-            ddlReason.Enabled = false;
+            List<Rental> rentalInfoDetails = new List<Rental>();
+            Rental rentalInfo = RentalDB.getRentalbyID(Request["rentid"].ToString());
 
-            if (MemberDB.getMemberbyID(dis.SubmittedBy.MemberID).Email == Session["user"].ToString())
-                btnResolve.Visible = true;
+            rentalInfoDetails.Add(rentalInfo);
 
-            if (dis.Status == "Resolved")
+            rptInfo.DataSource = rentalInfoDetails;
+            rptInfo.DataBind();
+
+            Dispute dis = DisputeDB.getDisputeforRental(Request["rentid"].ToString());
+
+            if (dis.DisputeID != null)
             {
-                btnResolve.Enabled = false;
-                tbxMessage.Enabled = false;
-                btnSubmit.Enabled = false;
-            }
+                ddlReason.SelectedValue = dis.Reason;
+                ddlReason.Enabled = false;
 
-            rptMessages.DataSource = MessageDisputeDB.getMsgforDispute(dis.DisputeID);
-            rptMessages.DataBind();
+                if (MemberDB.getMemberbyID(dis.SubmittedBy.MemberID).Email == Session["user"].ToString())
+                    btnResolve.Visible = true;
+
+                if (dis.Status == "Resolved")
+                {
+                    setChatControls(false);
+                }
+
+                rptMessages.DataSource = MessageDisputeDB.getMsgforDispute(dis.DisputeID);
+                rptMessages.DataBind();
+            }
+            else
+            {
+                if (RentalDB.getRentalbyID(Request["rentid"].ToString()).Rentee.Email == Session["user"].ToString())
+                {
+                    for (int x = 1; x < 5; x++)
+                        ddlReason.Items[x].Enabled = false;
+                }
+                else if (RentalDB.getRentalbyID(Request["rentid"].ToString()).Item.Renter.Email == Session["user"].ToString())
+                {
+                    for (int x = 1; x < ddlReason.Items.Count; x++)
+                        ddlReason.Items[x].Enabled = false;
+
+                }
+            }
         }
         else
         {
-            if (RentalDB.getRentalbyID(Request["rentid"].ToString()).Rentee.Email == Session["user"].ToString())
-            {
-                for (int x = 1; x < 5; x++)
-                {
-                    ddlReason.Items[x].Enabled = false;
-                }
-            }
-            else if (RentalDB.getRentalbyID(Request["rentid"].ToString()).Item.Renter.Email == Session["user"].ToString())
-            {
-                for (int x = 1; x < ddlReason.Items.Count ; x++)
-                {
-                    ddlReason.Items[x].Enabled = false; 
-                }
-            }
+            ddlReason.Enabled = false;
+            setChatControls(false);
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Inaccessible Page!')", true);
         }
     }
 

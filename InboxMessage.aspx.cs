@@ -23,16 +23,25 @@ public partial class InboxMessage : System.Web.UI.Page
             return;
         }
 
-        List<MemberMessage> memberMessageList = MemberMessageDB.getMsgforMember(Request.QueryString["memberInboxID"].ToString());
+        if (MemberInboxDB.isInboxPresentForMember(Request.QueryString["memberInboxID"].ToString(), MemberDB.getMemberbyEmail(Session["user"].ToString()).MemberID))
+        {
 
-        rptMessages.DataSource = memberMessageList;
-        rptMessages.DataBind();
+            List<MemberMessage> memberMessageList = MemberMessageDB.getMsgforMember(Request.QueryString["memberInboxID"].ToString());
 
-        List<Item> itemInfo = new List<Item>();
-        itemInfo.Add(ItemDB.getItembyID(MemberInboxDB.getMemberInboxID(Request.QueryString["memberInboxID"].ToString()).Item.ItemID ));
-        rptItemInfo.DataSource = itemInfo;
-        rptItemInfo.DataBind();
+            rptMessages.DataSource = memberMessageList;
+            rptMessages.DataBind();
 
+            List<Item> itemInfo = new List<Item>();
+            itemInfo.Add(ItemDB.getItembyID(MemberInboxDB.getMemberInboxID(Request.QueryString["memberInboxID"].ToString()).Item.ItemID));
+            rptItemInfo.DataSource = itemInfo;
+            rptItemInfo.DataBind();
+        }
+        else
+        {
+            tbxMessage.Enabled = false;
+            btnSend.Enabled = false;
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Inaccessible Page!')", true);
+        }
     }
 
     // get message into html

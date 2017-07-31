@@ -54,7 +54,7 @@
                                             <asp:Label ID="lblRentalID" runat="server" Text='<%# ""+Eval("RentalID") %>'></asp:Label></a>
                                         </td>
                                         <td class="text-center">
-                                            <asp:Label ID="lblStartDate" runat="server" Text='<%# "" + String.Format("{0:dd/MM/yyyy}",Eval("StartDate")) + "-" + String.Format("{0:dd/MM/yyyy}",Eval("EndDate")) %>'></asp:Label>
+                                            <asp:Label ID="lblStartDate" runat="server" Text='<%# Utility.getRentalPeriod("" + Eval("RentalID")) %>'></asp:Label>
                                         </td>
                                         <td class="text-center">
                                             <asp:Label ID="lblStatus" runat="server" Text='<%# "" + Eval("Status") %>'></asp:Label>

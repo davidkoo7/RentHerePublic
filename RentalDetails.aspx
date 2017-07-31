@@ -80,29 +80,26 @@
 
                                         <td class="text-left">Deposit Amount</td>
                                         <td class="text-right">Total</td>
+                                        <td class="text-right">Partner as </td>
                                     </tr>
                                 </thead>
                                 <tbody>
-
-
-
-
+                                    
                                     <tr>
-
-
-
                                         <td class="text-center"><a href="product.html">
                                             <img width="60px" src="/image/item/<%# DataBinder.Eval(Container.DataItem, "Item.img1") %>" class="img-thumbnail"></a></td>
                                         <td class="text-left"><a href="product.html">
                                             <asp:Label ID="lblItemName" runat="server" Text='<%# Eval("Item.name") %>' /></a></td>
                                         <td class="text-right">
-                                            <asp:Label ID="lblRentalPeriod" runat="server" Text='<%# checkEndDate("" + Eval("rentalID")) %>'></asp:Label></td>
+                                            <asp:Label ID="lblRentalPeriod" runat="server" Text='<%# Utility.getRentalPeriod("" + Eval("rentalID")) %>'></asp:Label></td>
                                         <td class="text-right">
                                             <asp:Label ID="lblRentalRate" runat="server" Text='<%# Eval("rentalFee") %>'></asp:Label></td>
                                         <td class="text-right">
                                             <asp:Label ID="lblDepositAmount" runat="server" Text='<%# Eval("deposit") %>'></asp:Label></td>
                                         <td class="text-right">
                                             <asp:Label ID="lblTotalAmount" runat="server" Text=""></asp:Label></td>
+                                        <td class="text-right">
+                                            <asp:Label ID="lblPartner" runat="server" Text=""></asp:Label></td>
                                     </tr>
 
 

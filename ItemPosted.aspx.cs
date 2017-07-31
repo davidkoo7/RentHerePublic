@@ -22,7 +22,7 @@ public partial class ItemPosted : System.Web.UI.Page
 
 
         // get items listed by member
-        if (ItemDB.getAllItemofMember(Session["user"].ToString()).Count < 1)
+        if (ItemDB.getAllItemofMember(MemberDB.getMemberbyEmail(Session["user"].ToString()).MemberID).Count < 1)
             DataPager1.Visible = false;
         else
             DataPager1.Visible = true;
@@ -45,7 +45,7 @@ public partial class ItemPosted : System.Web.UI.Page
     {
         DataPager1.SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
 
-        lsvItemPostedList.DataSource = ItemDB.getAllItemofMember(Session["user"].ToString());
+        lsvItemPostedList.DataSource = ItemDB.getAllItemofMember(MemberDB.getMemberbyEmail(Session["user"].ToString()).MemberID);
         lsvItemPostedList.DataBind();
     }
 }

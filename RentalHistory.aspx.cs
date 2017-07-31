@@ -26,17 +26,7 @@ public partial class RentalHistory : System.Web.UI.Page
         else
             DataPager1.Visible = true;
     }
-
-    public string isRenteeOrRenter(string renteeID, string rentalID)
-    {
-        // check if member logged in is rentee or Renter
-        Member member = MemberDB.getMemberbyID(renteeID);
-
-        if (member.Email == Convert.ToString(Session["user"]))
-            return "Renter:  " + MemberDB.getMemberbyID(ItemDB.getItembyID(RentalDB.getRentalbyID(rentalID).Item.ItemID).Renter.MemberID).Name;
-        else
-            return "Rentee:  " + RentalDB.getRenteeforRental(rentalID).Name;
-    }
+    
 
     // check if rental is being disputed, display different messages for different state
     public string isDisputeorDisputed(string rentalID)

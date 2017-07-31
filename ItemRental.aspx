@@ -1142,7 +1142,7 @@
                                                     <fieldset id="account">
   <div class="form-group required">
                                                             <label for="input-payment-firstname" class="control-label">Pick Up Location</label>
-                                                            <input type="text" class="form-control" runat="server" id="tbxPickUpLocation" placeholder="Pick up location" value="" name="firstname">
+                                                            <input type="text" class="form-control" runat="server" id="tbxPickUpLocation" placeholder="Pick up location" value="" name="firstname" />
                                                         </div>
                                                         <div class="form-group required">
                                                             <label for="input-payment-firstname" class="control-label">Pick Up Time</label>
@@ -1161,7 +1161,7 @@
                                                     <fieldset id="address" class="required">
                                                         <div class="form-group required">
                                                             <label for="input-payment-firstname" class="control-label">Return Location</label>
-                                                            <input type="text" class="form-control" runat="server" id="tbxReturnLocation" placeholder="Return Location" value="" name="firstname">
+                                                            <input type="text" class="form-control" runat="server" id="tbxReturnLocation" placeholder="Return Location" value="" name="firstname" />
                                                         </div>
                                                         <div class="form-group required">
                                                             <label for="input-payment-firstname" class="control-label">Return Time</label>
@@ -1401,7 +1401,7 @@
                             <div class="col-sm-5 copyright-text">© 2016 Market. All Rights Reserved. </div>
                             <div class="col-sm-7">
                                 <div class="block-payment text-right">
-                                    <img src="image/demo/content/payment.png" alt="payment" title="payment">
+                                    <img src="image/demo/content/payment.png" alt="payment" title="payment" />
                                 </div>
                             </div>
                             <!--Back To Top-->

@@ -70,8 +70,7 @@
         <thead>
             <tr>
                 <td class="text-left">RentalID</td>
-                <td class="text-left">Start Date</td>
-                <td class="text-left">End Date</td>
+                <td class="text-left">Rental Period</td>
                 <td class="text-left">Status</td>
                 <td class="text-left">Rentee Name</td>
             </tr>
@@ -84,14 +83,15 @@
                         <td class="text-left">
                             <asp:Label ID="lblRentalID" runat="server" Text='<%# "" + Eval("rentalID") %>'></asp:Label></td>
                         <td class="text-left">
-                            <asp:Label ID="lblStartDate" runat="server" Text='<%# "" + Eval("startDate") %>'></asp:Label></td>
-                        <td class="text-left">
-                            <asp:Label ID="lblEndDate" runat="server" Text='<%# checkEndDate("" + Eval("rentalID")) %>'></asp:Label></td>
+                            <asp:Label ID="lblRentalPeriod" runat="server" Text='<%# Utility.getRentalPeriod("" + Eval("rentalID")) %>'></asp:Label></td>
                         <td class="text-left">
                             <asp:Label ID="lblStatus" runat="server" Text='<%# "" + Eval("status") %>'></asp:Label></td>
-                        <td class="text-left">
-                            <asp:Label ID="lblRenteeName" runat="server" Text='<%# "" + Eval("Rentee.name") %>'></asp:Label></td>
 
+                        <td class="text-center">
+                            <a href="User.aspx?memberID=<%#Eval("Rentee.MemberID") %>">
+                                <asp:Label ID="lblRenteeName" runat="server" Text='<%# "" + Eval("Rentee.name") %>'></asp:Label>
+                            </a>
+                        </td>
                     </tr>
                 </ItemTemplate>
             </asp:Repeater>

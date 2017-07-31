@@ -40,6 +40,32 @@ public class RentalDB
         return rentalList;
     }
 
+    public static bool isRentalOfMemberPresent(string rentalID, string memberID)
+    {
+        bool isPresent = false;
+        try
+        {
+            SqlCommand command = new SqlCommand("SELECT * FROM Rental R, Item I WHERE R.itemID=I.itemID AND (renteeID = @renteeID or renterID = @renterID) AND R.rentalID = @rentalID");           
+            command.Parameters.AddWithValue("@renteeID", memberID);
+            command.Parameters.AddWithValue("@renterID", memberID);
+            command.Parameters.AddWithValue("@rentalID", rentalID);
+            command.Connection = connection;
+            connection.Open();
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            if (reader.Read())
+                isPresent = true;
+
+            reader.Close();
+        }
+        finally
+        {
+            connection.Close();
+        }
+        return isPresent;
+    }
+
     // method to get all rentals by item from the database
     public static List<Rental> getRentalofItem(string itemID, string status)
     {
@@ -262,7 +288,7 @@ public class RentalDB
             //and returnTime<@time
             SqlCommand command = new SqlCommand("SELECT * FROM Rental WHERE rentalID not in " +
                 "( SELECT R.rentalID FROM Rental R, Extension E WHERE R.RentalID = E.RentalID GROUP BY R.rentalID, " +
-                "E.status HAVING E.status <> 'Not Granted') and endDate = @date and E.returnTime < @time and status='On-going'");
+                "E.status HAVING E.status <> 'Not Granted') and (endDate < @date OR (endDate = @date and returnTime < @time)) and status='On-going'");
 
             command.Parameters.AddWithValue("@date", String.Format("{0:yyyy/MM/dd}", dueDate.Date));
             command.Parameters.AddWithValue("@time", dueDate.TimeOfDay);
@@ -297,7 +323,7 @@ public class RentalDB
             SqlCommand command = new SqlCommand("SELECT * FROM Rental R, Extension E " +
                 "WHERE R.rentalID = E.rentalID and E.extensionID in ( SELECT TOP 1 E1.extensionID FROM Extension E1 " +
                 "WHERE E1.rentalID = R.rentalID and E1.status<>'Not Granted' ORDER BY E1.newEndDate desc) " +
-                " and E.newEndDate = @date and E.newReturnTime < @time  and R.status='On-going'");
+                " and (E.newEndDate < @date OR (E.newEndDate = @date and E.newReturnTime < @time)) and R.status='On-going'");
 
             command.Parameters.AddWithValue("@date", dueDate.Date);
             command.Parameters.AddWithValue("@time", dueDate.TimeOfDay);

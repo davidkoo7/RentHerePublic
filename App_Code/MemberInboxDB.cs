@@ -39,6 +39,31 @@ public class MemberInboxDB
         return memberInboxList;
     }
 
+    public static bool isInboxPresentForMember(string memberInboxID, string memberID)
+    {
+        bool isPresent = false;
+        try
+        {
+            SqlCommand command = new SqlCommand("SELECT * FROM MemberInbox WHERE memberInboxID=@memberInboxID and senderID=@senderID");
+            command.Parameters.AddWithValue("@memberInboxID", memberInboxID);
+            command.Parameters.AddWithValue("@senderID", memberID);
+            command.Connection = connection;
+            connection.Open();
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            if (reader.Read())
+                isPresent = true;
+
+            reader.Close();
+        }
+        finally
+        {
+            connection.Close();
+        }
+        return isPresent;
+    }    
+
     // method to get all MemberInbox by member, takes in parameter of type Member
     public static List<MemberInbox> getAllMemberInboxByID(Member sender)
     {
@@ -89,7 +114,6 @@ public class MemberInboxDB
         return mem;
     }
 
-
     public static MemberInbox searchMemberInbox(string senderID, string itemID)
     {
         MemberInbox memInbox = new MemberInbox();
@@ -116,7 +140,6 @@ public class MemberInboxDB
         }
         return memInbox;
     }
-
 
     public static MemberInbox getMemberInboxBetweenSenderAndItemOWner(string senderID, string itemID)
     {
@@ -176,6 +199,4 @@ public class MemberInboxDB
         msg.Sender = MemberDB.getMemberbyID(reader["senderID"].ToString());
         msg.Item = ItemDB.getItembyID(reader["itemID"].ToString());
     }
-
-
 }

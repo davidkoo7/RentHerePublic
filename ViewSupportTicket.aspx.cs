@@ -23,23 +23,31 @@ public partial class ViewSupportTicket : System.Web.UI.Page
         }
         else
         {
-            List<SupportTicket> ticketInfo = new List<SupportTicket>();
-            ticketInfo.Add(SupportTicketDB.getSupportTicketbyID(Request.QueryString["ticketID"]));
-            rptInfo.DataSource = ticketInfo;
-            rptInfo.DataBind();
+            if (SupportTicketDB.isTicketforMemberPresent(Request.QueryString["ticketID"].ToString(), MemberDB.getMemberbyEmail(Session["user"].ToString()).MemberID))
+            {
+                List<SupportTicket> ticketInfo = new List<SupportTicket>();
+                ticketInfo.Add(SupportTicketDB.getSupportTicketbyID(Request.QueryString["ticketID"]));
+                rptInfo.DataSource = ticketInfo;
+                rptInfo.DataBind();
 
-            if (ticketInfo[0].Status == "Closed")
+                if (ticketInfo[0].Status == "Closed")
+                {
+                    btnSubmit.Visible = false;
+                    txtMsg.Visible = false;
+                    lblMessages.Visible = false;
+                }
+
+                // display messages for support ticket
+                List<MessageSupportTicket> supportTicketMsg = MessageSupportTicketDB.getMessage(SupportTicketDB.getSupportTicketbyID(Request.QueryString["ticketID"].ToString()));
+                rptMessages.DataSource = supportTicketMsg;
+                rptMessages.DataBind();
+            } else
             {
                 btnSubmit.Visible = false;
                 txtMsg.Visible = false;
                 lblMessages.Visible = false;
-                
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Inaccessible Page!')", true);
             }
-
-            // display messages for support ticket
-            List<MessageSupportTicket> supportTicketMsg = MessageSupportTicketDB.getMessage(SupportTicketDB.getSupportTicketbyID(Request.QueryString["ticketID"].ToString()));
-            rptMessages.DataSource = supportTicketMsg;
-            rptMessages.DataBind();
         }
 
     }

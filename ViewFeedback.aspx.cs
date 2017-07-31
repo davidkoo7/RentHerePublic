@@ -26,54 +26,60 @@ public partial class ViewFeedback : System.Web.UI.Page
 
         // display rental and feedback information
 
-        List<Rental> rentalInfoDetails = new List<Rental>();
-        Rental rentalInfo = RentalDB.getRentalbyID((Request["rentid"].ToString()));
-
-        rentalInfoDetails.Add(rentalInfo);
-
-        rptInfo.DataSource = rentalInfoDetails;
-        rptInfo.DataBind();
-
-
-        List<Feedback> feedbackInfo = new List<Feedback>();
-        feedbackInfo.Add(FeedbackDB.getFeedbackforRental(Request["rentid"].ToString()));
-        
-        rptFeedbackInfo.DataSource = feedbackInfo;
-        rptFeedbackInfo.DataBind();
-
-
-        Feedback feed = FeedbackDB.getFeedbackforRental(Request["rentid"].ToString());
-        // control display based on rating in feedback
-        if (feed.FeedbackID != null)
+        if (RentalDB.isRentalOfMemberPresent(Request["rentid"].ToString(), MemberDB.getMemberbyEmail(Session["user"].ToString()).MemberID))
         {
-            if (feed.Rating == "Positive")
-                rbtnPositive.Checked = true;
-            else if (feed.Rating == "Neutral")
-                rbtnNeutral.Checked = true;
-            else if (feed.Rating == "Negative")
-                rbtnNegative.Checked = true;
+            List<Rental> rentalInfoDetails = new List<Rental>();
+            Rental rentalInfo = RentalDB.getRentalbyID((Request["rentid"].ToString()));
 
-            if (feed.ReplyFeedback != null)
+            rentalInfoDetails.Add(rentalInfo);
+
+            rptInfo.DataSource = rentalInfoDetails;
+            rptInfo.DataBind();
+
+
+            List<Feedback> feedbackInfo = new List<Feedback>();
+            feedbackInfo.Add(FeedbackDB.getFeedbackforRental(Request["rentid"].ToString()));
+
+            rptFeedbackInfo.DataSource = feedbackInfo;
+            rptFeedbackInfo.DataBind();
+
+
+            Feedback feed = FeedbackDB.getFeedbackforRental(Request["rentid"].ToString());
+            // control display based on rating in feedback
+            if (feed.FeedbackID != null)
             {
-                txtArea.Visible = false;
-                btnSubmit.Visible = false;
-                setFeedbackControls(false);
+                if (feed.Rating == "Positive")
+                    rbtnPositive.Checked = true;
+                else if (feed.Rating == "Neutral")
+                    rbtnNeutral.Checked = true;
+                else if (feed.Rating == "Negative")
+                    rbtnNegative.Checked = true;
 
+                if (feed.ReplyFeedback != null)
+                {
+                    txtArea.Visible = false;
+                    btnSubmit.Visible = false;
+                    setFeedbackControls(false);
+
+                }
+                else if (feed.Rental.Rentee.Email == Session["user"].ToString())
+                {
+                    txtArea.Visible = false;
+                    btnSubmit.Visible = false;
+                }
             }
-            else if (feed.Rental.Rentee.Email == Session["user"].ToString())
+            else
             {
-                txtArea.Visible = false;
-                btnSubmit.Visible = false;
-
+                setFeedbackControls(true);
+                btnSubmit.Enabled = true;
             }
-            
-        }
-        else
+        } else
         {
-            setFeedbackControls(true);
-            btnSubmit.Enabled = true;
+            setFeedbackControls(false);
+            btnSubmit.Visible = false;
+            txtArea.Visible = false;
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Inaccessible Page!')", true);
         }
-
 
     }
 

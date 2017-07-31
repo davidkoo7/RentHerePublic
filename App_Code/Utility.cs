@@ -33,7 +33,7 @@ public class Utility
             client.Send(msg);
         } catch (Exception ex)
         {
-            return -1;
+            return -1;            
         }
         return 1;
     }
@@ -82,6 +82,24 @@ public class Utility
         return tags;
     }
 
+    // cget the lastest end date of rental (checks rental and extensions)
+    public static string getRentalPeriod(string rentalID)
+    {
+        Extension itemExtension = ExtensionDB.getLastExtensionofRental(rentalID);
+        Rental itemRental = RentalDB.getRentalbyID(rentalID);
+
+
+        if (itemExtension.ExtensionID == null)
+        {
+            return String.Format("{0:MM/dd/yy}", itemRental.StartDate) + " - " + String.Format("{0:MM/dd/yy}", itemRental.EndDate);
+
+        }
+        else
+        {
+            return String.Format("{0:MM/dd/yy}", itemRental.StartDate) + " - " + String.Format("{0:MM/dd/yy}", itemExtension.NewEndDate);
+        }
+    }
+
     // method to generate randomized characters(number/alphabet) to produce randomized password or OTP verification
     // WhatToInclude: gives 0 to only return numbers, give 1 to return numbers and non capital characters, give 2 to return numbers, noncapital and capital letter
     public static string getRandomizedChar(int howLong, int whatToInclude)
@@ -109,7 +127,6 @@ public class Utility
             randomPswd += (char)iUnicode;
         }
         return randomPswd;
-        r.Next(0, 100);
     }
 
     public static string getRetrivalCode(int howLong, int whatToInclude)
@@ -137,7 +154,6 @@ public class Utility
             randomPswd += (char)iUnicode;
         }
         return randomPswd;
-        r.Next(0, 100);
     }
 
 }
