@@ -45,7 +45,7 @@ public class RentalDB
         bool isPresent = false;
         try
         {
-            SqlCommand command = new SqlCommand("SELECT * FROM Rental R, Item I WHERE R.itemID=I.itemID AND (renteeID = @renteeID or renterID = @renterID) AND R.rentalID = @rentalID");           
+            SqlCommand command = new SqlCommand("SELECT * FROM Rental R, Item I WHERE R.itemID=I.itemID AND (renteeID = @renteeID or renterID = @renterID) AND R.rentalID = @rentalID");
             command.Parameters.AddWithValue("@renteeID", memberID);
             command.Parameters.AddWithValue("@renterID", memberID);
             command.Parameters.AddWithValue("@rentalID", rentalID);
@@ -78,7 +78,7 @@ public class RentalDB
             if (status != null)
                 sqlcommand += " and status=@status ";
 
-            sqlcommand += "ORDER BY startDate desc" ;
+            sqlcommand += "ORDER BY startDate desc";
 
             SqlCommand command = new SqlCommand(sqlcommand);
 
@@ -135,14 +135,19 @@ public class RentalDB
             command.Parameters.AddWithValue("@endDate", rent.EndDate);
             command.Parameters.AddWithValue("@status", rent.Status);
             command.Parameters.AddWithValue("@paymentReleaseCode", rent.PaymentReleaseCode);
-            command.Parameters.AddWithValue("@depositRetrievalCode", rent.DepositRetrievalCode);
+
+            if (rent.DepositRetrievalCode != null)
+                command.Parameters.AddWithValue("@depositRetrievalCode", rent.DepositRetrievalCode);
+            else
+                command.Parameters.AddWithValue("@depositRetrievalCode", DBNull.Value);
+
             command.Parameters.AddWithValue("@itemID", rent.Item.ItemID);
             command.Parameters.AddWithValue("@paymentID", rent.Payment.PaymentID);
             command.Parameters.AddWithValue("@renteeID", rent.Rentee.MemberID);
             command.Connection = connection;
             connection.Open();
 
-            if(command.ExecuteNonQuery() > 0)
+            if (command.ExecuteNonQuery() > 0)
             {
                 command.CommandText = "SELECT @@identity";
                 return Convert.ToInt32(command.ExecuteScalar());
@@ -229,6 +234,27 @@ public class RentalDB
         return -1;
     }
 
+    public static int setRetrievalCodeForRent(string rentalID, string depositRetrievalCode)
+    {
+        try
+        {
+            SqlCommand command = new SqlCommand("UPDATE Rental SET depositRetrievalCode=@depositRetrievalCode WHERE rentalID=@rentalID");
+            command.Parameters.AddWithValue("@depositRetrievalCode", depositRetrievalCode);
+            command.Parameters.AddWithValue("@rentalID", rentalID);
+
+            command.Connection = connection;
+            connection.Open();
+
+            if (command.ExecuteNonQuery() > 0)
+                return 1;
+        }
+        finally
+        {
+            connection.Close();
+        }
+        return -1;
+    }
+
     // method to get number of rentals where member is rentee from the database
     public static int getNoofRentalAsRentee(string memberID)
     {
@@ -268,7 +294,7 @@ public class RentalDB
             SqlDataReader reader = command.ExecuteReader();
 
             if (reader.Read())
-                rentNo = Convert.ToInt32(reader["noOfRental"]); 
+                rentNo = Convert.ToInt32(reader["noOfRental"]);
 
             reader.Close();
         }
@@ -364,7 +390,11 @@ public class RentalDB
         rent.EndDate = Convert.ToDateTime(reader["endDate"]);
         rent.Status = Convert.ToString(reader["status"]);
         rent.PaymentReleaseCode = Convert.ToString(reader["paymentReleaseCode"]);
-        rent.DepositRetrievalCode = Convert.ToString(reader["depositRetrievalCode"]);
+
+        if (reader["depositRetrievalCode"] != DBNull.Value)
+            rent.DepositRetrievalCode = Convert.ToString(reader["depositRetrievalCode"]);
+        else
+            rent.DepositRetrievalCode = null;
 
         if (reader["returnLocation"] != DBNull.Value)
             rent.ReturnLocation = reader["returnLocation"].ToString();

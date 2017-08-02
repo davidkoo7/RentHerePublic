@@ -17,11 +17,13 @@ public class QuartzTrigger :IJob
         foreach(Rental r in rentWithoutExt)
         {
             RentalDB.updateRentStatus(r.RentalID, "Ended");
+            RentalDB.setRetrievalCodeForRent(r.RentalID, Utility.getRandomizedChar(6, 0));
         }
 
         foreach (Rental r in rentWithExt)
         {
             RentalDB.updateRentStatus(r.RentalID, "Ended");
+            RentalDB.setRetrievalCodeForRent(r.RentalID, Utility.getRandomizedChar(6, 0));
         }
     }
 }

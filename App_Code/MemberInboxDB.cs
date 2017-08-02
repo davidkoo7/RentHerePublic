@@ -44,9 +44,10 @@ public class MemberInboxDB
         bool isPresent = false;
         try
         {
-            SqlCommand command = new SqlCommand("SELECT * FROM MemberInbox WHERE memberInboxID=@memberInboxID and senderID=@senderID");
+            SqlCommand command = new SqlCommand("SELECT * FROM MemberInbox MI, Item I WHERE MI.itemID=I.itemID and memberInboxID=@memberInboxID and (senderID=@senderID or I.renterID=@renterID)");
             command.Parameters.AddWithValue("@memberInboxID", memberInboxID);
             command.Parameters.AddWithValue("@senderID", memberID);
+            command.Parameters.AddWithValue("@renterID", memberID);
             command.Connection = connection;
             connection.Open();
 

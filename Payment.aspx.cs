@@ -91,7 +91,6 @@ public partial class Payment : System.Web.UI.Page
         {
             rentInfo.DateCreated = DateTime.Now;
             rentInfo.Deposit = itemInfo.Deposit;
-            rentInfo.DepositRetrievalCode = Utility.getRetrivalCode(6, 0);
             rentInfo.PaymentReleaseCode = Utility.getRandomizedChar(6, 0);
             rentInfo.Item = itemInfo;
 
